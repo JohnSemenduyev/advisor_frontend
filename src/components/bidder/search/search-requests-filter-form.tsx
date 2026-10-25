@@ -206,7 +206,7 @@ export function SearchRequestsFilterForm({
         <div className="flex justify-center pt-2">
           <button
             type="submit"
-            className="maximal-btn-primary w-full sm:w-60 h-11 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2.5 cursor-pointer"
+            className="maximal-btn-primary w-full sm:w-60 h-11 rounded-full text-white font-bold text-sm flex items-center justify-center gap-2.5 cursor-pointer shadow-md"
           >
             <Search className="w-4 h-4" />
             <span>Search</span>

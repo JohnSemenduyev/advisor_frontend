@@ -11,6 +11,7 @@ import {
   Send,
   Eye,
   Calendar,
+  Flag,
 } from "lucide-react";
 
 export interface NotificationItem {
@@ -59,6 +60,14 @@ export function NotificationsTable() {
   const router = useRouter();
   const [notifications] = useState<NotificationItem[]>(SEED_NOTIFICATIONS);
 
+  // Filters & Pagination matching My Bids
+  const [dateFilter, setDateFilter] = useState("");
+  const [textFilter, setTextFilter] = useState("");
+  const [sortKey, setSortKey] = useState<"dateTime" | "text">("dateTime");
+  const [sortAsc, setSortAsc] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+
   // Active Modals
   const [viewBidOpen, setViewBidOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
@@ -66,6 +75,29 @@ export function NotificationsTable() {
   const [renewSuccess, setRenewSuccess] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const [messageText, setMessageText] = useState("");
+
+  const filteredData = notifications.filter((item) => {
+    if (dateFilter && !item.dateTime.toLowerCase().includes(dateFilter.toLowerCase())) {
+      return false;
+    }
+    if (
+      textFilter &&
+      !item.text.toLowerCase().includes(textFilter.toLowerCase()) &&
+      !(item.requestId && item.requestId.toLowerCase().includes(textFilter.toLowerCase()))
+    ) {
+      return false;
+    }
+    return true;
+  });
+
+  const totalPages = Math.max(1, Math.ceil(filteredData.length / pageSize));
+  const currentRecords = filteredData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+  const handleResetFilters = () => {
+    setDateFilter("");
+    setTextFilter("");
+    setCurrentPage(1);
+  };
 
   const handleAction = (item: NotificationItem) => {
     switch (item.actionType) {
@@ -104,29 +136,95 @@ export function NotificationsTable() {
   };
 
   return (
-    <div className="w-full space-y-5 animate-in fade-in duration-200">
-
-
-      {/* Elevated Notifications Card & Table matching screenshot */}
+    <div className="w-full space-y-4 notifications-table animate-in fade-in duration-200">
+      {/* Elevated Notifications Card & Table matching My Bids layout and space utilization */}
       <div className="maximal-tablewrap shadow-lg">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[760px]">
-            {/* Header matching reference HTML brushed metallic gradient */}
-            <thead className="maximal-thead maximal-thead-compact">
+          <table className="w-full text-left border-collapse min-w-[850px] table-fixed">
+            <colgroup>
+              <col style={{ width: "22%" }} />
+              <col style={{ width: "62%" }} />
+              <col style={{ width: "16%" }} />
+            </colgroup>
+
+            {/* Header matching reference HTML brushed metallic gradient & filter styling */}
+            <thead className="maximal-thead">
               <tr className="select-none">
-                <th className="w-[180px]">
+                {/* 1. Date / Time */}
+                <th>
                   <div className="th-title">
                     <span>Date / Time</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSortKey("dateTime");
+                        setSortAsc(!sortAsc);
+                      }}
+                      className="sort"
+                      title="Sort Date / Time"
+                    >
+                      {sortKey === "dateTime" ? (sortAsc ? "↑" : "↓") : "↕"}
+                    </button>
+                  </div>
+                  <div className="filter-wrap">
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      aria-label="Filter by Date or Time"
+                      value={dateFilter}
+                      onChange={(e) => {
+                        setDateFilter(e.target.value);
+                        setCurrentPage(1);
+                      }}
+                    />
                   </div>
                 </th>
+
+                {/* 2. Notification */}
                 <th>
                   <div className="th-title">
                     <span>Notification</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSortKey("text");
+                        setSortAsc(!sortAsc);
+                      }}
+                      className="sort"
+                      title="Sort Notification"
+                    >
+                      {sortKey === "text" ? (sortAsc ? "↑" : "↓") : "↕"}
+                    </button>
+                  </div>
+                  <div className="filter-wrap">
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      aria-label="Filter by Notification message"
+                      value={textFilter}
+                      onChange={(e) => {
+                        setTextFilter(e.target.value);
+                        setCurrentPage(1);
+                      }}
+                    />
                   </div>
                 </th>
-                <th className="w-[140px] text-left">
-                  <div className="th-title">
+
+                {/* 3. Actions */}
+                <th className="actions-header" style={{ textAlign: "center" }}>
+                  <div className="th-title" style={{ justifyContent: "center" }}>
                     <span>Actions</span>
+                  </div>
+                  <div className="actions-flag-filter-slot">
+                    <button
+                      type="button"
+                      onClick={handleResetFilters}
+                      className="actions-flag-filter-button"
+                      title="Reset filters"
+                      aria-label="Reset filters"
+                    >
+                      <Flag className="w-[14px] h-[14px]" />
+                    </button>
                   </div>
                 </th>
               </tr>
@@ -134,20 +232,20 @@ export function NotificationsTable() {
 
             {/* Table Rows */}
             <tbody>
-              {notifications.map((item) => (
-                <tr key={item.id}>
+              {currentRecords.map((item) => (
+                <tr key={item.id} className="hover:bg-[#e7eef2] transition-colors">
                   {/* Date / Time */}
-                  <td className="whitespace-nowrap">
+                  <td className="whitespace-nowrap font-medium text-[#2d3a43]">
                     {item.dateTime}
                   </td>
 
                   {/* Notification text & Request ID link */}
-                  <td className="leading-relaxed">
+                  <td className="leading-relaxed text-[#2d3a43]">
                     <span>{item.text}</span>
                     {item.requestId && (
                       <Link
                         href={`/bidder/submit-bid/${item.requestId}`}
-                        className="hover:underline ml-1"
+                        className="hover:underline ml-1 font-semibold text-[#086ba5]"
                       >
                         #{item.requestId}
                       </Link>
@@ -155,7 +253,7 @@ export function NotificationsTable() {
                   </td>
 
                   {/* Action Button */}
-                  <td className="text-left">
+                  <td className="text-center">
                     <button
                       type="button"
                       onClick={() => handleAction(item)}
@@ -166,8 +264,100 @@ export function NotificationsTable() {
                   </td>
                 </tr>
               ))}
+
+              {currentRecords.length === 0 && (
+                <tr>
+                  <td colSpan={3} className="px-6 py-12 text-center text-sm text-[#668090]">
+                    No matching notifications found.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
+        </div>
+
+        {/* Footer with Full Pagination matching Screenshot 2 (My Bids) */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
+          {/* Record Count */}
+          <div className="font-medium text-[#526673]">
+            Showing {filteredData.length ? (currentPage - 1) * pageSize + 1 : 0} to{" "}
+            {Math.min(currentPage * pageSize, filteredData.length)} of {filteredData.length} records
+          </div>
+
+          {/* Page Selector & Arrows */}
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => setCurrentPage(1)}
+              disabled={currentPage === 1}
+              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              title="First Page"
+            >
+              «
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              title="Previous Page"
+            >
+              ‹
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                type="button"
+                onClick={() => setCurrentPage(page)}
+                className={`min-w-[28px] h-[26px] px-1.5 rounded-[7px] text-xs font-bold transition-all ${
+                  currentPage === page
+                    ? "bg-linear-to-b from-[#2e3b45] to-[#131d25] text-white shadow-xs"
+                    : "border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] hover:brightness-95"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              type="button"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              title="Next Page"
+            >
+              ›
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage(totalPages)}
+              disabled={currentPage === totalPages}
+              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              title="Last Page"
+            >
+              »
+            </button>
+          </div>
+
+          {/* Page Size Native Select */}
+          <div className="flex items-center gap-2">
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                setCurrentPage(1);
+              }}
+              className="maximal-pager-select px-2.5 py-1 text-xs border border-[#bdcbd3] rounded-[7px] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-medium"
+              aria-label="Rows per page"
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+            </select>
+            <span className="text-xs text-[#526673]">per page</span>
+          </div>
         </div>
       </div>
 

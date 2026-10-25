@@ -10,9 +10,9 @@ export function BidderNotificationsView() {
       {/* Top Navigation Bar with Interlocking Domino Tabs matching reference */}
       <BidderTopbar userName="Mike A." avatarLetter="M" />
 
-      {/* Main Brushed Silver Shell Canvas */}
-      <main className="flex-1 p-4 sm:p-6 lg:p-7 max-w-[1480px] w-full mx-auto">
-        <div className="maximal-shell p-5 sm:p-7 lg:p-8">
+      {/* Main Brushed Silver Shell Canvas - full available space matching client reference */}
+      <main className="flex-1 px-3 sm:px-4 py-4 w-full">
+        <div className="maximal-shell p-3 sm:p-4 w-full">
           <NotificationsTable />
         </div>
       </main>

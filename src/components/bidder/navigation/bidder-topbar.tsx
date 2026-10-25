@@ -11,14 +11,14 @@ interface BidderTopbarProps {
 }
 
 export function BidderTopbar({
-  userName = "Mike A.",
-  avatarLetter = "M",
+  userName = "John Gomez",
+  avatarLetter = "J",
 }: BidderTopbarProps) {
   const pathname = usePathname();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const tabs: { name: string; href: string; badge?: string }[] = [
-    { name: "Homepage", href: "/bidder/profile" },
+    { name: "Homepage", href: "/bidder/dashboard" },
     { name: "Search Requests", href: "/bidder/search-requests" },
     { name: "My Bids", href: "/bidder/my-bids" },
     { name: "Messages", href: "/bidder/messages" },
@@ -26,7 +26,7 @@ export function BidderTopbar({
   ];
 
   return (
-    <header className="maximal-topbar w-full px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4 sticky top-0 z-40">
+    <header className="maximal-topbar w-full px-4 sm:px-6 flex items-center justify-between gap-4 sticky top-0 z-40">
       {/* Interlocking Raised Capsule Tabs */}
       <div className="overflow-x-auto no-scrollbar py-1">
         <nav aria-label="Main navigation" className="maximal-tabs">
@@ -63,13 +63,13 @@ export function BidderTopbar({
           onClick={() => setUserMenuOpen(!userMenuOpen)}
           className="flex items-center gap-2.5 px-2 py-1 rounded-full hover:bg-white/10 transition-colors cursor-pointer text-white"
         >
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3b5362] to-[#1c2c36] border border-[#6b8596] flex items-center justify-center font-bold text-xs text-white shadow-md shadow-black/30 flex-none">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-b from-[#f7f9f9] to-[#d7e0e3] border border-[#b8c4c9] text-[#293840] flex items-center justify-center font-bold text-xs shadow-md flex-none">
             {avatarLetter}
           </div>
-          <span className="text-sm font-semibold tracking-tight text-[#f1f6f9] hidden sm:inline">
+          <span className="text-[13px] font-[650] tracking-tight text-white hidden sm:inline drop-shadow-[0_1px_1px_rgba(8,19,27,0.42)]">
             {userName}
           </span>
-          <ChevronDown className="w-3.5 h-3.5 text-[#8fa7b7] hidden sm:inline" />
+          <ChevronDown className="w-3.5 h-3.5 text-[#cfdbe3] hidden sm:inline" />
         </button>
 
         {/* User Dropdown */}
