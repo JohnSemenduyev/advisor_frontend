@@ -60,7 +60,7 @@ export function BidSubmitFooter({
           <button
             type="button"
             onClick={() => setShowConfirmModal(true)}
-            className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#0066c0] via-[#0055a5] to-[#00478a] hover:from-[#0074d9] hover:to-[#0055a5] text-white font-bold text-xs sm:text-sm shadow-md shadow-[#00478a]/30 transition-all flex items-center gap-2 cursor-pointer"
+            className="maximal-btn-primary px-6 py-2.5 rounded-xl text-white font-bold text-xs sm:text-sm flex items-center gap-2 cursor-pointer"
           >
             <Send className="w-4 h-4" />
             <span>Submit Bid</span>
@@ -121,7 +121,7 @@ export function BidSubmitFooter({
                     type="button"
                     disabled={isSubmitting}
                     onClick={handleConfirmSubmit}
-                    className="px-5 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-[#0066c0] to-[#00478a] hover:from-[#0074d9] text-white flex items-center gap-2 cursor-pointer shadow-md"
+                    className="maximal-btn-primary px-5 py-2 text-xs font-bold rounded-xl text-white flex items-center gap-2 cursor-pointer"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>{isSubmitting ? "Submitting..." : "Yes, Submit Bid"}</span>

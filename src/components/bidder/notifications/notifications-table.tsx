@@ -111,42 +111,51 @@ export function NotificationsTable() {
       <div className="maximal-tablewrap shadow-lg">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[760px]">
-            {/* Header matching solid blue header in screenshot */}
+            {/* Header matching reference HTML brushed metallic gradient */}
             <thead className="maximal-thead">
-              <tr className="text-xs sm:text-sm font-bold tracking-tight select-none">
-                <th className="px-5 py-3.5 w-[220px]">Date/Time</th>
-                <th className="px-5 py-3.5">Notification</th>
-                <th className="px-5 py-3.5 text-center w-[160px]">Actions</th>
+              <tr className="select-none">
+                <th className="w-[180px]">
+                  <div className="th-title">
+                    <span>Date / Time</span>
+                  </div>
+                </th>
+                <th>
+                  <div className="th-title">
+                    <span>Notification</span>
+                  </div>
+                </th>
+                <th className="actions-header w-[140px]">
+                  <div className="th-title">
+                    <span>Actions</span>
+                  </div>
+                </th>
               </tr>
             </thead>
 
             {/* Table Rows */}
-            <tbody className="divide-y divide-[#e4edf3] text-xs sm:text-sm font-medium text-[#243d4f]">
+            <tbody>
               {notifications.map((item) => (
-                <tr
-                  key={item.id}
-                  className="hover:bg-[#f3f8fc] transition-colors"
-                >
+                <tr key={item.id}>
                   {/* Date / Time */}
-                  <td className="px-5 py-4 whitespace-nowrap text-[#496577] text-xs font-semibold">
+                  <td className="whitespace-nowrap">
                     {item.dateTime}
                   </td>
 
                   {/* Notification text & Request ID link */}
-                  <td className="px-5 py-4 text-[#203a4c] leading-relaxed">
+                  <td className="leading-relaxed">
                     <span>{item.text}</span>
                     {item.requestId && (
                       <Link
                         href={`/bidder/submit-bid/${item.requestId}`}
-                        className="text-[#0066c0] font-bold underline underline-offset-2 hover:text-[#00478a] ml-1"
+                        className="hover:underline ml-1"
                       >
-                        {item.requestId}
+                        #{item.requestId}
                       </Link>
                     )}
                   </td>
 
                   {/* Action Button */}
-                  <td className="px-5 py-4 text-center">
+                  <td className="text-center">
                     <button
                       type="button"
                       onClick={() => handleAction(item)}

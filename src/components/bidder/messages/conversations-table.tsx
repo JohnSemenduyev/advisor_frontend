@@ -44,76 +44,88 @@ export function ConversationsTable({
   const emptyRowsCount = Math.max(0, minRows - sortedConversations.length);
 
   return (
-    <div className="maximal-tablewrap shadow-lg overflow-hidden border border-[#b8c9d4] rounded-2xl bg-white">
-      <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse min-w-[620px]">
-          {/* Header Gradient matching screenshot */}
-          <thead>
-            <tr className="bg-gradient-to-r from-[#005ea6] via-[#006bbd] to-[#004f8c] text-white text-xs font-bold tracking-tight select-none">
+    <div className="maximal-tablewrap shadow-lg overflow-hidden border border-[#b8c9d4] rounded-2xl bg-white w-full">
+      <div className="overflow-x-auto w-full">
+        <table className="w-full text-left border-collapse">
+          {/* Header matching Maximal Reference metallic silver */}
+          <thead className="maximal-thead">
+            <tr className="select-none">
               <th
                 onClick={() => handleSort("name")}
-                className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors whitespace-nowrap"
+                className="cursor-pointer"
               >
-                <div className="flex items-center gap-1.5">
+                <div className="th-title">
                   <span>Name</span>
-                  <ArrowUpDown className="w-3 h-3 text-white/70" />
+                  <button type="button" className="sort" title="Sort Name">
+                    {sortField === "name" ? (sortAsc ? "↑" : "↓") : "↕"}
+                  </button>
                 </div>
               </th>
 
               <th
                 onClick={() => handleSort("title")}
-                className="px-3.5 py-3.5 cursor-pointer hover:bg-white/10 transition-colors whitespace-nowrap"
+                className="cursor-pointer"
               >
-                <div className="flex items-center gap-1.5">
+                <div className="th-title">
                   <span>Title</span>
-                  <ArrowUpDown className="w-3 h-3 text-white/70" />
+                  <button type="button" className="sort" title="Sort Title">
+                    {sortField === "title" ? (sortAsc ? "↑" : "↓") : "↕"}
+                  </button>
                 </div>
               </th>
 
               <th
                 onClick={() => handleSort("companyName")}
-                className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors whitespace-nowrap"
+                className="cursor-pointer"
               >
-                <div className="flex items-center gap-1.5">
+                <div className="th-title">
                   <span>Company Name</span>
-                  <ArrowUpDown className="w-3 h-3 text-white/70" />
+                  <button type="button" className="sort" title="Sort Company Name">
+                    {sortField === "companyName" ? (sortAsc ? "↑" : "↓") : "↕"}
+                  </button>
                 </div>
               </th>
 
               <th
                 onClick={() => handleSort("serviceRequest")}
-                className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors whitespace-nowrap"
+                className="cursor-pointer"
               >
-                <div className="flex items-center gap-1.5">
+                <div className="th-title">
                   <span>Service Request</span>
-                  <ArrowUpDown className="w-3 h-3 text-white/70" />
+                  <button type="button" className="sort" title="Sort Service Request">
+                    {sortField === "serviceRequest" ? (sortAsc ? "↑" : "↓") : "↕"}
+                  </button>
                 </div>
               </th>
 
               <th
                 onClick={() => handleSort("serviceRequestId")}
-                className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors whitespace-nowrap"
+                className="cursor-pointer"
               >
-                <div className="flex items-center gap-1.5">
+                <div className="th-title">
                   <span>Service Request ID</span>
-                  <ArrowUpDown className="w-3 h-3 text-white/70" />
+                  <button type="button" className="sort" title="Sort Service Request ID">
+                    {sortField === "serviceRequestId" ? (sortAsc ? "↑" : "↓") : "↕"}
+                  </button>
                 </div>
               </th>
 
               <th
                 onClick={() => handleSort("hasNewMessages")}
-                className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors whitespace-nowrap w-[110px]"
+                className="actions-header w-[90px] cursor-pointer"
               >
-                <div className="flex items-center gap-1.5">
+                <div className="th-title">
                   <span>Messages</span>
-                  <ArrowUpDown className="w-3 h-3 text-white/70" />
+                  <button type="button" className="sort" title="Sort Messages">
+                    {sortField === "hasNewMessages" ? (sortAsc ? "↑" : "↓") : "↕"}
+                  </button>
                 </div>
               </th>
             </tr>
           </thead>
 
           {/* Table Body */}
-          <tbody className="divide-y divide-[#e3edf3] text-xs text-[#203646]">
+          <tbody>
             {sortedConversations.map((conv) => {
               const isSelected = selectedId === conv.id;
               return (
@@ -121,33 +133,31 @@ export function ConversationsTable({
                   key={conv.id}
                   onClick={() => onSelect(conv)}
                   className={`cursor-pointer transition-colors ${
-                    isSelected
-                      ? "bg-[#e5f1fb] font-semibold text-[#0f4b75]"
-                      : "hover:bg-[#f3f8fc]"
+                    isSelected ? "!bg-[#e5f1fb]" : ""
                   }`}
                 >
                   {/* Name */}
-                  <td className="px-4 py-3.5 font-bold text-[#143247] whitespace-nowrap">
+                  <td className="whitespace-nowrap">
                     {conv.name}
                   </td>
 
                   {/* Title */}
-                  <td className="px-3.5 py-3.5 text-[#3e5667] whitespace-nowrap">
+                  <td className="whitespace-nowrap">
                     {conv.title}
                   </td>
 
                   {/* Company Name */}
-                  <td className="px-4 py-3.5 text-[#253e50] whitespace-nowrap">
+                  <td className="whitespace-nowrap">
                     {conv.companyName}
                   </td>
 
                   {/* Service Request */}
-                  <td className="px-4 py-3.5 text-[#253e50] whitespace-nowrap">
+                  <td className="whitespace-nowrap">
                     {conv.serviceRequest}
                   </td>
 
                   {/* Service Request ID */}
-                  <td className="px-4 py-3.5 font-bold text-[#0066c0] whitespace-nowrap">
+                  <td className="whitespace-nowrap">
                     <Link
                       href={`/bidder/submit-bid/${conv.serviceRequestId}`}
                       onClick={(e) => e.stopPropagation()}
@@ -157,15 +167,12 @@ export function ConversationsTable({
                     </Link>
                   </td>
 
-                  {/* Messages Icon + New Badge perfectly aligned */}
-                  <td className="px-4 py-3.5 whitespace-nowrap">
-                    <div className="flex items-center gap-1.5">
-                      <MessageSquare className="w-4 h-4 text-[#0070c9] stroke-[2.2] flex-none" />
-                      {conv.hasNewMessages && (
-                        <span className="text-[11px] font-extrabold text-[#e53935] tracking-tight">
-                          New
-                        </span>
-                      )}
+                  {/* Messages Icon */}
+                  <td className="whitespace-nowrap text-center">
+                    <div className="flex items-center justify-center">
+                      <div className="maximal-btn-action-icon" title="View conversation">
+                        <MessageSquare className="w-3.5 h-3.5" />
+                      </div>
                     </div>
                   </td>
                 </tr>

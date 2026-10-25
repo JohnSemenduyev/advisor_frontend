@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   AlertTriangle,
   Save,
+  Flag,
 } from "lucide-react";
 
 export interface MyBidRecord {
@@ -203,269 +204,306 @@ export function MyBidsTable() {
       <div className="maximal-tablewrap shadow-lg">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[1050px]">
-            {/* Header Columns */}
+            {/* Single Integrated Header Row matching Reference */}
             <thead className="maximal-thead">
-              <tr className="text-xs font-bold tracking-tight select-none">
-                <th
-                  onClick={() => handleSort("id")}
-                  className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors w-[110px]"
-                >
-                  <div className="flex items-center gap-1.5">
+              <tr className="select-none">
+                {/* Request ID */}
+                <th className="w-[105px]">
+                  <div className="th-title">
                     <span>Request ID</span>
-                    <ArrowUpDown className="w-3 h-3 text-white/70" />
+                    <button
+                      type="button"
+                      onClick={() => handleSort("id")}
+                      className="sort"
+                      title="Sort Request ID"
+                    >
+                      {sortKey === "id" ? (sortAsc ? "↑" : "↓") : "↕"}
+                    </button>
                   </div>
-                </th>
-                <th
-                  onClick={() => handleSort("companyName")}
-                  className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors w-[180px]"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>Company Name</span>
-                    <ArrowUpDown className="w-3 h-3 text-white/70" />
-                  </div>
-                </th>
-                <th
-                  onClick={() => handleSort("requestTitle")}
-                  className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>Request Title</span>
-                    <ArrowUpDown className="w-3 h-3 text-white/70" />
-                  </div>
-                </th>
-                <th
-                  onClick={() => handleSort("state")}
-                  className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors w-[130px]"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>State</span>
-                    <ArrowUpDown className="w-3 h-3 text-white/70" />
-                  </div>
-                </th>
-                <th
-                  onClick={() => handleSort("city")}
-                  className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors w-[120px]"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>City</span>
-                    <ArrowUpDown className="w-3 h-3 text-white/70" />
-                  </div>
-                </th>
-                <th
-                  onClick={() => handleSort("bidStartDate")}
-                  className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors w-[130px]"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>Bid Start Date</span>
-                    <ArrowUpDown className="w-3 h-3 text-white/70" />
-                  </div>
-                </th>
-                <th
-                  onClick={() => handleSort("bidEndDate")}
-                  className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors w-[130px]"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>Bid End Date</span>
-                    <ArrowUpDown className="w-3 h-3 text-white/70" />
-                  </div>
-                </th>
-                <th
-                  onClick={() => handleSort("status")}
-                  className="px-4 py-3.5 cursor-pointer hover:bg-white/10 transition-colors w-[110px]"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>Status</span>
-                    <ArrowUpDown className="w-3 h-3 text-white/70" />
-                  </div>
-                </th>
-                <th className="px-4 py-3.5 text-center w-[110px]">
-                  <span>Action</span>
-                </th>
-              </tr>
-
-              {/* Second Row: Filters underneath each column */}
-              <tr className="maximal-th-filter">
-                <th className="p-2">
-                  <div className="relative">
-                    <Filter className="w-3.5 h-3.5 text-[#587c94] absolute left-2.5 top-1/2 -translate-y-1/2" />
+                  <div className="filter-wrap">
                     <input
                       type="text"
-                      placeholder="Search by ID..."
+                      placeholder="Search"
+                      aria-label="Filter by Request ID"
                       value={filters.id}
                       onChange={(e) => handleFilterChange("id", e.target.value)}
-                      className="maximal-filter-input"
                     />
                   </div>
                 </th>
-                <th className="p-2">
-                  <div className="relative">
-                    <Filter className="w-3.5 h-3.5 text-[#587c94] absolute left-2.5 top-1/2 -translate-y-1/2" />
+
+                {/* Company Name */}
+                <th className="w-[185px]">
+                  <div className="th-title">
+                    <span>Company Name</span>
+                    <button
+                      type="button"
+                      onClick={() => handleSort("companyName")}
+                      className="sort"
+                      title="Sort Company Name"
+                    >
+                      {sortKey === "companyName" ? (sortAsc ? "↑" : "↓") : "↕"}
+                    </button>
+                  </div>
+                  <div className="filter-wrap">
                     <input
                       type="text"
-                      placeholder="Search by company..."
+                      placeholder="Search"
+                      aria-label="Filter by Company Name"
                       value={filters.companyName}
                       onChange={(e) => handleFilterChange("companyName", e.target.value)}
-                      className="maximal-filter-input"
                     />
                   </div>
                 </th>
-                <th className="p-2">
-                  <div className="relative">
-                    <Filter className="w-3.5 h-3.5 text-[#587c94] absolute left-2.5 top-1/2 -translate-y-1/2" />
+
+                {/* Request Title */}
+                <th>
+                  <div className="th-title">
+                    <span>Request Title</span>
+                    <button
+                      type="button"
+                      onClick={() => handleSort("requestTitle")}
+                      className="sort"
+                      title="Sort Request Title"
+                    >
+                      {sortKey === "requestTitle" ? (sortAsc ? "↑" : "↓") : "↕"}
+                    </button>
+                  </div>
+                  <div className="filter-wrap">
                     <input
                       type="text"
-                      placeholder="Search by title..."
+                      placeholder="Search"
+                      aria-label="Filter by Request Title"
                       value={filters.requestTitle}
                       onChange={(e) => handleFilterChange("requestTitle", e.target.value)}
-                      className="maximal-filter-input"
                     />
                   </div>
                 </th>
-                <th className="p-2">
-                  <div className="relative">
-                    <Filter className="w-3.5 h-3.5 text-[#587c94] absolute left-2.5 top-1/2 -translate-y-1/2" />
+
+                {/* State */}
+                <th className="w-[125px]">
+                  <div className="th-title">
+                    <span>State</span>
+                    <button
+                      type="button"
+                      onClick={() => handleSort("state")}
+                      className="sort"
+                      title="Sort State"
+                    >
+                      {sortKey === "state" ? (sortAsc ? "↑" : "↓") : "↕"}
+                    </button>
+                  </div>
+                  <div className="filter-wrap">
                     <input
                       type="text"
-                      placeholder="Search by state..."
+                      placeholder="Search"
+                      aria-label="Filter by State"
                       value={filters.state}
                       onChange={(e) => handleFilterChange("state", e.target.value)}
-                      className="maximal-filter-input"
                     />
                   </div>
                 </th>
-                <th className="p-2">
-                  <div className="relative">
-                    <Filter className="w-3.5 h-3.5 text-[#587c94] absolute left-2.5 top-1/2 -translate-y-1/2" />
+
+                {/* City */}
+                <th className="w-[125px]">
+                  <div className="th-title">
+                    <span>City</span>
+                    <button
+                      type="button"
+                      onClick={() => handleSort("city")}
+                      className="sort"
+                      title="Sort City"
+                    >
+                      {sortKey === "city" ? (sortAsc ? "↑" : "↓") : "↕"}
+                    </button>
+                  </div>
+                  <div className="filter-wrap">
                     <input
                       type="text"
-                      placeholder="Search by city..."
+                      placeholder="Search"
+                      aria-label="Filter by City"
                       value={filters.city}
                       onChange={(e) => handleFilterChange("city", e.target.value)}
-                      className="maximal-filter-input"
                     />
                   </div>
                 </th>
-                <th className="p-2">
-                  <div className="relative">
-                    <Calendar className="w-3.5 h-3.5 text-[#587c94] absolute left-2.5 top-1/2 -translate-y-1/2" />
+
+                {/* Bid Start Date */}
+                <th className="w-[130px]">
+                  <div className="th-title">
+                    <span>Bid Start Date</span>
+                    <button
+                      type="button"
+                      onClick={() => handleSort("bidStartDate")}
+                      className="sort"
+                      title="Sort Bid Start Date"
+                    >
+                      {sortKey === "bidStartDate" ? (sortAsc ? "↑" : "↓") : "↕"}
+                    </button>
+                  </div>
+                  <div className="filter-wrap">
                     <input
                       type="text"
-                      placeholder="Select date..."
+                      placeholder="Search"
+                      aria-label="Filter by Bid Start Date"
                       value={filters.bidStartDate}
                       onChange={(e) => handleFilterChange("bidStartDate", e.target.value)}
-                      className="maximal-filter-input"
                     />
                   </div>
                 </th>
-                <th className="p-2">
-                  <div className="relative">
-                    <Calendar className="w-3.5 h-3.5 text-[#587c94] absolute left-2.5 top-1/2 -translate-y-1/2" />
+
+                {/* Bid End Date */}
+                <th className="w-[130px]">
+                  <div className="th-title">
+                    <span>Bid End Date</span>
+                    <button
+                      type="button"
+                      onClick={() => handleSort("bidEndDate")}
+                      className="sort"
+                      title="Sort Bid End Date"
+                    >
+                      {sortKey === "bidEndDate" ? (sortAsc ? "↑" : "↓") : "↕"}
+                    </button>
+                  </div>
+                  <div className="filter-wrap">
                     <input
                       type="text"
-                      placeholder="Select date..."
+                      placeholder="Search"
+                      aria-label="Filter by Bid End Date"
                       value={filters.bidEndDate}
                       onChange={(e) => handleFilterChange("bidEndDate", e.target.value)}
-                      className="maximal-filter-input"
                     />
                   </div>
                 </th>
-                <th className="p-2">
-                  <select
-                    value={filters.status}
-                    onChange={(e) => handleFilterChange("status", e.target.value)}
-                    className="maximal-filter-input px-2 text-xs cursor-pointer"
-                  >
-                    <option value="">All Statuses</option>
-                    <option value="Open">Open</option>
-                    <option value="Accepted">Accepted</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Rejected">Rejected</option>
-                  </select>
+
+                {/* Status Dropdown Header */}
+                <th className="w-[110px]">
+                  <div className="th-title">
+                    <span>Status</span>
+                    <button
+                      type="button"
+                      onClick={() => handleSort("status")}
+                      className="sort"
+                      title="Sort Status"
+                    >
+                      {sortKey === "status" ? (sortAsc ? "↑" : "↓") : "↕"}
+                    </button>
+                  </div>
+                  <div className="filter-select-wrap">
+                    <select
+                      value={filters.status}
+                      onChange={(e) => handleFilterChange("status", e.target.value)}
+                      aria-label="Filter by Status"
+                      className="maximal-filter-select"
+                    >
+                      <option value="">All</option>
+                      <option value="Open">Open</option>
+                      <option value="Accepted">Accepted</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Rejected">Rejected</option>
+                    </select>
+                  </div>
                 </th>
-                <th className="p-2"></th>
+
+                {/* Actions Header */}
+                <th className="actions-header w-[90px]">
+                  <div className="th-title">
+                    <span>Actions</span>
+                  </div>
+                  <div className="actions-flag-filter-slot">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFilters({
+                          id: "",
+                          companyName: "",
+                          requestTitle: "",
+                          state: "",
+                          city: "",
+                          bidStartDate: "",
+                          bidEndDate: "",
+                          status: "",
+                        });
+                        setCurrentPage(1);
+                      }}
+                      className="actions-flag-filter-button"
+                      title="Reset filters"
+                      aria-label="Reset filters"
+                    >
+                      <Flag className="w-[14.4px] h-[14.4px]" />
+                    </button>
+                  </div>
+                </th>
               </tr>
             </thead>
 
             {/* Table Body */}
-            <tbody className="divide-y divide-[#e2edf4] text-xs font-medium text-[#253d4e]">
+            <tbody>
               {currentRecords.map((item) => (
-                <tr
-                  key={item.id}
-                  className="hover:bg-[#f2f8fc] transition-colors"
-                >
+                <tr key={item.id}>
                   {/* Request ID */}
-                  <td className="px-4 py-3.5 font-bold text-[#0066c0] hover:underline cursor-pointer">
-                    <Link href={`/bidder/submit-bid/${item.id}`}>
+                  <td>
+                    <Link
+                      href={`/bidder/submit-bid/${item.id}`}
+                      className="hover:underline"
+                    >
                       {item.id}
                     </Link>
                   </td>
 
                   {/* Company Name */}
-                  <td className="px-4 py-3.5 font-semibold text-[#1f3544]">
-                    {item.companyName}
-                  </td>
+                  <td>{item.companyName}</td>
 
                   {/* Request Title */}
-                  <td className="px-4 py-3.5 text-[#2b4455]">
-                    {item.requestTitle}
-                  </td>
+                  <td>{item.requestTitle}</td>
 
                   {/* State */}
-                  <td className="px-4 py-3.5 text-[#324a5b]">
-                    {item.state}
-                  </td>
+                  <td>{item.state}</td>
 
                   {/* City */}
-                  <td className="px-4 py-3.5 text-[#324a5b]">
-                    {item.city}
-                  </td>
+                  <td>{item.city}</td>
 
                   {/* Bid Start Date */}
-                  <td className="px-4 py-3.5 font-semibold text-[#18557e]">
-                    {item.bidStartDate}
-                  </td>
+                  <td>{item.bidStartDate}</td>
 
                   {/* Bid End Date */}
-                  <td className="px-4 py-3.5 font-semibold text-[#18557e]">
-                    {item.bidEndDate}
-                  </td>
+                  <td>{item.bidEndDate}</td>
 
                   {/* Status Badge */}
-                  <td className="px-4 py-3.5">
+                  <td>
                     <span
-                      className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+                      className={`inline-block px-2 py-0.5 rounded-[5px] text-[11px] font-medium border ${
                         item.status === "Accepted"
-                          ? "bg-[#e8f7ee] text-[#0f693b] border border-[#94deb5]"
+                          ? "bg-[#eef8f2] text-[#146637] border-[#b6e3c5]"
                           : item.status === "Open"
-                          ? "bg-[#e5f1fb] text-[#115b8b] border border-[#a8d1ed]"
+                          ? "bg-[#edf5fa] text-[#195a86] border-[#bad7e8]"
                           : item.status === "Pending"
-                          ? "bg-[#fff8e6] text-[#975a16] border border-[#f5d794]"
-                          : "bg-[#feebe9] text-[#b91c1c] border border-[#fca5a5]"
+                          ? "bg-[#fffaf0] text-[#8f5e1c] border-[#f0dcaf]"
+                          : "bg-[#fef2f2] text-[#a82828] border-[#f8c8c8]"
                       }`}
                     >
                       {item.status}
                     </span>
                   </td>
 
-                  {/* Action Buttons: Blue Edit & Red Delete matching screenshot */}
-                  <td className="px-4 py-3.5 text-center">
-                    <div className="flex items-center justify-center gap-2">
+                  {/* Action Buttons: Silver Beveled Edit & Delete matching reference */}
+                  <td className="text-center">
+                    <div className="flex items-center justify-center gap-1">
                       <button
                         type="button"
                         onClick={() => openEditModal(item)}
-                        className="maximal-btn-edit-action"
+                        className="maximal-btn-action-icon"
                         title="Edit bid proposal"
                       >
-                        <Edit2 className="w-3.5 h-3.5 stroke-[2.2]" />
+                        <Edit2 className="w-3.5 h-3.5 stroke-[1.8]" />
                       </button>
 
                       <button
                         type="button"
                         onClick={() => openDeleteModal(item)}
-                        className="maximal-btn-delete-action"
+                        className="maximal-btn-action-icon btn-delete"
                         title="Retract/Delete bid"
                       >
-                        <Trash2 className="w-3.5 h-3.5 stroke-[2.2]" />
+                        <Trash2 className="w-3.5 h-3.5 stroke-[1.8]" />
                       </button>
                     </div>
                   </td>
@@ -486,8 +524,8 @@ export function MyBidsTable() {
           </table>
         </div>
 
-        {/* Maximal Segmented Pagination Footer */}
-        <div className="px-4 py-3.5 bg-gradient-to-r from-[#f7fafd] to-[#edf4f8] border-t border-[#d8e5ee] flex flex-wrap items-center justify-between gap-4 text-xs text-[#526d7e]">
+        {/* Maximal Segmented Pagination Footer matching reference */}
+        <div className="px-4 py-3.5 bg-gradient-to-r from-[#f8fafb] to-[#edf2f5] border-t border-[#d8e2e7] flex flex-wrap items-center justify-between gap-4 text-xs text-[#5f707b]">
           <div>
             Showing{" "}
             <span className="font-bold text-[#1f384a]">
@@ -505,12 +543,12 @@ export function MyBidsTable() {
           </div>
 
           {/* Segmented Page Buttons */}
-          <div className="flex items-center gap-1.5">
+          <div className="maximal-pager-container p-1 flex items-center gap-1">
             <button
               type="button"
               onClick={() => setCurrentPage(1)}
               disabled={currentPage === 1}
-              className="w-7 h-7 rounded-lg border border-[#c1d3df] bg-white disabled:opacity-35 hover:bg-[#e4eff6] text-[#2c4759] flex items-center justify-center transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg text-[#344650] hover:bg-white/80 disabled:opacity-30 flex items-center justify-center transition-colors cursor-pointer"
             >
               <ChevronsLeft className="w-3.5 h-3.5" />
             </button>
@@ -518,7 +556,7 @@ export function MyBidsTable() {
               type="button"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="w-7 h-7 rounded-lg border border-[#c1d3df] bg-white disabled:opacity-35 hover:bg-[#e4eff6] text-[#2c4759] flex items-center justify-center transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg text-[#344650] hover:bg-white/80 disabled:opacity-30 flex items-center justify-center transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
             </button>
@@ -530,8 +568,8 @@ export function MyBidsTable() {
                 onClick={() => setCurrentPage(num)}
                 className={`w-7 h-7 rounded-lg font-bold text-xs flex items-center justify-center transition-colors cursor-pointer ${
                   currentPage === num
-                    ? "bg-gradient-to-b from-[#243a49] to-[#121f28] text-white shadow-xs"
-                    : "border border-[#c1d3df] bg-white text-[#2c4759] hover:bg-[#e4eff6]"
+                    ? "maximal-page-active text-white shadow-xs"
+                    : "text-[#344650] hover:bg-white/80"
                 }`}
               >
                 {num}
@@ -542,7 +580,7 @@ export function MyBidsTable() {
               type="button"
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="w-7 h-7 rounded-lg border border-[#c1d3df] bg-white disabled:opacity-35 hover:bg-[#e4eff6] text-[#2c4759] flex items-center justify-center transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg text-[#344650] hover:bg-white/80 disabled:opacity-30 flex items-center justify-center transition-colors cursor-pointer"
             >
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
@@ -550,7 +588,7 @@ export function MyBidsTable() {
               type="button"
               onClick={() => setCurrentPage(totalPages)}
               disabled={currentPage === totalPages}
-              className="w-7 h-7 rounded-lg border border-[#c1d3df] bg-white disabled:opacity-35 hover:bg-[#e4eff6] text-[#2c4759] flex items-center justify-center transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg text-[#344650] hover:bg-white/80 disabled:opacity-30 flex items-center justify-center transition-colors cursor-pointer"
             >
               <ChevronsRight className="w-3.5 h-3.5" />
             </button>
@@ -564,7 +602,7 @@ export function MyBidsTable() {
                 setPageSize(Number(e.target.value));
                 setCurrentPage(1);
               }}
-              className="maximal-input px-2.5 py-1 text-xs rounded-lg bg-white border-[#c1d3df] cursor-pointer"
+              className="px-2.5 py-1 text-xs rounded-xl bg-gradient-to-b from-[#ffffff] to-[#edf2f4] border border-[#b9c8d0] text-[#2b3b45] font-semibold shadow-xs cursor-pointer"
             >
               <option value={5}>5</option>
               <option value={10}>10</option>

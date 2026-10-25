@@ -202,11 +202,11 @@ export function SearchRequestsFilterForm({
           </div>
         </div>
 
-        {/* Centered Search Button matching Image 1 */}
+        {/* Centered Search Button matching theme */}
         <div className="flex justify-center pt-2">
           <button
             type="submit"
-            className="w-full sm:w-60 h-11 rounded-xl bg-gradient-to-r from-[#0066c0] via-[#0055a5] to-[#00478a] hover:from-[#0074d9] hover:to-[#0055a5] text-white font-bold text-sm flex items-center justify-center gap-2.5 shadow-md shadow-[#00478a]/30 transition-all duration-150 cursor-pointer"
+            className="maximal-btn-primary w-full sm:w-60 h-11 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2.5 cursor-pointer"
           >
             <Search className="w-4 h-4" />
             <span>Search</span>

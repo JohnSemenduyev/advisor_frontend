@@ -100,7 +100,7 @@ export function ForgotPasswordForm({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#0066c0] via-[#0055a5] to-[#00478a] hover:from-[#0074d9] hover:to-[#0055a5] text-white font-bold text-sm tracking-wide cursor-pointer shadow-md shadow-[#00478a]/30 transition-all flex items-center justify-center gap-2"
+            className="ba-submit-btn w-full py-3 px-4 rounded-xl text-white font-bold text-sm tracking-wide cursor-pointer shadow-md flex items-center justify-center gap-2"
           >
             {isSubmitting ? (
               <span>Sending instructions...</span>

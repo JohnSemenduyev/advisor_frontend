@@ -1,8 +1,8 @@
 import { UnifiedLoginView } from "@/components/auth/unified-login-view";
 
 export const metadata = {
-  title: "Bidder Portal | BusinessAdviser",
-  description: "Bidder portal for contractors to explore projects, submit proposals, and grow their business.",
+  title: "BusinessAdviser | Bidding & Contracting Platform",
+  description: "Explore business projects, submit proposals, and grow your enterprise.",
 };
 
 export default function BidderPortalPage() {

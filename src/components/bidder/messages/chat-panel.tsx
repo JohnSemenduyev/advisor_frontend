@@ -55,12 +55,15 @@ export function ChatPanel({
   return (
     <div className="maximal-card rounded-2xl border border-[#b8c9d4] bg-white shadow-lg flex flex-col overflow-hidden text-left animate-in fade-in duration-150">
       {/* Top Header matching screenshot */}
-      <div className="p-4 sm:p-5 border-b border-[#e5eef4] bg-gradient-to-r from-[#ffffff] to-[#f6f9fb] flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <span className="text-base font-extrabold text-[#112d40] tracking-tight">
+      <div className="px-4 py-3 sm:px-5 sm:py-3.5 border-b border-[#e5eef4] bg-gradient-to-r from-[#ffffff] to-[#f6f9fb] flex items-center justify-between gap-2.5">
+        <div className="flex items-center gap-1.5 min-w-0 flex-1">
+          <span className="text-sm sm:text-base font-extrabold text-[#112d40] tracking-tight flex-none">
             Me:
           </span>
-          <span className="text-xs text-[#6c8697] truncate">
+          <span
+            className="text-xs text-[#6c8697] truncate"
+            title={`Chatting with ${conversation.name}`}
+          >
             (Chatting with <strong className="text-[#1a384c]">{conversation.name}</strong>)
           </span>
         </div>

@@ -1,8 +1,8 @@
 import { UnifiedLoginView } from "@/components/auth/unified-login-view";
 
 export const metadata = {
-  title: "Requestor Portal | BusinessAdviser",
-  description: "Requestor portal for businesses to post tenders, review bids, and hire qualified contractors.",
+  title: "BusinessAdviser | Tender & Contracting Platform",
+  description: "Post tenders, review bids, and connect with qualified service providers.",
 };
 
 export default function RequestorPortalPage() {

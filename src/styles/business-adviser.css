@@ -182,12 +182,17 @@
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35), 0 5px 0 #11191e, 0 8px 14px rgba(27, 41, 55, 0.28);
   border-radius: 14px;
   color: #ffffff;
-  transition: transform 0.18s ease, filter 0.18s ease;
+  transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
 }
 
 .maximal-btn-primary:hover {
   filter: brightness(1.08);
   transform: translateY(-1px);
+}
+
+.maximal-btn-primary:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 2px 0 #11191e, 0 4px 8px rgba(27, 41, 55, 0.25);
 }
 
 .maximal-btn-secondary {
@@ -317,175 +322,362 @@
   filter: brightness(1.15);
 }
 
-/* Open Projects Table & Action Styling */
+/* Open Projects & Bids Table Styling - Exact match to Maximal Reference HTML */
 .maximal-tablewrap {
-  border: 1px solid #d4e0e8;
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 10px 30px rgba(23, 45, 60, 0.08), inset 0 1px 0 #ffffff;
-  overflow: hidden;
+  border: 1px solid #d6dde1 !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  box-shadow: 0 9px 26px rgba(39, 59, 76, 0.08), inset 0 1px 0 #ffffff !important;
+  overflow: hidden !important;
 }
 
 .maximal-thead {
-  background: linear-gradient(180deg, #1b5380 0%, #0d3b61 100%);
-  color: #ffffff;
+  background: linear-gradient(180deg, #e7edf0 0%, #d7e1e6 100%) !important;
+  color: #2d3a43 !important;
 }
 
-.maximal-th-filter {
-  background: #f7fafd;
-  border-bottom: 1px solid #d8e5ee;
+.maximal-thead th {
+  height: 65px !important;
+  padding: 7.5px 7.5px 6.5px !important;
+  vertical-align: top !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.75) !important;
+  border-bottom: 1px solid #c8d2d8 !important;
+  box-sizing: border-box !important;
+  font-family: Inter, "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif !important;
 }
 
+.maximal-thead th:last-child {
+  border-right: none !important;
+}
+
+.maximal-thead .th-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5.35px !important;
+  height: 18.2px !important;
+  margin-bottom: 6.4px !important;
+  overflow: hidden !important;
+}
+
+.maximal-thead .th-title span {
+  font-family: Inter, "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif !important;
+  font-size: 12.68px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+  color: #303c45 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.maximal-thead .sort {
+  font-size: 10px !important;
+  color: #677883 !important;
+  border: 0 !important;
+  background: none !important;
+  cursor: pointer !important;
+  padding: 0 2px !important;
+  line-height: 1 !important;
+  border-radius: 4px !important;
+  transition: background 0.15s, color 0.15s !important;
+}
+
+.maximal-thead .sort:hover {
+  background: #c6d0d6 !important;
+  color: #1e2a30 !important;
+}
+
+.maximal-thead .filter-wrap {
+  position: relative !important;
+  width: 100% !important;
+  height: 25.27px !important;
+}
+
+.maximal-thead .filter-wrap:not(.no-icon):not(:has(select))::before {
+  content: "⌕" !important;
+  position: absolute !important;
+  left: 7.5px !important;
+  top: 3.5px !important;
+  font-size: 15px !important;
+  color: #758792 !important;
+  pointer-events: none !important;
+  line-height: 1 !important;
+  z-index: 2 !important;
+}
+
+.maximal-thead .filter-wrap input,
 .maximal-filter-input {
-  height: 31px;
-  border: 1px solid #c4d7e4;
-  border-radius: 8px;
-  background: #ffffff;
-  color: #243b4c;
-  font-size: 11.5px;
-  padding: 0 10px 0 28px;
-  outline: none;
-  width: 100%;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  display: block !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: 25.27px !important;
+  min-width: 0 !important;
+  padding: 3px 6px 3px 24px !important;
+  border: 1px solid #c3ced4 !important;
+  border-radius: 7.5px !important;
+  color: #2d3c45 !important;
+  font-size: 10.4px !important;
+  font-family: Inter, "Avenir Next", "Segoe UI", Arial, sans-serif !important;
+  font-weight: 400 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafb 100%) !important;
+  box-shadow: inset 0 2px 4px rgba(52, 73, 90, 0.05), 0 1px 0 #ffffff !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
 
+.maximal-thead .filter-wrap input:focus,
 .maximal-filter-input:focus {
-  border-color: #559ec5;
-  box-shadow: 0 0 0 2px rgba(85, 158, 197, 0.25);
+  border-color: #7f9dad !important;
+  box-shadow: 0 0 0 2px rgba(145, 176, 192, 0.3) !important;
+  background: #ffffff !important;
 }
 
-.maximal-btn-bid {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 12px;
-  border: 1.5px solid #28a745;
-  background: linear-gradient(180deg, #ffffff 0%, #edf9f1 100%);
-  color: #1a7a37;
-  font-size: 12px;
-  font-weight: 700;
-  box-shadow: 0 2px 5px rgba(40, 167, 69, 0.18), inset 0 1px 0 #ffffff;
-  transition: all 0.16s ease;
-  cursor: pointer;
+.maximal-thead .filter-wrap input::placeholder,
+.maximal-filter-input::placeholder {
+  color: #87959e !important;
+  font-size: 10.4px !important;
+  font-weight: 400 !important;
+  opacity: 1 !important;
 }
 
-.maximal-btn-bid:hover {
-  background: linear-gradient(180deg, #2ea84b 0%, #1f8238 100%);
-  color: #ffffff;
-  border-color: #1f8238;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+/* Header Dropdowns (Rating, Status, etc.) */
+.maximal-thead .filter-select-wrap,
+.maximal-thead .filter-wrap:has(select) {
+  position: relative !important;
+  width: 100% !important;
+  height: 25.27px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-.maximal-btn-contact {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 34px;
-  border-radius: 12px;
-  border: 1.5px solid #2384db;
-  background: linear-gradient(180deg, #ffffff 0%, #eef6fd 100%);
-  color: #1868b4;
-  box-shadow: 0 2px 5px rgba(35, 132, 219, 0.18), inset 0 1px 0 #ffffff;
-  transition: all 0.16s ease;
-  cursor: pointer;
+.maximal-thead .filter-select-wrap select,
+.maximal-thead .filter-wrap select,
+.maximal-filter-select {
+  width: 100% !important;
+  max-width: 75px !important;
+  height: 25.27px !important;
+  padding: 2px 14px 2px 6px !important;
+  border: 1px solid #b5c6d0 !important;
+  border-radius: 7px !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f7f9 100%) !important;
+  color: #344e5d !important;
+  font-size: 11px !important;
+  font-family: Inter, "Segoe UI", Arial, sans-serif !important;
+  font-weight: 400 !important;
+  cursor: pointer !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  box-shadow: inset 0 1px 2px rgba(52, 73, 90, 0.05), 0 1px 0 #ffffff !important;
 }
 
-.maximal-btn-contact:hover {
-  background: linear-gradient(180deg, #2b8ee9 0%, #176fc4 100%);
-  color: #ffffff;
-  border-color: #176fc4;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(35, 132, 219, 0.3);
+.maximal-thead .filter-select-wrap select:focus,
+.maximal-thead .filter-wrap select:focus,
+.maximal-filter-select:focus {
+  border-color: #7f9dad !important;
+  box-shadow: 0 0 0 2px rgba(145, 176, 192, 0.3) !important;
+}
+
+/* Actions Header and Flag Button Slot matching Screenshot 1 */
+.maximal-thead th.actions-header {
+  text-align: center !important;
+}
+
+.maximal-thead th.actions-header .th-title {
+  justify-content: center !important;
+}
+
+.actions-flag-filter-slot {
+  height: 25.27px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.actions-flag-filter-button {
+  width: 25.27px !important;
+  height: 25.27px !important;
+  min-width: 25.27px !important;
+  max-width: 25.27px !important;
+  min-height: 25.27px !important;
+  max-height: 25.27px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  border-radius: 6.5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid #b9cbd5 !important;
+  background: linear-gradient(145deg, #f8fbfd 0%, #e9f1f5 100%) !important;
+  color: #344e5c !important;
+  box-shadow: 0 1px 2px rgba(38, 61, 75, 0.12), inset 0 1px 0 #ffffff !important;
+  cursor: pointer !important;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s !important;
+}
+
+.actions-flag-filter-button:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #dce9ef 100%) !important;
+  border-color: #8faec0 !important;
+  color: #1e3342 !important;
+  transform: translateY(1px) !important;
+}
+
+.actions-flag-filter-button svg {
+  width: 14.44px !important;
+  height: 14.44px !important;
+  stroke: #344e5c !important;
+  stroke-width: 1.6 !important;
+}
+
+
+/* Silver Beveled Action Buttons (Matching Screenshot 1 Eye, Trash, Gavel, Mail, etc.) */
+.maximal-btn-action-icon,
+.maximal-btn-bid,
+.maximal-btn-contact,
+.maximal-btn-edit-action,
+.maximal-btn-delete-action {
+  width: 25.27px !important;
+  height: 25.27px !important;
+  min-width: 25.27px !important;
+  max-width: 25.27px !important;
+  min-height: 25.27px !important;
+  max-height: 25.27px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  border-radius: 6.5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid #b7c7d1 !important;
+  background: linear-gradient(145deg, #f9fbfc 0%, #e2e9ed 100%) !important;
+  color: #344c5b !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(179, 194, 202, 0.33) !important;
+  margin: 0 2px !important;
+  cursor: pointer !important;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease, color 0.15s ease !important;
+}
+
+.maximal-btn-action-icon:hover,
+.maximal-btn-bid:hover,
+.maximal-btn-contact:hover,
+.maximal-btn-edit-action:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #d2e0e7 100%) !important;
+  border-color: #92adbd !important;
+  color: #1e3342 !important;
+  transform: translateY(1px) !important;
+}
+
+.maximal-btn-delete-action:hover,
+.maximal-btn-action-icon.btn-delete:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #fbe9e7 100%) !important;
+  border-color: #e0aba6 !important;
+  color: #9e3e39 !important;
+  transform: translateY(1px) !important;
+}
+
+.maximal-btn-action-icon svg,
+.maximal-btn-bid svg,
+.maximal-btn-contact svg,
+.maximal-btn-edit-action svg,
+.maximal-btn-delete-action svg {
+  width: 14.4px !important;
+  height: 14.4px !important;
+  stroke: currentColor !important;
+  stroke-width: 1.8 !important;
 }
 
 .maximal-btn-action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 18px;
-  border-radius: 9px;
-  background: linear-gradient(180deg, #0077d9 0%, #005bb5 100%);
-  border: 1px solid #1472c4;
-  color: #ffffff;
-  font-size: 12.5px;
-  font-weight: 600;
-  box-shadow: 0 2px 5px rgba(0, 91, 181, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  transition: all 0.16s ease;
+  padding: 4px 14px;
+  border-radius: 7px;
+  border: 1px solid #b7c7d1;
+  background: linear-gradient(145deg, #f9fbfc 0%, #e2e9ed 100%);
+  color: #344c5b;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(179, 194, 202, 0.33);
+  transition: all 0.15s ease;
   cursor: pointer;
   white-space: nowrap;
 }
 
 .maximal-btn-action:hover {
-  background: linear-gradient(180deg, #1588ec 0%, #0066cc 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0, 91, 181, 0.35);
+  background: linear-gradient(180deg, #ffffff 0%, #d2e0e7 100%);
+  border-color: #92adbd;
+  color: #1e3342;
+  transform: translateY(1px);
 }
 
-.maximal-btn-edit-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 32px;
-  border-radius: 9px;
-  border: 1.5px solid #2384db;
-  background: linear-gradient(180deg, #ffffff 0%, #eef6fd 100%);
-  color: #1868b4;
-  box-shadow: 0 2px 4px rgba(35, 132, 219, 0.16), inset 0 1px 0 #ffffff;
-  transition: all 0.16s ease;
-  cursor: pointer;
+/* Table Body Typography & Zebra Striping */
+.maximal-tablewrap tbody tr:nth-child(even) {
+  background: #f8fafb !important;
 }
 
-.maximal-btn-edit-action:hover {
-  background: linear-gradient(180deg, #2b8ee9 0%, #176fc4 100%);
-  color: #ffffff;
-  border-color: #176fc4;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(35, 132, 219, 0.28);
+.maximal-tablewrap tbody tr:hover {
+  background: #e7eef2 !important;
 }
 
-.maximal-btn-delete-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 32px;
-  border-radius: 9px;
-  border: 1.5px solid #e53e3e;
-  background: linear-gradient(180deg, #ffffff 0%, #fef2f2 100%);
-  color: #dc2626;
-  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.16), inset 0 1px 0 #ffffff;
-  transition: all 0.16s ease;
-  cursor: pointer;
+.maximal-tablewrap tbody td {
+  font-family: Inter, "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif !important;
+  font-size: 12.3px !important;
+  font-weight: 400 !important;
+  line-height: 1.3 !important;
+  color: #34414a !important;
+  padding: 9.6px 8.6px !important;
+  border-bottom: 1px solid #e8edef !important;
+  vertical-align: middle;
 }
 
-.maximal-btn-delete-action:hover {
-  background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
-  color: #ffffff;
-  border-color: #b91c1c;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.28);
+.maximal-tablewrap tbody td a,
+.maximal-tablewrap tbody td .link {
+  font-family: Inter, "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif !important;
+  font-size: 12.3px !important;
+  font-weight: 400 !important;
+  color: #34414a !important;
+  text-decoration: none !important;
+}
+
+.maximal-tablewrap tbody td a:hover,
+.maximal-tablewrap tbody td .link:hover {
+  text-decoration: underline !important;
+  color: #086ba5 !important;
+}
+
+
+.maximal-pager-container {
+  background: linear-gradient(165deg, #ffffff 0%, #edf2f4 52%, #dce5e9 100%);
+  border: 1px solid #b9c8d0;
+  box-shadow: inset 0 1px 1px #ffffff, 0 3px 0 #b6c5cc, 0 5px 9px rgba(29, 43, 52, 0.12);
+  border-radius: 13px;
+}
+
+.maximal-page-active {
+  background: linear-gradient(180deg, #34434d 0%, #1b2831 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid #25333b !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 2px 0 #14212a, 0 3px 5px rgba(29, 43, 52, 0.2) !important;
 }
 
 /* Chat Panel Elements */
 .chat-btn-send {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 16px;
+  gap: 5px;
+  padding: 5px 13px;
   border-radius: 9px;
   background: linear-gradient(180deg, #2ea858 0%, #1f8b44 100%);
   border: 1px solid #1a7e3c;
   color: #ffffff;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   box-shadow: 0 2px 5px rgba(31, 139, 68, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
   transition: all 0.16s ease;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .chat-btn-send:hover {
@@ -497,17 +689,19 @@
 .chat-btn-close {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 16px;
+  gap: 5px;
+  padding: 5px 13px;
   border-radius: 9px;
   background: linear-gradient(180deg, #0077d9 0%, #005bb5 100%);
   border: 1px solid #1472c4;
   color: #ffffff;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   box-shadow: 0 2px 5px rgba(0, 91, 181, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
   transition: all 0.16s ease;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .chat-btn-close:hover {
