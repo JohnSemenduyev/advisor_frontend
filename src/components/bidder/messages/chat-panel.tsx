@@ -24,9 +24,9 @@ export function ChatPanel({
 
   if (!conversation) {
     return (
-      <div className="maximal-card p-8 rounded-2xl border border-[#b8c9d4] bg-white shadow-lg flex flex-col items-center justify-center text-center min-h-[460px]">
-        <div className="w-14 h-14 rounded-2xl bg-[#e5f1fb] text-[#0066c0] flex items-center justify-center mb-4">
-          <MessageSquare className="w-7 h-7" />
+      <div className="maximal-card p-6 rounded-2xl border border-[#b8c9d4] bg-white shadow-lg flex flex-col items-center justify-center text-center min-h-[320px]">
+        <div className="w-12 h-12 rounded-2xl bg-[#e5f1fb] text-[#0066c0] flex items-center justify-center mb-3">
+          <MessageSquare className="w-6 h-6" />
         </div>
         <h3 className="text-base font-bold text-[#1a384c]">
           No Conversation Selected
@@ -55,9 +55,9 @@ export function ChatPanel({
   return (
     <div className="maximal-card rounded-2xl border border-[#b8c9d4] bg-white shadow-lg flex flex-col overflow-hidden text-left animate-in fade-in duration-150">
       {/* Top Header matching screenshot */}
-      <div className="px-3.5 py-2.5 sm:px-4 sm:py-3 border-b border-[#e5eef4] bg-gradient-to-r from-[#ffffff] to-[#f6f9fb] flex items-center justify-between gap-2">
+      <div className="px-3.5 py-2 border-b border-[#e5eef4] bg-gradient-to-r from-[#ffffff] to-[#f6f9fb] flex items-center justify-between gap-2">
         <div className="flex items-center gap-1.5 min-w-0 flex-1">
-          <span className="text-sm sm:text-base font-extrabold text-[#112d40] tracking-tight flex-none">
+          <span className="text-sm font-extrabold text-[#112d40] tracking-tight flex-none">
             Me:
           </span>
           <span
@@ -94,16 +94,16 @@ export function ChatPanel({
       </div>
 
       {/* Input Textarea Container */}
-      <div className="p-3.5 sm:p-4 border-b border-[#e5eef4] bg-[#fbfdfd]">
+      <div className="p-3 border-b border-[#e5eef4] bg-[#fbfdfd]">
         <textarea
-          rows={3}
+          rows={2}
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type your message here..."
-          className="maximal-input w-full p-2.5 sm:p-3 text-xs sm:text-sm rounded-xl resize-none bg-white border-[#cad8e2] text-[#1c3342] placeholder:text-[#88a0b0] focus:ring-2 focus:ring-[#0077d9]/20"
+          className="maximal-input w-full p-2.5 text-xs rounded-xl resize-none bg-white border-[#cad8e2] text-[#1c3342] placeholder:text-[#88a0b0] focus:ring-2 focus:ring-[#0077d9]/20"
         />
-        <div className="flex justify-between items-center mt-1.5 px-0.5 text-[10.5px] text-[#7d97a7]">
+        <div className="flex justify-between items-center mt-1 px-0.5 text-[10.5px] text-[#7d97a7]">
           <span>
             <span className="hidden xl:inline">Press </span>Enter to send
           </span>
@@ -111,17 +111,17 @@ export function ChatPanel({
         </div>
       </div>
 
-      {/* Message History Thread */}
-      <div className="p-3.5 sm:p-4 space-y-3 overflow-y-auto max-h-[500px] min-h-[280px] bg-gradient-to-b from-[#f9fbfd] to-[#edf4f8]/50">
+      {/* Message History Thread - constrained to visible view */}
+      <div className="p-3 space-y-2.5 overflow-y-auto max-h-[220px] sm:max-h-[250px] lg:max-h-[270px] xl:max-h-[300px] bg-gradient-to-b from-[#f9fbfd] to-[#edf4f8]/50">
         {conversation.messages.map((msg: ChatMessage) => {
           if (!msg.isMe) {
             // Client Message Bubble: Mint Green styling matching screenshot
             return (
               <div
                 key={msg.id}
-                className="p-4 rounded-2xl bg-[#f0f9f3] border border-[#c3ead2] shadow-xs text-left"
+                className="p-3 rounded-xl bg-[#f0f9f3] border border-[#c3ead2] shadow-xs text-left"
               >
-                <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="text-xs font-bold text-[#14703a]">
                     {msg.sender}:
                   </span>
@@ -129,7 +129,7 @@ export function ChatPanel({
                     {msg.timestamp}
                   </span>
                 </div>
-                <div className="text-xs sm:text-[13px] leading-relaxed text-[#1e442c] whitespace-pre-line font-normal">
+                <div className="text-xs leading-relaxed text-[#1e442c] whitespace-pre-line font-normal break-words">
                   {msg.text}
                 </div>
               </div>
@@ -139,9 +139,9 @@ export function ChatPanel({
             return (
               <div
                 key={msg.id}
-                className="p-4 rounded-2xl bg-[#f2f7fc] border border-[#c6dceb] shadow-xs text-left"
+                className="p-3 rounded-xl bg-[#f2f7fc] border border-[#c6dceb] shadow-xs text-left"
               >
-                <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="text-xs font-bold text-[#183c55]">
                     {msg.sender}:
                   </span>
@@ -149,7 +149,7 @@ export function ChatPanel({
                     {msg.timestamp}
                   </span>
                 </div>
-                <div className="text-xs sm:text-[13px] leading-relaxed text-[#233d4f] whitespace-pre-line font-normal">
+                <div className="text-xs leading-relaxed text-[#233d4f] whitespace-pre-line font-normal break-words">
                   {msg.text}
                 </div>
               </div>

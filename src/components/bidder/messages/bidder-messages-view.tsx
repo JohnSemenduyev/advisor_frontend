@@ -62,8 +62,8 @@ export function BidderMessagesView() {
       <BidderTopbar userName="Mike A." avatarLetter="M" />
 
       {/* Main Brushed Silver Shell Canvas */}
-      <main className="flex-1 p-3.5 sm:p-5 lg:p-6 max-w-[1680px] w-full mx-auto">
-        <div className="maximal-shell p-4 sm:p-6 lg:p-6 space-y-6">
+      <main className="flex-1 p-3 sm:p-4 lg:py-3.5 lg:px-6 max-w-[1680px] w-full mx-auto">
+        <div className="maximal-shell p-3.5 sm:p-5 lg:p-5 space-y-4">
 
           {/* Split Content: Table takes wide primary space, Chat takes sleek compact space */}
           <div className="flex flex-col lg:flex-row gap-4 xl:gap-5 items-start">
