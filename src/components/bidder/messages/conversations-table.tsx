@@ -48,11 +48,11 @@ export function ConversationsTable({
       <div className="overflow-x-auto w-full">
         <table className="w-full text-left border-collapse">
           {/* Header matching Maximal Reference metallic silver */}
-          <thead className="maximal-thead">
+          <thead className="maximal-thead maximal-thead-compact">
             <tr className="select-none">
               <th
                 onClick={() => handleSort("name")}
-                className="cursor-pointer"
+                className="cursor-pointer w-[15%] min-w-[105px]"
               >
                 <div className="th-title">
                   <span>Name</span>
@@ -64,7 +64,7 @@ export function ConversationsTable({
 
               <th
                 onClick={() => handleSort("title")}
-                className="cursor-pointer"
+                className="cursor-pointer w-[12%] min-w-[75px]"
               >
                 <div className="th-title">
                   <span>Title</span>
@@ -76,7 +76,7 @@ export function ConversationsTable({
 
               <th
                 onClick={() => handleSort("companyName")}
-                className="cursor-pointer"
+                className="cursor-pointer w-[24%] min-w-[120px]"
               >
                 <div className="th-title">
                   <span>Company Name</span>
@@ -88,7 +88,7 @@ export function ConversationsTable({
 
               <th
                 onClick={() => handleSort("serviceRequest")}
-                className="cursor-pointer"
+                className="cursor-pointer w-[26%] min-w-[130px]"
               >
                 <div className="th-title">
                   <span>Service Request</span>
@@ -100,7 +100,7 @@ export function ConversationsTable({
 
               <th
                 onClick={() => handleSort("serviceRequestId")}
-                className="cursor-pointer"
+                className="cursor-pointer w-[13%] min-w-[75px] whitespace-nowrap"
               >
                 <div className="th-title">
                   <span>Service Request ID</span>
@@ -112,7 +112,7 @@ export function ConversationsTable({
 
               <th
                 onClick={() => handleSort("hasNewMessages")}
-                className="actions-header w-[90px] cursor-pointer"
+                className="actions-header w-[10%] min-w-[65px] cursor-pointer"
               >
                 <div className="th-title">
                   <span>Messages</span>
@@ -137,38 +137,38 @@ export function ConversationsTable({
                   }`}
                 >
                   {/* Name */}
-                  <td className="whitespace-nowrap">
+                  <td className="whitespace-nowrap font-medium text-[#253946]">
                     {conv.name}
                   </td>
 
                   {/* Title */}
-                  <td className="whitespace-nowrap">
+                  <td className="whitespace-nowrap text-[#536b7b]">
                     {conv.title}
                   </td>
 
                   {/* Company Name */}
-                  <td className="whitespace-nowrap">
+                  <td className="leading-snug text-[#253946]">
                     {conv.companyName}
                   </td>
 
                   {/* Service Request */}
-                  <td className="whitespace-nowrap">
+                  <td className="leading-snug text-[#253946]">
                     {conv.serviceRequest}
                   </td>
 
                   {/* Service Request ID */}
-                  <td className="whitespace-nowrap">
+                  <td className="whitespace-nowrap font-medium">
                     <Link
                       href={`/bidder/submit-bid/${conv.serviceRequestId}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="hover:underline"
+                      className="hover:underline text-[#0066c0]"
                     >
                       {conv.serviceRequestId}
                     </Link>
                   </td>
 
                   {/* Messages Icon */}
-                  <td className="whitespace-nowrap text-center">
+                  <td className="text-center">
                     <div className="flex items-center justify-center">
                       <div className="maximal-btn-action-icon" title="View conversation">
                         <MessageSquare className="w-3.5 h-3.5" />

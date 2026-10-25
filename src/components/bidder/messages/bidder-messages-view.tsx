@@ -62,11 +62,11 @@ export function BidderMessagesView() {
       <BidderTopbar userName="Mike A." avatarLetter="M" />
 
       {/* Main Brushed Silver Shell Canvas */}
-      <main className="flex-1 p-4 sm:p-6 lg:p-7 max-w-[1600px] w-full mx-auto">
-        <div className="maximal-shell p-5 sm:p-7 lg:p-8 space-y-6">
+      <main className="flex-1 p-3.5 sm:p-5 lg:p-6 max-w-[1680px] w-full mx-auto">
+        <div className="maximal-shell p-4 sm:p-6 lg:p-6 space-y-6">
 
           {/* Split Content: Table takes wide primary space, Chat takes sleek compact space */}
-          <div className="flex flex-col lg:flex-row gap-6 items-start">
+          <div className="flex flex-col lg:flex-row gap-4 xl:gap-5 items-start">
             {/* Conversations Table - Primary wide space (no scrollbar) */}
             <div
               className={`min-w-0 transition-all duration-200 ${
@@ -82,7 +82,7 @@ export function BidderMessagesView() {
 
             {/* Active Conversation Panel - Sleek compact messaging panel */}
             {isChatOpen && (
-              <div className="w-full lg:w-[410px] xl:w-[440px] 2xl:w-[460px] flex-none">
+              <div className="w-full lg:w-[315px] xl:w-[350px] 2xl:w-[380px] flex-none">
                 <ChatPanel
                   conversation={selectedConversation}
                   onSendMessage={handleSendMessage}

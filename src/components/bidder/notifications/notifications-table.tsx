@@ -112,7 +112,7 @@ export function NotificationsTable() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[760px]">
             {/* Header matching reference HTML brushed metallic gradient */}
-            <thead className="maximal-thead">
+            <thead className="maximal-thead maximal-thead-compact">
               <tr className="select-none">
                 <th className="w-[180px]">
                   <div className="th-title">
@@ -124,7 +124,7 @@ export function NotificationsTable() {
                     <span>Notification</span>
                   </div>
                 </th>
-                <th className="actions-header w-[140px]">
+                <th className="w-[140px] text-left">
                   <div className="th-title">
                     <span>Actions</span>
                   </div>
@@ -155,7 +155,7 @@ export function NotificationsTable() {
                   </td>
 
                   {/* Action Button */}
-                  <td className="text-center">
+                  <td className="text-left">
                     <button
                       type="button"
                       onClick={() => handleAction(item)}

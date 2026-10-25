@@ -55,7 +55,7 @@ export function ChatPanel({
   return (
     <div className="maximal-card rounded-2xl border border-[#b8c9d4] bg-white shadow-lg flex flex-col overflow-hidden text-left animate-in fade-in duration-150">
       {/* Top Header matching screenshot */}
-      <div className="px-4 py-3 sm:px-5 sm:py-3.5 border-b border-[#e5eef4] bg-gradient-to-r from-[#ffffff] to-[#f6f9fb] flex items-center justify-between gap-2.5">
+      <div className="px-3.5 py-2.5 sm:px-4 sm:py-3 border-b border-[#e5eef4] bg-gradient-to-r from-[#ffffff] to-[#f6f9fb] flex items-center justify-between gap-2">
         <div className="flex items-center gap-1.5 min-w-0 flex-1">
           <span className="text-sm sm:text-base font-extrabold text-[#112d40] tracking-tight flex-none">
             Me:
@@ -69,12 +69,12 @@ export function ChatPanel({
         </div>
 
         {/* Top Right Action Buttons: Green Send & Blue Close */}
-        <div className="flex items-center gap-2 flex-none">
+        <div className="flex items-center gap-1.5 flex-none">
           <button
             type="button"
             onClick={() => handleSend()}
             disabled={!inputText.trim()}
-            className="chat-btn-send disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+            className="chat-btn-send disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer !px-2.5 !py-1 text-xs"
             title="Send message"
           >
             <SendHorizontal className="w-3.5 h-3.5 stroke-[2.4]" />
@@ -84,7 +84,7 @@ export function ChatPanel({
           <button
             type="button"
             onClick={onClose}
-            className="chat-btn-close cursor-pointer"
+            className="chat-btn-close cursor-pointer !px-2.5 !py-1 text-xs"
             title="Close conversation"
           >
             <X className="w-3.5 h-3.5 stroke-[2.4]" />
@@ -94,23 +94,25 @@ export function ChatPanel({
       </div>
 
       {/* Input Textarea Container */}
-      <div className="p-4 sm:p-5 border-b border-[#e5eef4] bg-[#fbfdfd]">
+      <div className="p-3.5 sm:p-4 border-b border-[#e5eef4] bg-[#fbfdfd]">
         <textarea
           rows={3}
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type your message here..."
-          className="maximal-input w-full p-3 text-xs sm:text-sm rounded-xl resize-none bg-white border-[#cad8e2] text-[#1c3342] placeholder:text-[#88a0b0] focus:ring-2 focus:ring-[#0077d9]/20"
+          className="maximal-input w-full p-2.5 sm:p-3 text-xs sm:text-sm rounded-xl resize-none bg-white border-[#cad8e2] text-[#1c3342] placeholder:text-[#88a0b0] focus:ring-2 focus:ring-[#0077d9]/20"
         />
-        <div className="flex justify-between items-center mt-1.5 px-0.5 text-[11px] text-[#7d97a7]">
-          <span>Press Enter to send, Shift+Enter for new line</span>
-          <span>{inputText.length} characters</span>
+        <div className="flex justify-between items-center mt-1.5 px-0.5 text-[10.5px] text-[#7d97a7]">
+          <span>
+            <span className="hidden xl:inline">Press </span>Enter to send
+          </span>
+          <span>{inputText.length} chars</span>
         </div>
       </div>
 
       {/* Message History Thread */}
-      <div className="p-4 sm:p-5 space-y-4 overflow-y-auto max-h-[500px] min-h-[280px] bg-gradient-to-b from-[#f9fbfd] to-[#edf4f8]/50">
+      <div className="p-3.5 sm:p-4 space-y-3 overflow-y-auto max-h-[500px] min-h-[280px] bg-gradient-to-b from-[#f9fbfd] to-[#edf4f8]/50">
         {conversation.messages.map((msg: ChatMessage) => {
           if (!msg.isMe) {
             // Client Message Bubble: Mint Green styling matching screenshot

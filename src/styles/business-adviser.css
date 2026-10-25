@@ -359,6 +359,24 @@
   overflow: hidden !important;
 }
 
+/* Compact Table Header (half-height header for tables without filter inputs, ~33px instead of 65px) */
+.maximal-thead.compact th,
+.maximal-thead-compact th,
+.maximal-thead:not(:has(.filter-wrap)):not(:has(.actions-flag-filter-slot)) th {
+  height: 33px !important;
+  padding: 0 8.6px !important;
+  vertical-align: middle !important;
+}
+
+.maximal-thead.compact .th-title,
+.maximal-thead-compact .th-title,
+.maximal-thead:not(:has(.filter-wrap)):not(:has(.actions-flag-filter-slot)) .th-title {
+  height: 100% !important;
+  margin-bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
 .maximal-thead .th-title span {
   font-family: Inter, "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif !important;
   font-size: 12.68px !important;
