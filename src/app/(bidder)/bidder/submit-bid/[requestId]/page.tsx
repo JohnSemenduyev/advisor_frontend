@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description: "Review request details, verify company credentials, and submit project bids.",
 };
 
+export const instant = false;
+
+
 export function generateStaticParams() {
   return [
     { requestId: "10001" },
