@@ -57,19 +57,19 @@ export function BidderMessagesView() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#e1e4e5] via-[#f2f3f2] to-[#d8dcde] flex flex-col font-sans">
+    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-gradient-to-br from-[#e1e4e5] via-[#f2f3f2] to-[#d8dcde] flex flex-col font-sans">
       {/* Top Navigation Bar with Interlocking Domino Tabs matching reference */}
       <BidderTopbar userName="Mike A." avatarLetter="M" />
 
-      {/* Main Brushed Silver Shell Canvas */}
-      <main className="flex-1 p-3 sm:p-4 lg:py-3.5 lg:px-6 max-w-[1680px] w-full mx-auto">
-        <div className="maximal-shell p-3.5 sm:p-5 lg:p-5 space-y-4">
+      {/* Main Brushed Silver Shell Canvas - fills screen height to bottom margin */}
+      <main className="flex-1 p-3 sm:p-4 lg:p-4.5 max-w-[1680px] w-full mx-auto flex flex-col min-h-0 overflow-hidden">
+        <div className="maximal-shell p-3.5 sm:p-4 lg:p-4.5 flex-1 flex flex-col min-h-0 shadow-lg">
 
-          {/* Split Content: Table takes wide primary space, Chat takes sleek compact space */}
-          <div className="flex flex-col lg:flex-row gap-4 xl:gap-5 items-start">
-            {/* Conversations Table - Primary wide space (no scrollbar) */}
+          {/* Split Content: Table and Chat stretch to exact same height, aligning at the bottom */}
+          <div className="flex-1 flex flex-col lg:flex-row gap-4 xl:gap-5 items-stretch min-h-0 overflow-hidden">
+            {/* Conversations Table - Primary wide space, stretches to match height */}
             <div
-              className={`min-w-0 transition-all duration-200 ${
+              className={`min-w-0 h-full flex flex-col transition-all duration-300 ease-in-out ${
                 isChatOpen ? "flex-1 w-full" : "w-full"
               }`}
             >
@@ -80,9 +80,9 @@ export function BidderMessagesView() {
               />
             </div>
 
-            {/* Active Conversation Panel - Sleek compact messaging panel */}
+            {/* Active Conversation Panel - Slides in from right, stretches to exact same height */}
             {isChatOpen && (
-              <div className="w-full lg:w-[315px] xl:w-[350px] 2xl:w-[380px] flex-none">
+              <div className="w-full lg:w-[315px] xl:w-[350px] 2xl:w-[380px] h-full flex-none chat-slide-in-right flex flex-col min-h-0">
                 <ChatPanel
                   conversation={selectedConversation}
                   onSendMessage={handleSendMessage}

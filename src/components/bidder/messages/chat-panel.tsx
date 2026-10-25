@@ -16,15 +16,17 @@ export function ChatPanel({
   onClose,
 }: ChatPanelProps) {
   const [inputText, setInputText] = useState("");
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   }, [conversation?.messages]);
 
   if (!conversation) {
     return (
-      <div className="maximal-card p-6 rounded-2xl border border-[#b8c9d4] bg-white shadow-lg flex flex-col items-center justify-center text-center min-h-[320px]">
+      <div className="maximal-card p-6 rounded-2xl border border-[#b8c9d4] bg-white shadow-lg flex flex-col items-center justify-center text-center h-full min-h-[320px]">
         <div className="w-12 h-12 rounded-2xl bg-[#e5f1fb] text-[#0066c0] flex items-center justify-center mb-3">
           <MessageSquare className="w-6 h-6" />
         </div>
@@ -53,9 +55,9 @@ export function ChatPanel({
   };
 
   return (
-    <div className="maximal-card rounded-2xl border border-[#b8c9d4] bg-white shadow-lg flex flex-col overflow-hidden text-left animate-in fade-in duration-150">
+    <div className="maximal-card rounded-2xl border border-[#b8c9d4] bg-white shadow-lg flex flex-col overflow-hidden text-left h-full">
       {/* Top Header matching screenshot */}
-      <div className="px-3.5 py-2 border-b border-[#e5eef4] bg-gradient-to-r from-[#ffffff] to-[#f6f9fb] flex items-center justify-between gap-2">
+      <div className="px-3.5 py-2 border-b border-[#e5eef4] bg-gradient-to-r from-[#ffffff] to-[#f6f9fb] flex items-center justify-between gap-2 flex-none">
         <div className="flex items-center gap-1.5 min-w-0 flex-1">
           <span className="text-sm font-extrabold text-[#112d40] tracking-tight flex-none">
             Me:
@@ -94,7 +96,7 @@ export function ChatPanel({
       </div>
 
       {/* Input Textarea Container */}
-      <div className="p-3 border-b border-[#e5eef4] bg-[#fbfdfd]">
+      <div className="p-3 border-b border-[#e5eef4] bg-[#fbfdfd] flex-none">
         <textarea
           rows={2}
           value={inputText}
@@ -111,8 +113,11 @@ export function ChatPanel({
         </div>
       </div>
 
-      {/* Message History Thread - constrained to visible view */}
-      <div className="p-3 space-y-2.5 overflow-y-auto max-h-[220px] sm:max-h-[250px] lg:max-h-[270px] xl:max-h-[300px] bg-gradient-to-b from-[#f9fbfd] to-[#edf4f8]/50">
+      {/* Message History Thread - stretches to fill height, never overflows page */}
+      <div
+        ref={messagesContainerRef}
+        className="p-3 space-y-2.5 overflow-y-auto flex-1 min-h-0 bg-gradient-to-b from-[#f9fbfd] to-[#edf4f8]/50"
+      >
         {conversation.messages.map((msg: ChatMessage) => {
           if (!msg.isMe) {
             // Client Message Bubble: Mint Green styling matching screenshot
@@ -156,7 +161,6 @@ export function ChatPanel({
             );
           }
         })}
-        <div ref={messagesEndRef} />
       </div>
     </div>
   );

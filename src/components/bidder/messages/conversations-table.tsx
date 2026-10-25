@@ -40,12 +40,12 @@ export function ConversationsTable({
   }, [conversations, sortField, sortAsc]);
 
   // Pad table with subtle empty placeholder rows to match screenshot aesthetic
-  const minRows = 7;
+  const minRows = 8;
   const emptyRowsCount = Math.max(0, minRows - sortedConversations.length);
 
   return (
-    <div className="maximal-tablewrap shadow-lg overflow-hidden border border-[#b8c9d4] rounded-2xl bg-white w-full">
-      <div className="overflow-x-auto w-full">
+    <div className="maximal-tablewrap shadow-lg overflow-hidden border border-[#b8c9d4] rounded-2xl bg-white w-full h-full flex flex-col">
+      <div className="overflow-x-auto overflow-y-auto flex-1 w-full">
         <table className="w-full text-left border-collapse">
           {/* Header matching Maximal Reference metallic silver */}
           <thead className="maximal-thead maximal-thead-compact">
