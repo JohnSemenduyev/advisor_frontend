@@ -8,6 +8,8 @@ import {
   Phone,
   Building2,
   Briefcase,
+  Globe,
+  MapPin,
   Users,
   ArrowRight,
   CheckCircle2,
@@ -34,7 +36,12 @@ export function SignupForm({
     email: "",
     phone: "",
     companyName: "",
+    companyWebsite: "",
     title: "",
+    streetAddress: "",
+    city: "",
+    state: "",
+    zipCode: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -125,6 +132,16 @@ export function SignupForm({
         required
       />
 
+      {/* Company Website */}
+      <AuthInput
+        label="Company Website"
+        name="companyWebsite"
+        placeholder="Enter company website"
+        icon={<Globe className="h-4 w-4" />}
+        value={formData.companyWebsite}
+        onChange={handleChange}
+      />
+
       {/* Job Title */}
       <AuthInput
         label="Title"
@@ -136,6 +153,46 @@ export function SignupForm({
         required
       />
 
+      {/* Office Address */}
+      <div className="pt-1 space-y-2.5">
+        <div className="flex items-center gap-1.5 text-xs font-bold text-[#244c68] tracking-wide border-b border-[#dce9f0] pb-1">
+          <MapPin className="h-3.5 w-3.5 text-[#50788c]" />
+          <span>Office Address</span>
+        </div>
+
+        <AuthInput
+          label="Street Address"
+          name="streetAddress"
+          placeholder="Enter street address"
+          value={formData.streetAddress}
+          onChange={handleChange}
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <AuthInput
+            label="City"
+            name="city"
+            placeholder="City"
+            value={formData.city}
+            onChange={handleChange}
+          />
+          <AuthInput
+            label="State"
+            name="state"
+            placeholder="State"
+            value={formData.state}
+            onChange={handleChange}
+          />
+          <AuthInput
+            label="Zip Code"
+            name="zipCode"
+            placeholder="Zip Code"
+            value={formData.zipCode}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
       {/* Primary User Type Dropdown */}
       <AuthSelect
         label="Primary User Type"
@@ -145,7 +202,7 @@ export function SignupForm({
         onChange={handleChange}
         options={[
           { value: "bidder", label: "Bidder (Contractor / Service Provider)" },
-          { value: "requestor", label: "Requestor (Client / Post Projects)" },
+          { value: "requestor", label: "Requestor (Client)" },
         ]}
       />
 

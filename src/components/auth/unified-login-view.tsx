@@ -32,7 +32,7 @@ export function UnifiedLoginView({
       <main className="ba-hero flex-1 min-h-[calc(100vh-64px)] relative overflow-hidden flex flex-col justify-center">
         <HeroBackground />
 
-        <div className="relative z-10 w-full max-w-[1150px] mx-auto px-4 py-6 sm:py-10 flex flex-col items-center">
+        <div className="relative z-10 w-full max-w-[960px] mx-auto px-6 pt-8 pb-10 flex flex-col items-center text-center transform translate-y-[10px]">
           {/* BusinessAdviser Metallic Logo & Headlines */}
           <BrandLogo />
 

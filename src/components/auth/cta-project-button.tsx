@@ -13,24 +13,32 @@ export function CtaProjectButton({ onClick }: CtaProjectButtonProps) {
       <button
         type="button"
         onClick={onClick}
-        className="ba-cta w-full max-w-[510px] min-h-[82px] sm:min-h-[88px] px-5 sm:px-7 py-3.5 sm:py-4 rounded-2xl flex items-center gap-4 sm:gap-5 text-left text-white cursor-pointer shadow-lg"
+        className="ba-cta w-full max-w-[510px] min-h-[88px] px-[25px] py-[17px] rounded-[16px] flex items-center gap-[18px] text-left text-white cursor-pointer"
       >
-        <div className="ba-cta-icon w-11 h-11 sm:w-12 sm:h-12 flex-none rounded-xl flex items-center justify-center p-2.5">
-          <FileText className="w-full h-full text-white" strokeWidth={2} />
+        <div className="ba-cta-icon w-[49px] h-[49px] flex-none rounded-[13px] p-[9px] flex items-center justify-center">
+          <svg
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 32 32"
+            className="w-full h-full text-white"
+          >
+            <path d="M7 3h12l6 6v20H7zM19 3v7h6M11 15h10M11 20h10M11 25h7" />
+          </svg>
         </div>
 
         <div className="flex-1 min-w-0">
-          <strong className="block text-lg sm:text-xl font-bold leading-tight tracking-tight text-white">
+          <strong className="block text-[21px] font-bold leading-[1.2] text-white">
             Post a Project Request
           </strong>
-          <small className="block text-[10px] sm:text-[11px] font-bold tracking-[0.08em] text-[#d8efff] uppercase mt-1">
+          <small className="block text-[11px] font-bold tracking-[0.08em] text-[#dbe4e9] uppercase mt-[5px]">
             TELL US WHAT YOU NEED
           </small>
         </div>
 
-        <div className="flex-none text-2xl sm:text-3xl text-white font-light pr-1">
-          <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7" />
-        </div>
+        <span className="cta-arrow text-[29px] text-white leading-none font-normal flex-none">
+          →
+        </span>
       </button>
     </div>
   );

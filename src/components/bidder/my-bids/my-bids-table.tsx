@@ -103,6 +103,126 @@ const SEED_MY_BIDS: MyBidRecord[] = [
     bidEndDate: "2026-11-16",
     status: "Open",
   },
+  {
+    id: "RFP-2026-0924",
+    companyName: "Hudson Industrial Holdings",
+    requestTitle: "24/7 Facility Protection Services",
+    city: "Jersey City",
+    state: "NJ",
+    bidStartDate: "2026-09-11",
+    bidEndDate: "2026-10-12",
+    status: "Closed",
+  },
+  {
+    id: "RFP-2026-0761",
+    companyName: "Empire Retail Properties",
+    requestTitle: "Shopping Center Security Patrol",
+    city: "Brooklyn",
+    state: "NY",
+    bidStartDate: "2026-08-20",
+    bidEndDate: "2026-09-30",
+    status: "Closed",
+  },
+  {
+    id: "RFP-2026-0991",
+    companyName: "Lone Star Warehousing",
+    requestTitle: "Distribution Center Security",
+    city: "Dallas",
+    state: "TX",
+    bidStartDate: "2026-09-24",
+    bidEndDate: "2026-10-17",
+    status: "Closed",
+  },
+  {
+    id: "RFQ-2026-0862",
+    companyName: "Delaware Valley Transport",
+    requestTitle: "Truck Terminal Gate Security",
+    city: "Philadelphia",
+    state: "PA",
+    bidStartDate: "2026-09-03",
+    bidEndDate: "2026-10-03",
+    status: "Closed",
+  },
+  {
+    id: "RFQ-2026-1250",
+    companyName: "Tri-State Logistics Partners",
+    requestTitle: "Cargo Escort & Depot Access Watch",
+    city: "Newark",
+    state: "NJ",
+    bidStartDate: "2026-10-15",
+    bidEndDate: "2026-11-20",
+    status: "Open",
+  },
+  {
+    id: "RFP-2026-1290",
+    companyName: "Keystone Commercial Properties",
+    requestTitle: "Office Park After-Hours Rover",
+    city: "Pittsburgh",
+    state: "PA",
+    bidStartDate: "2026-10-18",
+    bidEndDate: "2026-11-25",
+    status: "Open",
+  },
+  {
+    id: "RFQ-2026-1310",
+    companyName: "Silicon Valley Tech Campus",
+    requestTitle: "Biometric Lab Screening & Reception",
+    city: "San Jose",
+    state: "CA",
+    bidStartDate: "2026-10-20",
+    bidEndDate: "2026-11-30",
+    status: "Open",
+  },
+  {
+    id: "RFP-2026-1340",
+    companyName: "Lone Star Logistics Center",
+    requestTitle: "Freight Gate Verification & Patrol",
+    city: "Houston",
+    state: "TX",
+    bidStartDate: "2026-10-22",
+    bidEndDate: "2026-12-05",
+    status: "Open",
+  },
+  {
+    id: "RFQ-2026-1375",
+    companyName: "Empire State Commerce Tower",
+    requestTitle: "Executive Lobby Security Staffing",
+    city: "New York",
+    state: "NY",
+    bidStartDate: "2026-10-25",
+    bidEndDate: "2026-12-10",
+    status: "Open",
+  },
+  {
+    id: "RFP-2026-1390",
+    companyName: "Chesapeake Marine Terminal",
+    requestTitle: "TWIC Bonded Freight Guard Staff",
+    city: "Norfolk",
+    state: "VA",
+    bidStartDate: "2026-10-28",
+    bidEndDate: "2026-12-15",
+    status: "Open",
+  },
+  {
+    id: "RFQ-2026-1410",
+    companyName: "Allegheny Medical Center",
+    requestTitle: "Emergency Wing Access Monitoring",
+    city: "Allentown",
+    state: "PA",
+    bidStartDate: "2026-11-01",
+    bidEndDate: "2026-12-20",
+    status: "Open",
+  },
+  {
+    id: "RFP-2026-1435",
+    companyName: "Austin Innovation Yards",
+    requestTitle: "Perimeter Drone & CCTV Surveillance",
+    city: "Austin",
+    state: "TX",
+    bidStartDate: "2026-11-05",
+    bidEndDate: "2026-12-28",
+    status: "Open",
+  },
 ];
 
 export function MyBidsTable() {
@@ -543,14 +663,15 @@ export function MyBidsTable() {
             {Math.min(currentPage * pageSize, filteredData.length)} of {filteredData.length} records
           </div>
 
-          {/* Page Selector & Arrows */}
-          <div className="flex items-center gap-1">
+          {/* Page Selector & Arrows - Segmented Capsule matching Screenshot 3 */}
+          <div className="page-navigation" aria-label="Pagination">
             <button
               type="button"
               onClick={() => setCurrentPage(1)}
               disabled={currentPage === 1}
-              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              className="pager-arrow"
               title="First Page"
+              aria-label="First Page"
             >
               «
             </button>
@@ -558,33 +679,43 @@ export function MyBidsTable() {
               type="button"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              className="pager-arrow"
               title="Previous Page"
+              aria-label="Previous Page"
             >
               ‹
             </button>
 
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                type="button"
-                onClick={() => setCurrentPage(page)}
-                className={`min-w-[28px] h-[26px] px-1.5 rounded-[7px] text-xs font-bold transition-all ${
-                  currentPage === page
-                    ? "bg-linear-to-b from-[#2e3b45] to-[#131d25] text-white shadow-xs"
-                    : "border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] hover:brightness-95"
-                }`}
-              >
-                {page}
-              </button>
-            ))}
+            <span className="page-number-list">
+              {(() => {
+                const start = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
+                const end = Math.min(totalPages, start + 4);
+                const pages: number[] = [];
+                for (let i = start; i <= end; i++) {
+                  pages.push(i);
+                }
+                return pages.map((page) => (
+                  <button
+                    key={page}
+                    type="button"
+                    onClick={() => setCurrentPage(page)}
+                    className={`page-number ${currentPage === page ? "current" : ""}`}
+                    aria-current={currentPage === page ? "page" : undefined}
+                    aria-label={`Page ${page}`}
+                  >
+                    {page}
+                  </button>
+                ));
+              })()}
+            </span>
 
             <button
               type="button"
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              className="pager-arrow"
               title="Next Page"
+              aria-label="Next Page"
             >
               ›
             </button>
@@ -592,8 +723,9 @@ export function MyBidsTable() {
               type="button"
               onClick={() => setCurrentPage(totalPages)}
               disabled={currentPage === totalPages}
-              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              className="pager-arrow"
               title="Last Page"
+              aria-label="Last Page"
             >
               »
             </button>

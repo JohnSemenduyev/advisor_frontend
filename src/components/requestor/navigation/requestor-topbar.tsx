@@ -66,7 +66,7 @@ export function RequestorTopbar({
           <div className="w-8 h-8 rounded-full bg-gradient-to-b from-[#f7f9f9] to-[#d7e0e3] border border-[#b8c4c9] text-[#293840] flex items-center justify-center font-bold text-xs shadow-md flex-none">
             {avatarLetter}
           </div>
-          <span className="text-[13px] font-[650] tracking-tight text-white hidden sm:inline drop-shadow-[0_1px_1px_rgba(8,19,27,0.42)]">
+          <span className="text-[12.5px] font-normal tracking-tight text-white hidden sm:inline drop-shadow-[0_1px_1px_rgba(8,19,27,0.3)]">
             {userName}
           </span>
           <ChevronDown className="w-3.5 h-3.5 text-[#cfdbe3] hidden sm:inline" />

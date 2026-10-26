@@ -37,9 +37,9 @@ export function RequestorDashboardView() {
       {/* Top Navigation with Interlocking Capsule Tabs matching Bidder */}
       <RequestorTopbar userName="John Semenduyev" avatarLetter="J" />
 
-      {/* Main Brushed Silver Shell Canvas */}
-      <main className="flex-1 p-4 sm:p-6 lg:p-7 max-w-[1480px] w-full mx-auto">
-        <div className="maximal-shell p-5 sm:p-7 lg:p-8 space-y-6">
+      {/* Main Brushed Silver Shell Canvas - full available space */}
+      <main className="flex-1 px-3 sm:px-4 py-4 w-full">
+        <div className="maximal-shell p-3 sm:p-4 w-full space-y-6">
           {/* Top Page Header */}
           <div className="flex items-center gap-3.5 pb-2">
             <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#e4f2f8] to-[#c7e0ed] border border-[#b4d2e3] flex items-center justify-center text-[#185a86] flex-none shadow-xs">

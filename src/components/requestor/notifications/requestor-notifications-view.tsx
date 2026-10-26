@@ -425,14 +425,15 @@ export function RequestorNotificationsView() {
                 {Math.min(currentPage * pageSize, filteredData.length)} of {filteredData.length} records
               </div>
 
-              {/* Page Selector & Arrows */}
-              <div className="flex items-center gap-1">
+              {/* Page Selector & Arrows - Segmented Capsule matching Screenshot 3 */}
+              <div className="page-navigation" aria-label="Pagination">
                 <button
                   type="button"
                   onClick={() => setCurrentPage(1)}
                   disabled={currentPage === 1}
-                  className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+                  className="pager-arrow"
                   title="First Page"
+                  aria-label="First Page"
                 >
                   «
                 </button>
@@ -440,33 +441,43 @@ export function RequestorNotificationsView() {
                   type="button"
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+                  className="pager-arrow"
                   title="Previous Page"
+                  aria-label="Previous Page"
                 >
                   ‹
                 </button>
 
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    type="button"
-                    onClick={() => setCurrentPage(page)}
-                    className={`min-w-[28px] h-[26px] px-1.5 rounded-[7px] text-xs font-bold transition-all ${
-                      currentPage === page
-                        ? "bg-linear-to-b from-[#2e3b45] to-[#131d25] text-white shadow-xs"
-                        : "border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] hover:brightness-95"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                ))}
+                <span className="page-number-list">
+                  {(() => {
+                    const start = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
+                    const end = Math.min(totalPages, start + 4);
+                    const pages: number[] = [];
+                    for (let i = start; i <= end; i++) {
+                      pages.push(i);
+                    }
+                    return pages.map((page) => (
+                      <button
+                        key={page}
+                        type="button"
+                        onClick={() => setCurrentPage(page)}
+                        className={`page-number ${currentPage === page ? "current" : ""}`}
+                        aria-current={currentPage === page ? "page" : undefined}
+                        aria-label={`Page ${page}`}
+                      >
+                        {page}
+                      </button>
+                    ));
+                  })()}
+                </span>
 
                 <button
                   type="button"
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+                  className="pager-arrow"
                   title="Next Page"
+                  aria-label="Next Page"
                 >
                   ›
                 </button>
@@ -474,8 +485,9 @@ export function RequestorNotificationsView() {
                   type="button"
                   onClick={() => setCurrentPage(totalPages)}
                   disabled={currentPage === totalPages}
-                  className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+                  className="pager-arrow"
                   title="Last Page"
+                  aria-label="Last Page"
                 >
                   »
                 </button>

@@ -110,6 +110,204 @@ const SEED_PROJECTS: ProjectRecord[] = [
     budgetEstimate: "$140,000 - $180,000",
     description: "TWIC-credentialed security personnel for container freight inspection and bonded escort.",
   },
+  {
+    id: "10008",
+    companyName: "Empire State Guarding",
+    requestTitle: "High-Rise Commercial Concierge & Patrol",
+    state: "New York",
+    city: "New York",
+    bidStartDate: "07/05/2026",
+    bidEndDate: "09/25/2026",
+    budgetEstimate: "$115,000 - $160,000",
+    description: "Executive lobby security, visitor credentialing, and after-hours building inspection rounds.",
+  },
+  {
+    id: "10009",
+    companyName: "Lone Star Defense Systems",
+    requestTitle: "Critical Infrastructure Perimeter Defense",
+    state: "Texas",
+    city: "Houston",
+    bidStartDate: "07/12/2026",
+    bidEndDate: "10/01/2026",
+    budgetEstimate: "$180,000 - $240,000",
+    description: "Armed physical surveillance and biometric access gate monitoring for regional energy hub.",
+  },
+  {
+    id: "10010",
+    companyName: "Bay Area Facility Guardians",
+    requestTitle: "Data Center Physical Security Ops",
+    state: "California",
+    city: "San Francisco",
+    bidStartDate: "07/15/2026",
+    bidEndDate: "10/10/2026",
+    budgetEstimate: "$90,000 - $125,000",
+    description: "24/7 server floor escort, biometric cage logging, and strict two-factor visitor authorization.",
+  },
+  {
+    id: "10011",
+    companyName: "Liberty Protection Bureau",
+    requestTitle: "Regional Transit Terminal Officers",
+    state: "Pennsylvania",
+    city: "Pittsburgh",
+    bidStartDate: "07/20/2026",
+    bidEndDate: "10/15/2026",
+    budgetEstimate: "$75,000 - $105,000",
+    description: "Crowd flow supervision, platform patrol, and lost property checkpoint administration.",
+  },
+  {
+    id: "10012",
+    companyName: "Garden State Asset Safety",
+    requestTitle: "Automated Distribution Center Security",
+    state: "New Jersey",
+    city: "Trenton",
+    bidStartDate: "07/25/2026",
+    bidEndDate: "10/20/2026",
+    budgetEstimate: "$85,000 - $115,000",
+    description: "Fleet gate clearance, driver sign-in, and seal verification for e-commerce distribution.",
+  },
+  {
+    id: "10013",
+    companyName: "Alamo Security Network",
+    requestTitle: "Hospitality Campus Night Patrol",
+    state: "Texas",
+    city: "San Antonio",
+    bidStartDate: "08/01/2026",
+    bidEndDate: "10/25/2026",
+    budgetEstimate: "$60,000 - $80,000",
+    description: "Resort boundary supervision, guest escort service, and parking lot mobile rover checks.",
+  },
+  {
+    id: "10014",
+    companyName: "Pacific Coast Safeguard",
+    requestTitle: "Biotech Laboratory Access Control",
+    state: "California",
+    city: "San Diego",
+    bidStartDate: "08/05/2026",
+    bidEndDate: "10/30/2026",
+    budgetEstimate: "$110,000 - $145,000",
+    description: "Cleanroom vestibule access screening, visitor badge management, and hazardous storage lockups.",
+  },
+  {
+    id: "10015",
+    companyName: "Patriot Guard Operations",
+    requestTitle: "Municipal Government Complex Security",
+    state: "Virginia",
+    city: "Richmond",
+    bidStartDate: "08/10/2026",
+    bidEndDate: "11/05/2026",
+    budgetEstimate: "$130,000 - $175,000",
+    description: "Metal detector screening, council chambers security, and courthouse perimeter observation.",
+  },
+  {
+    id: "10016",
+    companyName: "Metroplex Asset Watch",
+    requestTitle: "Intermodal Rail Yard Security",
+    state: "Texas",
+    city: "Fort Worth",
+    bidStartDate: "08/15/2026",
+    bidEndDate: "11/10/2026",
+    budgetEstimate: "$95,000 - $130,000",
+    description: "Rail spur perimeter patrol, anti-trespassing measures, and equipment container checks.",
+  },
+  {
+    id: "10017",
+    companyName: "Tri-County Patrol Services",
+    requestTitle: "University Campus Student Safety Escort",
+    state: "New York",
+    city: "Albany",
+    bidStartDate: "08/20/2026",
+    bidEndDate: "11/15/2026",
+    budgetEstimate: "$70,000 - $95,000",
+    description: "Evening campus safety escorts, emergency blue light dispatch response, and dorm check-ins.",
+  },
+  {
+    id: "10018",
+    companyName: "Highland Security Partners",
+    requestTitle: "Financial Center Vault & Teller Watch",
+    state: "New Jersey",
+    city: "Jersey City",
+    bidStartDate: "08/25/2026",
+    bidEndDate: "11/20/2026",
+    budgetEstimate: "$105,000 - $150,000",
+    description: "Armed banking hall presence, cash transit escort oversight, and employee door verification.",
+  },
+  {
+    id: "10019",
+    companyName: "Silicon Perimeter Group",
+    requestTitle: "Hardware R&D Facility Protection",
+    state: "California",
+    city: "Palo Alto",
+    bidStartDate: "09/01/2026",
+    bidEndDate: "11/25/2026",
+    budgetEstimate: "$125,000 - $165,000",
+    description: "NDA-level visitor escort, prototype room access logs, and 24/7 CCTV system operation.",
+  },
+  {
+    id: "10020",
+    companyName: "Delaware Valley Security",
+    requestTitle: "Pharmaceutical Cold Chain Protection",
+    state: "Pennsylvania",
+    city: "Allentown",
+    bidStartDate: "09/05/2026",
+    bidEndDate: "12/01/2026",
+    budgetEstimate: "$88,000 - $120,000",
+    description: "Vaccine depot entry logging, refrigeration alarm response, and secure driver dispatch.",
+  },
+  {
+    id: "10021",
+    companyName: "Austin Metro Guarding",
+    requestTitle: "Semiconductor Fabrication Security",
+    state: "Texas",
+    city: "Austin",
+    bidStartDate: "09/10/2026",
+    bidEndDate: "12/05/2026",
+    budgetEstimate: "$140,000 - $190,000",
+    description: "Cleanroom airlock badge enforcement, chemical yard patrol, and hazmat gate control.",
+  },
+  {
+    id: "10022",
+    companyName: "Northstar Facility Protection",
+    requestTitle: "Industrial Park Gatehouse Sentry",
+    state: "New York",
+    city: "Rochester",
+    bidStartDate: "09/15/2026",
+    bidEndDate: "12/10/2026",
+    budgetEstimate: "$65,000 - $85,000",
+    description: "Vehicle weight station check, cargo bill verification, and barrier arm operations.",
+  },
+  {
+    id: "10023",
+    companyName: "Gold Coast Security Solutions",
+    requestTitle: "Luxury Residential Tower Concierge",
+    state: "California",
+    city: "Los Angeles",
+    bidStartDate: "09/20/2026",
+    bidEndDate: "12/15/2026",
+    budgetEstimate: "$98,000 - $135,000",
+    description: "Resident package handling, guest announcement, and subterranean garage CCTV rounds.",
+  },
+  {
+    id: "10024",
+    companyName: "Commonwealth Asset Sentry",
+    requestTitle: "Convention Hall Event Security Staff",
+    state: "Virginia",
+    city: "Virginia Beach",
+    bidStartDate: "09/25/2026",
+    bidEndDate: "12/20/2026",
+    budgetEstimate: "$80,000 - $110,000",
+    description: "Exhibition ticket scanning, VIP backstage access monitoring, and emergency exit clearance.",
+  },
+  {
+    id: "10025",
+    companyName: "Keystone Logistics Security",
+    requestTitle: "Regional Air Cargo Facility Escort",
+    state: "Pennsylvania",
+    city: "Harrisburg",
+    bidStartDate: "10/01/2026",
+    bidEndDate: "12/25/2026",
+    budgetEstimate: "$115,000 - $155,000",
+    description: "Tarmac boundary credential checks, air freight inspection escort, and flight ramp sentry.",
+  },
 ];
 
 interface OpenProjectsTableProps {
@@ -529,55 +727,71 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
             records
           </div>
 
-          {/* Segmented Page Buttons */}
-          <div className="maximal-pager-container p-1 flex items-center gap-1">
+          {/* Segmented Page Buttons - Matching Screenshot 3 */}
+          <div className="page-navigation" aria-label="Pagination">
             <button
               type="button"
               onClick={() => setCurrentPage(1)}
               disabled={currentPage === 1}
-              className="w-7 h-7 rounded-lg text-[#344650] hover:bg-white/80 disabled:opacity-30 flex items-center justify-center transition-colors cursor-pointer"
+              className="pager-arrow"
+              title="First Page"
+              aria-label="First Page"
             >
-              <ChevronsLeft className="w-3.5 h-3.5" />
+              «
             </button>
             <button
               type="button"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="w-7 h-7 rounded-lg text-[#344650] hover:bg-white/80 disabled:opacity-30 flex items-center justify-center transition-colors cursor-pointer"
+              className="pager-arrow"
+              title="Previous Page"
+              aria-label="Previous Page"
             >
-              <ChevronLeft className="w-3.5 h-3.5" />
+              ‹
             </button>
 
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
-              <button
-                key={num}
-                type="button"
-                onClick={() => setCurrentPage(num)}
-                className={`w-7 h-7 rounded-lg font-bold text-xs flex items-center justify-center transition-colors cursor-pointer ${
-                  currentPage === num
-                    ? "maximal-page-active text-white shadow-xs"
-                    : "text-[#344650] hover:bg-white/80"
-                }`}
-              >
-                {num}
-              </button>
-            ))}
+            <span className="page-number-list">
+              {(() => {
+                const start = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
+                const end = Math.min(totalPages, start + 4);
+                const pages: number[] = [];
+                for (let i = start; i <= end; i++) {
+                  pages.push(i);
+                }
+                return pages.map((num) => (
+                  <button
+                    key={num}
+                    type="button"
+                    onClick={() => setCurrentPage(num)}
+                    className={`page-number ${currentPage === num ? "current" : ""}`}
+                    aria-current={currentPage === num ? "page" : undefined}
+                    aria-label={`Page ${num}`}
+                  >
+                    {num}
+                  </button>
+                ));
+              })()}
+            </span>
 
             <button
               type="button"
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="w-7 h-7 rounded-lg text-[#344650] hover:bg-white/80 disabled:opacity-30 flex items-center justify-center transition-colors cursor-pointer"
+              className="pager-arrow"
+              title="Next Page"
+              aria-label="Next Page"
             >
-              <ChevronRight className="w-3.5 h-3.5" />
+              ›
             </button>
             <button
               type="button"
               onClick={() => setCurrentPage(totalPages)}
               disabled={currentPage === totalPages}
-              className="w-7 h-7 rounded-lg text-[#344650] hover:bg-white/80 disabled:opacity-30 flex items-center justify-center transition-colors cursor-pointer"
+              className="pager-arrow"
+              title="Last Page"
+              aria-label="Last Page"
             >
-              <ChevronsRight className="w-3.5 h-3.5" />
+              »
             </button>
           </div>
 

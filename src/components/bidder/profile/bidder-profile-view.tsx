@@ -107,8 +107,8 @@ export function BidderProfileView() {
         avatarLetter={profileData.firstName.charAt(0) || "J"}
       />
 
-      {/* Main Container - Exact two-column layout from Screenshot 1 & Reference HTML */}
-      <main className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 py-2.5 sm:py-3.5 flex flex-col">
+      {/* Main Container - Full-width fitted two-column layout matching Reference HTML */}
+      <main className="w-full px-4 pt-3 pb-3 flex flex-col">
         <div id="homepageProfile">
           {/* Left Column: Readonly / Editable Profile Information Card */}
           <div id="homepageDashboardLeft">
@@ -124,7 +124,7 @@ export function BidderProfileView() {
                 {/* First Name */}
                 <label>
                   <span className="label-title">
-                    <User className="w-3.5 h-3.5 text-[#486b85] flex-none" />
+                    <span className="text-[12px] leading-none select-none">♟</span>
                     <span>First Name</span>
                   </span>
                   <input
@@ -139,7 +139,7 @@ export function BidderProfileView() {
                 {/* Last Name */}
                 <label>
                   <span className="label-title">
-                    <User className="w-3.5 h-3.5 text-[#486b85] flex-none" />
+                    <span className="text-[12px] leading-none select-none">♟</span>
                     <span>Last Name</span>
                   </span>
                   <input
@@ -154,7 +154,7 @@ export function BidderProfileView() {
                 {/* Title */}
                 <label>
                   <span className="label-title">
-                    <Sparkles className="w-3.5 h-3.5 text-[#486b85] flex-none" />
+                    <span className="text-[12px] leading-none select-none">♧</span>
                     <span>Title</span>
                   </span>
                   <input
@@ -169,7 +169,7 @@ export function BidderProfileView() {
                 {/* Company Name */}
                 <label>
                   <span className="label-title">
-                    <Building2 className="w-3.5 h-3.5 text-[#486b85] flex-none" />
+                    <span className="text-[12px] leading-none select-none">▥</span>
                     <span>Company Name</span>
                   </span>
                   <input
@@ -184,7 +184,7 @@ export function BidderProfileView() {
                 {/* Email */}
                 <label>
                   <span className="label-title">
-                    <Mail className="w-3.5 h-3.5 text-[#486b85] flex-none" />
+                    <span className="text-[12px] leading-none select-none">✉</span>
                     <span>Email</span>
                   </span>
                   <input
@@ -199,7 +199,7 @@ export function BidderProfileView() {
                 {/* Phone Number */}
                 <label>
                   <span className="label-title">
-                    <Phone className="w-3.5 h-3.5 text-[#486b85] flex-none" />
+                    <span className="text-[12px] leading-none select-none">♧</span>
                     <span>Phone Number</span>
                   </span>
                   <input
@@ -214,7 +214,7 @@ export function BidderProfileView() {
                 {/* Office Address Subsection */}
                 <div className="office-address-block">
                   <div className="office-address-title">
-                    <span className="font-bold text-sm leading-none">+</span>
+                    <span className="text-[12px] leading-none select-none">⌖</span>
                     <span>Office Address</span>
                   </div>
                   <div className="office-address-fields">
@@ -268,7 +268,7 @@ export function BidderProfileView() {
                 {/* Company Website */}
                 <label>
                   <span className="label-title">
-                    <ExternalLink className="w-3.5 h-3.5 text-[#486b85] flex-none" />
+                    <span className="text-[12px] leading-none select-none">↗</span>
                     <span>Company Website</span>
                   </span>
                   <input

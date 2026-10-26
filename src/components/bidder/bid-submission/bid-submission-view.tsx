@@ -49,9 +49,9 @@ export function BidSubmissionView({ requestId = "10001" }: BidSubmissionViewProp
       {/* Top Navigation Bar with Interlocking Domino Tabs matching reference */}
       <BidderTopbar userName="Mike A." avatarLetter="M" />
 
-      {/* Main Brushed Silver Shell Canvas */}
-      <main className="flex-1 p-4 sm:p-6 lg:p-7 max-w-[1480px] w-full mx-auto">
-        <div className="maximal-shell p-5 sm:p-7 lg:p-8 space-y-6">
+      {/* Main Brushed Silver Shell Canvas - full available space matching notifications/client reference */}
+      <main className="flex-1 px-3 sm:px-4 py-4 w-full">
+        <div className="maximal-shell p-3 sm:p-4 w-full space-y-6">
           {/* Header with Return and Edit buttons */}
           <BidSubmissionHeader
             isEditing={isEditing}

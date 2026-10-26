@@ -54,6 +54,161 @@ const SEED_NOTIFICATIONS: NotificationItem[] = [
     actionType: "update_profile",
     actionLabel: "Update Profile",
   },
+  {
+    id: "notif-5",
+    dateTime: "04/16/2026 - 09:15am",
+    text: "Your bid to the following request has been successfully submitted: ",
+    requestId: "10002",
+    actionType: "view_bid",
+    actionLabel: "View Bid",
+  },
+  {
+    id: "notif-6",
+    dateTime: "04/18/2026 - 14:22pm",
+    text: "New RFP matching your industry preferences has been published: ",
+    requestId: "10003",
+    actionType: "view_bid",
+    actionLabel: "View Bid",
+  },
+  {
+    id: "notif-7",
+    dateTime: "04/20/2026 - 10:45am",
+    text: "Buyer has posted an addendum to service request: ",
+    requestId: "10001",
+    actionType: "contact_buyer",
+    actionLabel: "Contact Buyer",
+  },
+  {
+    id: "notif-8",
+    dateTime: "04/22/2026 - 16:30pm",
+    text: "Your bid submission confirmation for request: ",
+    requestId: "10004",
+    actionType: "view_bid",
+    actionLabel: "View Bid",
+  },
+  {
+    id: "notif-9",
+    dateTime: "04/25/2026 - 11:00am",
+    text: "Your bid has been shortlisted for client review: ",
+    requestId: "10002",
+    actionType: "contact_buyer",
+    actionLabel: "Contact Buyer",
+  },
+  {
+    id: "notif-10",
+    dateTime: "04/28/2026 - 13:18pm",
+    text: "Your quarterly vendor performance score has been updated to 98%",
+    actionType: "update_profile",
+    actionLabel: "Update Profile",
+  },
+  {
+    id: "notif-11",
+    dateTime: "05/01/2026 - 08:30am",
+    text: "Your bid to the following request has been successfully submitted: ",
+    requestId: "10005",
+    actionType: "view_bid",
+    actionLabel: "View Bid",
+  },
+  {
+    id: "notif-12",
+    dateTime: "05/03/2026 - 15:40pm",
+    text: "Contract award notification has been issued for request: ",
+    requestId: "10003",
+    actionType: "contact_buyer",
+    actionLabel: "Contact Buyer",
+  },
+  {
+    id: "notif-13",
+    dateTime: "05/05/2026 - 11:12am",
+    text: "Your security license verification documents have been approved",
+    actionType: "update_profile",
+    actionLabel: "Update Profile",
+  },
+  {
+    id: "notif-14",
+    dateTime: "05/08/2026 - 09:50am",
+    text: "Your bid to the following request has been accepted: ",
+    requestId: "10004",
+    actionType: "contact_buyer",
+    actionLabel: "Contact Buyer",
+  },
+  {
+    id: "notif-15",
+    dateTime: "05/10/2026 - 16:05pm",
+    text: "A message was received regarding active project: ",
+    requestId: "10001",
+    actionType: "contact_buyer",
+    actionLabel: "Contact Buyer",
+  },
+  {
+    id: "notif-16",
+    dateTime: "05/12/2026 - 10:20am",
+    text: "Annual subscription renewal receipt generated",
+    actionType: "renew",
+    actionLabel: "Renew",
+  },
+  {
+    id: "notif-17",
+    dateTime: "05/15/2026 - 14:00pm",
+    text: "Your bid to the following request has been successfully submitted: ",
+    requestId: "10006",
+    actionType: "view_bid",
+    actionLabel: "View Bid",
+  },
+  {
+    id: "notif-18",
+    dateTime: "05/18/2026 - 11:35am",
+    text: "New tender opportunity posted in your primary operational region",
+    requestId: "10007",
+    actionType: "view_bid",
+    actionLabel: "View Bid",
+  },
+  {
+    id: "notif-19",
+    dateTime: "05/20/2026 - 17:15pm",
+    text: "Pre-bid conference scheduled for request: ",
+    requestId: "10005",
+    actionType: "contact_buyer",
+    actionLabel: "Contact Buyer",
+  },
+  {
+    id: "notif-20",
+    dateTime: "05/22/2026 - 09:05am",
+    text: "Your general liability insurance policy certificate is verified",
+    actionType: "update_profile",
+    actionLabel: "Update Profile",
+  },
+  {
+    id: "notif-21",
+    dateTime: "05/25/2026 - 12:45pm",
+    text: "Your bid to the following request has been successfully submitted: ",
+    requestId: "10008",
+    actionType: "view_bid",
+    actionLabel: "View Bid",
+  },
+  {
+    id: "notif-22",
+    dateTime: "05/28/2026 - 15:20pm",
+    text: "Buyer requested additional pricing clarification for request: ",
+    requestId: "10006",
+    actionType: "contact_buyer",
+    actionLabel: "Contact Buyer",
+  },
+  {
+    id: "notif-23",
+    dateTime: "06/01/2026 - 10:00am",
+    text: "System maintenance window completed successfully",
+    actionType: "update_profile",
+    actionLabel: "Update Profile",
+  },
+  {
+    id: "notif-24",
+    dateTime: "06/04/2026 - 11:30am",
+    text: "Your bid to the following request has been accepted: ",
+    requestId: "10007",
+    actionType: "contact_buyer",
+    actionLabel: "Contact Buyer",
+  },
 ];
 
 export function NotificationsTable() {
@@ -284,14 +439,15 @@ export function NotificationsTable() {
             {Math.min(currentPage * pageSize, filteredData.length)} of {filteredData.length} records
           </div>
 
-          {/* Page Selector & Arrows */}
-          <div className="flex items-center gap-1">
+          {/* Page Selector & Arrows - Segmented Capsule matching Screenshot 3 */}
+          <div className="page-navigation" aria-label="Pagination">
             <button
               type="button"
               onClick={() => setCurrentPage(1)}
               disabled={currentPage === 1}
-              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              className="pager-arrow"
               title="First Page"
+              aria-label="First Page"
             >
               «
             </button>
@@ -299,33 +455,43 @@ export function NotificationsTable() {
               type="button"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              className="pager-arrow"
               title="Previous Page"
+              aria-label="Previous Page"
             >
               ‹
             </button>
 
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                type="button"
-                onClick={() => setCurrentPage(page)}
-                className={`min-w-[28px] h-[26px] px-1.5 rounded-[7px] text-xs font-bold transition-all ${
-                  currentPage === page
-                    ? "bg-linear-to-b from-[#2e3b45] to-[#131d25] text-white shadow-xs"
-                    : "border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] hover:brightness-95"
-                }`}
-              >
-                {page}
-              </button>
-            ))}
+            <span className="page-number-list">
+              {(() => {
+                const start = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
+                const end = Math.min(totalPages, start + 4);
+                const pages: number[] = [];
+                for (let i = start; i <= end; i++) {
+                  pages.push(i);
+                }
+                return pages.map((page) => (
+                  <button
+                    key={page}
+                    type="button"
+                    onClick={() => setCurrentPage(page)}
+                    className={`page-number ${currentPage === page ? "current" : ""}`}
+                    aria-current={currentPage === page ? "page" : undefined}
+                    aria-label={`Page ${page}`}
+                  >
+                    {page}
+                  </button>
+                ));
+              })()}
+            </span>
 
             <button
               type="button"
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              className="pager-arrow"
               title="Next Page"
+              aria-label="Next Page"
             >
               ›
             </button>
@@ -333,8 +499,9 @@ export function NotificationsTable() {
               type="button"
               onClick={() => setCurrentPage(totalPages)}
               disabled={currentPage === totalPages}
-              className="px-2.5 py-1 rounded-[7px] border border-[#bdcbd3] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition-all text-xs"
+              className="pager-arrow"
               title="Last Page"
+              aria-label="Last Page"
             >
               »
             </button>
