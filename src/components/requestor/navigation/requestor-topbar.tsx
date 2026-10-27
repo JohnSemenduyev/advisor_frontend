@@ -21,9 +21,9 @@ export function RequestorTopbar({
     { name: "Homepage", href: "/requestor/dashboard" },
     { name: "Make New Request", href: "/requestor/requests/new" },
     { name: "Active Requests", href: "/requestor/requests" },
-    { name: "Messages", href: "/requestor/messages" },
+    { name: "Request History", href: "/requestor/requests/history" },
+    { name: "Messages", href: "/requestor/messages", badge: "1" },
     { name: "Notifications", href: "/requestor/notifications" },
-    { name: "Contracts", href: "/requestor/contracts" },
   ];
 
 
@@ -36,7 +36,14 @@ export function RequestorTopbar({
             const isActive =
               tab.name === "Homepage"
                 ? pathname === "/requestor/dashboard" || pathname === "/requestor"
+                : tab.name === "Make New Request"
+                ? pathname === "/requestor/requests/new"
+                : tab.name === "Active Requests"
+                ? pathname === "/requestor/requests"
+                : tab.name === "Request History"
+                ? pathname === "/requestor/requests/history" || pathname === "/requestor/history"
                 : pathname.startsWith(tab.href);
+
 
             return (
               <Link

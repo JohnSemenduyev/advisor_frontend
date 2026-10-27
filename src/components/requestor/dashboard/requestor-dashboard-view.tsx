@@ -40,20 +40,7 @@ export function RequestorDashboardView() {
       {/* Main Brushed Silver Shell Canvas - full available space */}
       <main className="flex-1 px-3 sm:px-4 py-4 w-full">
         <div className="maximal-shell p-3 sm:p-4 w-full space-y-6">
-          {/* Top Page Header */}
-          <div className="flex items-center gap-3.5 pb-2">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#e4f2f8] to-[#c7e0ed] border border-[#b4d2e3] flex items-center justify-center text-[#185a86] flex-none shadow-xs">
-              <User className="w-6 h-6 stroke-[2]" />
-            </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1a4463] tracking-tight">
-                Profile Information
-              </h1>
-              <p className="text-xs sm:text-sm text-[#5d7c8e] mt-0.5">
-                Manage your requestor credentials, review active tenders, and track completed contracts.
-              </p>
-            </div>
-          </div>
+
 
           {/* Section 1: Profile Information */}
           <RequestorProfileCard />
@@ -65,14 +52,14 @@ export function RequestorDashboardView() {
           <RequestHistoryCard />
 
           {/* Bottom Actions: Reset Password & Delete Account */}
-          <div className="flex flex-wrap items-center justify-start gap-3 pt-4 border-t border-[#d8e2e7]">
+          <div className="flex flex-wrap items-center justify-start gap-3 pt-2">
             {/* Reset Password Button */}
             <button
               type="button"
               onClick={() => setShowResetModal(true)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm text-white bg-gradient-to-b from-[#1b8c4c] to-[#126b38] border border-[#1b8c4c] shadow-md shadow-emerald-950/20 hover:brightness-110 active:translate-y-0.5 cursor-pointer transition-all"
+              className="maximal-btn-secondary inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold cursor-pointer"
             >
-              <RotateCw className="w-4 h-4" />
+              <RotateCw className="w-3.5 h-3.5" />
               <span>Reset Password</span>
             </button>
 
@@ -80,9 +67,9 @@ export function RequestorDashboardView() {
             <button
               type="button"
               onClick={() => setShowDeleteModal(true)}
-              className="maximal-btn-danger inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold cursor-pointer"
+              className="maximal-btn-danger inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold cursor-pointer"
             >
-              <Trash2 className="w-4 h-4" />
+              <Trash2 className="w-3.5 h-3.5" />
               <span>Delete Account</span>
             </button>
           </div>

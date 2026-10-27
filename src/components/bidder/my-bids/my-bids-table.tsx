@@ -658,7 +658,7 @@ export function MyBidsTable() {
         {/* Footer with Pagination matching Screenshot 1 */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
           {/* Record Count */}
-          <div className="font-medium text-[#526673]">
+          <div className="font-normal text-[#5f707b]">
             Showing {filteredData.length ? (currentPage - 1) * pageSize + 1 : 0} to{" "}
             {Math.min(currentPage * pageSize, filteredData.length)} of {filteredData.length} records
           </div>

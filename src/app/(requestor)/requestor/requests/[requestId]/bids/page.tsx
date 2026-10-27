@@ -1,3 +1,6 @@
+import { Metadata } from "next";
+import { RequestBidsPageClient } from "@/components/requestor/requests/request-bids-page-client";
+
 export const instant = false;
 
 export function generateStaticParams() {
@@ -12,11 +15,21 @@ export function generateStaticParams() {
   ];
 }
 
-export default function RequestorBidsPage() {
-  return (
-    <div>
-      <h1>Request Submitted Bids</h1>
-    </div>
-  );
+interface PageProps {
+  params: Promise<{ requestId: string }>;
 }
 
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { requestId } = await params;
+  return {
+    title: `Submitted Bids for Request #${requestId} | BusinessAdviser`,
+    description: "View bids submitted by security companies for your request.",
+  };
+}
+
+export default async function RequestorBidsPage({ params }: PageProps) {
+  const { requestId } = await params;
+  return <RequestBidsPageClient requestId={requestId} />;
+}

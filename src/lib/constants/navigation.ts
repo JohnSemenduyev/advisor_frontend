@@ -25,11 +25,6 @@ export const REQUESTOR_NAV_ITEMS: NavItem[] = [
     iconName: "PlusCircle",
   },
   {
-    title: "Active Contracts",
-    href: "/requestor/contracts",
-    iconName: "FileCheck",
-  },
-  {
     title: "Messages",
     href: "/requestor/messages",
     iconName: "MessageSquare",

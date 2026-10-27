@@ -252,21 +252,6 @@ export function RequestorNotificationsView() {
       {/* Main Brushed Silver Shell Canvas - full available space */}
       <main className="flex-1 px-3 sm:px-4 py-4 w-full">
         <div className="maximal-shell p-3 sm:p-4 w-full space-y-6">
-          {/* Top Page Header */}
-          <div className="flex items-center gap-3.5 pb-2">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#e4f2f8] to-[#c7e0ed] border border-[#b4d2e3] flex items-center justify-center text-[#185a86] flex-none shadow-xs">
-              <Bell className="w-6 h-6 stroke-[2]" />
-            </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1a4463] tracking-tight">
-                Notifications
-              </h1>
-              <p className="text-xs sm:text-sm text-[#5d7c8e] mt-0.5">
-                Stay updated on your service requests, bids, and important activity.
-              </p>
-            </div>
-          </div>
-
           {/* Elevated Table Container matching exact theme */}
           <div className="maximal-tablewrap shadow-lg">
             <div className="overflow-x-auto">
@@ -420,7 +405,7 @@ export function RequestorNotificationsView() {
             {/* Footer with Full Pagination matching My Bids */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
               {/* Record Count */}
-              <div className="font-medium text-[#526673]">
+              <div className="font-normal text-[#5f707b]">
                 Showing {filteredData.length ? (currentPage - 1) * pageSize + 1 : 0} to{" "}
                 {Math.min(currentPage * pageSize, filteredData.length)} of {filteredData.length} records
               </div>

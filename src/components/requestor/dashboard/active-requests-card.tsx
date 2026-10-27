@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { FileText, Eye, ArrowUpDown } from "lucide-react";
+import { FileText, Eye, PlusCircle } from "lucide-react";
 
 export interface ActiveRequestItem {
   id: string;
@@ -43,31 +43,30 @@ export function ActiveRequestsCard({
   });
 
   return (
-    <div className="maximal-card overflow-hidden rounded-2xl border border-white shadow-md">
-      {/* Card Brushed Header Bar */}
-      <div className="bg-gradient-to-r from-[#2c3c46] to-[#18252d] px-5 py-3 text-white flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-[#7dc0df]">
-            <FileText className="w-4 h-4" />
-          </div>
-          <h2 className="text-sm sm:text-base font-bold tracking-tight text-[#f1f6fa]">
-            Active Service Requests
-          </h2>
-        </div>
+    <section className="profile-panel">
+      {/* Panel Header matching Bidder theme */}
+      <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#e2eaf0]">
+        <h2 className="profile-heading mb-0">
+          <span className="profile-heading-icon" aria-hidden="true">
+            <FileText className="w-4 h-4 text-[#24475a]" />
+          </span>
+          <span>Active Service Requests</span>
+        </h2>
 
         <Link
           href="/requestor/requests/new"
-          className="text-xs font-semibold text-[#8fc8e6] hover:text-white transition-colors"
+          className="maximal-btn-secondary inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold cursor-pointer"
         >
-          + Post New Request
+          <PlusCircle className="w-3.5 h-3.5" />
+          <span>+ Post New Request</span>
         </Link>
       </div>
 
-      {/* Table Wrapped in reference styling */}
-      <div className="maximal-tablewrap border-t border-[#d6dde1]">
+      {/* Table Wrapped in theme styling */}
+      <div className="maximal-tablewrap shadow-md">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
-            <thead className="maximal-thead maximal-thead-compact">
+            <thead className="maximal-thead">
               <tr className="select-none">
                 {/* Service Request ID */}
                 <th className="w-[180px]">
@@ -100,7 +99,7 @@ export function ActiveRequestsCard({
                 </th>
 
                 {/* Bids Received */}
-                <th className="w-[180px] text-center">
+                <th className="w-[160px] text-center">
                   <div className="th-title justify-center">
                     <span>Bids Received</span>
                     <button
@@ -115,7 +114,7 @@ export function ActiveRequestsCard({
                 </th>
 
                 {/* Actions */}
-                <th className="actions-header w-[100px]">
+                <th className="actions-header w-[95px] text-center">
                   <div className="th-title justify-center">
                     <span>Actions</span>
                   </div>
@@ -131,24 +130,22 @@ export function ActiveRequestsCard({
                   <td>
                     <Link
                       href={`/requestor/requests/${item.id}`}
-                      className="hover:underline"
+                      scroll={true}
+                      className="font-semibold text-[#185a86] hover:underline"
                     >
                       {item.id}
                     </Link>
                   </td>
 
                   {/* Request Title */}
-                  <td>{item.title}</td>
+                  <td className="font-medium text-[#2d3e4b]">{item.title}</td>
 
                   {/* Bids Received Badge */}
                   <td className="text-center">
                     <Link
                       href={`/requestor/requests/${item.id}/bids`}
-                      className={`inline-flex items-center justify-center px-3 py-1 rounded-md text-xs font-bold transition-all shadow-xs ${
-                        item.bidsReceived > 10
-                          ? "bg-[#e8f7ee] text-[#117a3f] border border-[#a6e6bf] hover:brightness-105"
-                          : "bg-[#eaf4fb] text-[#146ba3] border border-[#badbef] hover:brightness-105"
-                      }`}
+                      scroll={true}
+                      className="inline-flex items-center justify-center min-w-[28px] h-6 px-2.5 rounded-full text-xs font-bold bg-[#e8f7ee] text-[#117a3f] border border-[#a4e6be] shadow-xs hover:brightness-105 transition-all"
                       title={`View ${item.bidsReceived} submitted bids`}
                     >
                       {item.bidsReceived}
@@ -160,6 +157,7 @@ export function ActiveRequestsCard({
                     <div className="flex items-center justify-center">
                       <Link
                         href={`/requestor/requests/${item.id}`}
+                        scroll={true}
                         className="maximal-btn-action-icon"
                         title="View Request Details"
                       >
@@ -181,6 +179,6 @@ export function ActiveRequestsCard({
           </table>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
