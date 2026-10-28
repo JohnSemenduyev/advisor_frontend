@@ -386,7 +386,7 @@ export function NotificationsTable() {
             </thead>
 
             {/* Table Rows */}
-            <tbody>
+            <tbody style={{ minHeight: `${pageSize * 41.14}px` }}>
               {currentRecords.map((item) => (
                 <tr key={item.id} className="hover:bg-[#e7eef2] transition-colors">
                   {/* Date / Time */}
@@ -420,6 +420,13 @@ export function NotificationsTable() {
                 </tr>
               ))}
 
+              {/* Pad empty rows to keep table height constant */}
+              {currentRecords.length > 0 && currentRecords.length < pageSize && Array.from({ length: pageSize - currentRecords.length }).map((_, i) => (
+                <tr key={`empty-${i}`} aria-hidden="true" style={{ height: '41.14px' }}>
+                  <td colSpan={3}>&nbsp;</td>
+                </tr>
+              ))}
+
               {currentRecords.length === 0 && (
                 <tr>
                   <td colSpan={3} className="px-6 py-12 text-center text-sm text-[#668090]">
@@ -432,14 +439,14 @@ export function NotificationsTable() {
         </div>
 
         {/* Footer with Full Pagination matching Screenshot 2 (My Bids) */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
+        <div className="maximal-table-footer px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
           {/* Record Count */}
-          <div className="font-normal text-[#5f707b]">
+          <div className="font-medium text-[#526673]">
             Showing {filteredData.length ? (currentPage - 1) * pageSize + 1 : 0} to{" "}
             {Math.min(currentPage * pageSize, filteredData.length)} of {filteredData.length} records
           </div>
 
-          {/* Page Selector & Arrows - Segmented Capsule matching Screenshot 3 */}
+          {/* Page Selector & Arrows - Segmented Capsule */}
           <div className="page-navigation" aria-label="Pagination">
             <button
               type="button"

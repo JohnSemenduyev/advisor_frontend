@@ -436,7 +436,7 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
 
       {/* Maximal Elevated Table Wrap matching Image 2 */}
       <div className="maximal-tablewrap shadow-lg">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto min-h-[206px]">
           <table className="w-full text-left border-collapse min-w-[1050px]">
             {/* Single Integrated Header Row matching Reference */}
             <thead className="maximal-thead">
@@ -695,6 +695,13 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
                 </tr>
               ))}
 
+              {/* Pad empty rows to keep table height constant */}
+              {currentRecords.length > 0 && currentRecords.length < pageSize && Array.from({ length: pageSize - currentRecords.length }).map((_, i) => (
+                <tr key={`empty-${i}`} aria-hidden="true" style={{ height: '41.14px' }}>
+                  <td colSpan={9}>&nbsp;</td>
+                </tr>
+              ))}
+
               {currentRecords.length === 0 && (
                 <tr>
                   <td
@@ -710,7 +717,7 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
         </div>
 
         {/* Maximal Segmented Pagination Footer matching reference */}
-        <div className="px-4 py-3.5 bg-gradient-to-r from-[#f8fafb] to-[#edf2f5] border-t border-[#d8e2e7] flex flex-wrap items-center justify-between gap-4 text-xs text-[#5f707b]">
+        <div className="maximal-table-footer px-4 py-3.5 bg-gradient-to-r from-[#f8fafb] to-[#edf2f5] border-t border-[#d8e2e7] text-xs text-[#5f707b]">
           <div>
             Showing{" "}
             <span className="font-bold text-[#1f384a]">
