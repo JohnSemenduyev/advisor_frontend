@@ -96,32 +96,32 @@ export function RequestorTopbar({
 
         {/* User Dropdown matching screenshot */}
         {userMenuOpen && (
-          <div className="absolute right-0 top-[calc(100%+8px)] w-44 py-2 px-1.5 rounded-2xl bg-white border border-[#dce3e8] shadow-xl z-50 animate-in fade-in duration-100">
-            <div className="text-[11px] font-bold text-[#64748b] tracking-wider uppercase px-3 pt-1 pb-1 select-none">
+          <div className="absolute right-0 top-[calc(100%+8px)] w-[172px] rounded-[14px] bg-[#f4f7f9] border border-[#d2dbe0] shadow-[0_6px_20px_rgba(15,28,38,0.14)] z-50 animate-in fade-in duration-100 text-left">
+            <div className="text-[11px] font-semibold text-[#667683] tracking-[0.05em] uppercase px-4 pt-3.5 pb-1 select-none">
               SWITCH ROLE
             </div>
 
-            {/* Switch Role: Bidder (Dark bold / clickable) */}
+            {/* Switch Role: Bidder (Dark charcoal / clickable) */}
             <Link
               href="/bidder/dashboard"
               onClick={() => setUserMenuOpen(false)}
-              className="text-[14px] font-bold text-[#1e293b] hover:text-[#0f172a] hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors cursor-pointer block"
+              className="text-[13.5px] font-semibold text-[#22313a] hover:text-[#0b649d] px-4 py-1.5 transition-colors cursor-pointer block"
             >
               Bidder
             </Link>
 
             {/* Current Role: Requestor (Lighter grey / non-clickable) */}
-            <div className="text-[14px] font-medium text-[#94a3b8] px-3 py-1.5 cursor-default select-none">
+            <div className="text-[13.5px] font-medium text-[#8f9fa9] px-4 py-1.5 cursor-default select-none">
               Requestor
             </div>
 
-            <div className="border-t border-[#e2e8f0] my-2 mx-1.5" />
+            <div className="border-t border-[#dce3e8] my-2.5 mx-4" />
 
             {/* Logout */}
             <Link
               href="/login"
               onClick={() => setUserMenuOpen(false)}
-              className="text-[14px] font-semibold text-[#8b2d2d] hover:text-[#721c24] hover:bg-[#fef2f2] px-3 py-1.5 rounded-lg transition-colors cursor-pointer block"
+              className="text-[13.5px] font-semibold text-[#923b3b] hover:text-[#782424] px-4 pt-1 pb-3.5 transition-colors cursor-pointer block"
             >
               Logout
             </Link>

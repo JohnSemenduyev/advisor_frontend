@@ -348,24 +348,24 @@ export function MyBidsTable() {
         <div className="overflow-x-auto overflow-y-auto flex-1 min-h-0">
           <table className="w-full text-left border-collapse min-w-[1050px] table-fixed">
             <colgroup>
-              <col style={{ width: "7.5%" }} />
-              <col style={{ width: "18.5%" }} />
-              <col style={{ width: "25%" }} />
-              <col style={{ width: "7.5%" }} />
+              <col style={{ width: "10%" }} />
+              <col style={{ width: "16.5%" }} />
+              <col style={{ width: "24%" }} />
+              <col style={{ width: "7%" }} />
+              <col style={{ width: "8%" }} />
+              <col style={{ width: "9.5%" }} />
+              <col style={{ width: "9.5%" }} />
               <col style={{ width: "8.5%" }} />
-              <col style={{ width: "7.5%" }} />
-              <col style={{ width: "7.5%" }} />
-              <col style={{ width: "12%" }} />
-              <col style={{ width: "6%" }} />
+              <col style={{ width: "7%" }} />
             </colgroup>
 
             {/* Single Integrated Header Row matching Client's Screenshot 1 */}
             <thead className="maximal-thead">
               <tr className="select-none">
                 {/* 1. Request ID */}
-                <th className="!px-2">
+                <th>
                   <div className="th-title">
-                    <span className="whitespace-nowrap text-[12px]">Request ID</span>
+                    <span className="whitespace-nowrap">Request ID</span>
                     <button
                       type="button"
                       onClick={() => handleSort("id")}
@@ -483,9 +483,9 @@ export function MyBidsTable() {
                 </th>
 
                 {/* 6. Bid Start Date */}
-                <th className="!px-1.5">
+                <th>
                   <div className="th-title">
-                    <span className="text-[11.5px] whitespace-nowrap tracking-tight">Bid Start Date</span>
+                    <span className="whitespace-nowrap">Bid Start Date</span>
                     <button
                       type="button"
                       onClick={() => handleSort("bidStartDate")}
@@ -507,9 +507,9 @@ export function MyBidsTable() {
                 </th>
 
                 {/* 7. Bid End Date */}
-                <th className="!px-1.5">
+                <th>
                   <div className="th-title">
-                    <span className="text-[11.5px] whitespace-nowrap tracking-tight">Bid End Date</span>
+                    <span className="whitespace-nowrap">Bid End Date</span>
                     <button
                       type="button"
                       onClick={() => handleSort("bidEndDate")}
@@ -549,7 +549,7 @@ export function MyBidsTable() {
                       onChange={(e) => handleFilterChange("status", e.target.value)}
                       aria-label="Filter by Status"
                       id="bidStatusFilter"
-                      className="maximal-filter-select !max-w-[90px]"
+                      className="maximal-filter-select !max-w-[75px]"
                       style={{ textAlign: "center", textAlignLast: "center" }}
                     >
                       <option value="All">All</option>
@@ -576,7 +576,7 @@ export function MyBidsTable() {
               {currentRecords.map((item) => (
                 <tr key={item.id} className="hover:bg-[#e7eef2] transition-colors">
                   {/* Request ID (Underlined clickable link matching client screenshot) */}
-                  <td className="whitespace-nowrap font-medium !px-2">
+                  <td className="whitespace-nowrap font-medium">
                     <button
                       type="button"
                       onClick={() => openViewModal(item)}
@@ -608,12 +608,12 @@ export function MyBidsTable() {
                   </td>
 
                   {/* Bid Start Date */}
-                  <td className="text-[#2d3a43] !px-1.5 whitespace-nowrap">
+                  <td className="text-[#2d3a43] whitespace-nowrap">
                     {item.bidStartDate}
                   </td>
 
                   {/* Bid End Date */}
-                  <td className="text-[#2d3a43] !px-1.5 whitespace-nowrap">
+                  <td className="text-[#2d3a43] whitespace-nowrap">
                     {item.bidEndDate}
                   </td>
 
