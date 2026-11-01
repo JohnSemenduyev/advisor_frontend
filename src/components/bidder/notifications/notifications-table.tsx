@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -22,6 +22,29 @@ export interface NotificationItem {
   actionType: "view_bid" | "contact_buyer" | "renew" | "update_profile";
   actionLabel: string;
 }
+
+const parseDateTime = (d: string) => {
+  try {
+    const [datePart, timePart] = d.split(" - ");
+    if (!datePart) return 0;
+    const [month, day, year] = datePart.split("/").map(Number);
+    let hours = 0;
+    let mins = 0;
+    if (timePart) {
+      const match = timePart.match(/(\d+):(\d+)(am|pm)/i);
+      if (match) {
+        hours = parseInt(match[1], 10);
+        mins = parseInt(match[2], 10);
+        const isPm = match[3].toLowerCase() === "pm";
+        if (isPm && hours < 12) hours += 12;
+        if (!isPm && hours === 12) hours = 0;
+      }
+    }
+    return new Date(year, month - 1, day, hours, mins).getTime();
+  } catch {
+    return 0;
+  }
+};
 
 const SEED_NOTIFICATIONS: NotificationItem[] = [
   {
@@ -231,19 +254,45 @@ export function NotificationsTable() {
   const [messageSent, setMessageSent] = useState(false);
   const [messageText, setMessageText] = useState("");
 
-  const filteredData = notifications.filter((item) => {
-    if (dateFilter && !item.dateTime.toLowerCase().includes(dateFilter.toLowerCase())) {
-      return false;
+  const handleSort = (key: "dateTime" | "text") => {
+    if (sortKey === key) {
+      setSortAsc(!sortAsc);
+    } else {
+      setSortKey(key);
+      setSortAsc(true);
     }
-    if (
-      textFilter &&
-      !item.text.toLowerCase().includes(textFilter.toLowerCase()) &&
-      !(item.requestId && item.requestId.toLowerCase().includes(textFilter.toLowerCase()))
-    ) {
-      return false;
-    }
-    return true;
-  });
+    setCurrentPage(1);
+  };
+
+  const filteredData = useMemo(() => {
+    return notifications
+      .filter((item) => {
+        if (dateFilter && !item.dateTime.toLowerCase().includes(dateFilter.toLowerCase())) {
+          return false;
+        }
+        if (
+          textFilter &&
+          !item.text.toLowerCase().includes(textFilter.toLowerCase()) &&
+          !(item.requestId && item.requestId.toLowerCase().includes(textFilter.toLowerCase()))
+        ) {
+          return false;
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        if (sortKey === "dateTime") {
+          const timeA = parseDateTime(a.dateTime);
+          const timeB = parseDateTime(b.dateTime);
+          return sortAsc ? timeA - timeB : timeB - timeA;
+        }
+        if (sortKey === "text") {
+          const textA = (a.text + (a.requestId || "")).toLowerCase();
+          const textB = (b.text + (b.requestId || "")).toLowerCase();
+          return sortAsc ? textA.localeCompare(textB) : textB.localeCompare(textA);
+        }
+        return 0;
+      });
+  }, [notifications, dateFilter, textFilter, sortKey, sortAsc]);
 
   const totalPages = Math.max(1, Math.ceil(filteredData.length / pageSize));
   const currentRecords = filteredData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
@@ -291,15 +340,15 @@ export function NotificationsTable() {
   };
 
   return (
-    <div className="w-full space-y-4 notifications-table animate-in fade-in duration-200">
+    <div className="w-full flex-1 flex flex-col min-h-0 notifications-table animate-in fade-in duration-200">
       {/* Elevated Notifications Card & Table matching My Bids layout and space utilization */}
-      <div className="maximal-tablewrap shadow-lg">
-        <div className="overflow-x-auto">
+      <div className="maximal-tablewrap shadow-lg flex-1 flex flex-col min-h-0">
+        <div className="overflow-x-auto overflow-y-auto flex-1 min-h-0">
           <table className="w-full text-left border-collapse min-w-[850px] table-fixed">
             <colgroup>
               <col style={{ width: "22%" }} />
-              <col style={{ width: "62%" }} />
-              <col style={{ width: "16%" }} />
+              <col style={{ width: "67%" }} />
+              <col style={{ width: "11%" }} />
             </colgroup>
 
             {/* Header matching reference HTML brushed metallic gradient & filter styling */}
@@ -311,10 +360,7 @@ export function NotificationsTable() {
                     <span>Date / Time</span>
                     <button
                       type="button"
-                      onClick={() => {
-                        setSortKey("dateTime");
-                        setSortAsc(!sortAsc);
-                      }}
+                      onClick={() => handleSort("dateTime")}
                       className="sort"
                       title="Sort Date / Time"
                     >
@@ -341,10 +387,7 @@ export function NotificationsTable() {
                     <span>Notification</span>
                     <button
                       type="button"
-                      onClick={() => {
-                        setSortKey("text");
-                        setSortAsc(!sortAsc);
-                      }}
+                      onClick={() => handleSort("text")}
                       className="sort"
                       title="Sort Notification"
                     >
@@ -365,21 +408,13 @@ export function NotificationsTable() {
                   </div>
                 </th>
 
-                {/* 3. Actions */}
-                <th className="actions-header" style={{ textAlign: "center" }}>
-                  <div className="th-title" style={{ justifyContent: "center" }}>
-                    <span>Actions</span>
+                {/* 3. Actions - Title and flag removed per client request */}
+                <th className="actions-header" style={{ textAlign: "left" }}>
+                  <div className="th-title invisible select-none" style={{ justifyContent: "flex-start" }}>
+                    <span>&nbsp;</span>
                   </div>
-                  <div className="actions-flag-filter-slot">
-                    <button
-                      type="button"
-                      onClick={handleResetFilters}
-                      className="actions-flag-filter-button"
-                      title="Reset filters"
-                      aria-label="Reset filters"
-                    >
-                      <Flag className="w-[14px] h-[14px]" />
-                    </button>
+                  <div className="filter-wrap invisible select-none" aria-hidden="true">
+                    <div style={{ height: "24px" }} />
                   </div>
                 </th>
               </tr>
@@ -407,8 +442,8 @@ export function NotificationsTable() {
                     )}
                   </td>
 
-                  {/* Action Button */}
-                  <td className="text-center">
+                  {/* Action Button - left-aligned in column */}
+                  <td className="text-left">
                     <button
                       type="button"
                       onClick={() => handleAction(item)}
@@ -438,8 +473,8 @@ export function NotificationsTable() {
           </table>
         </div>
 
-        {/* Footer with Full Pagination matching Screenshot 2 (My Bids) */}
-        <div className="maximal-table-footer px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
+        {/* Footer with Full Pagination matching Screenshot 2 (My Bids) - always visible pinned at bottom */}
+        <div className="maximal-table-footer flex-none px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
           {/* Record Count */}
           <div className="font-medium text-[#526673]">
             Showing {filteredData.length ? (currentPage - 1) * pageSize + 1 : 0} to{" "}

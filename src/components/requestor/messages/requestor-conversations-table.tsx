@@ -18,6 +18,8 @@ export function RequestorConversationsTable({
 }: RequestorConversationsTableProps) {
   const [sortField, setSortField] = useState<keyof RequestorConversation | null>(null);
   const [sortAsc, setSortAsc] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
 
   const handleSort = (field: keyof RequestorConversation) => {
     if (sortField === field) {
@@ -26,6 +28,7 @@ export function RequestorConversationsTable({
       setSortField(field);
       setSortAsc(true);
     }
+    setCurrentPage(1);
   };
 
   const sortedConversations = useMemo(() => {
@@ -39,21 +42,32 @@ export function RequestorConversationsTable({
     });
   }, [conversations, sortField, sortAsc]);
 
-  // Subtle padded empty rows to match screenshot ruling
-  const minRows = 8;
-  const emptyRowsCount = Math.max(0, minRows - sortedConversations.length);
+  const totalPages = Math.max(1, Math.ceil(sortedConversations.length / pageSize));
+  const currentRecords = sortedConversations.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
   return (
-    <div className="maximal-tablewrap shadow-md overflow-hidden border border-[#b8c9d4] rounded-2xl bg-white w-full h-full flex flex-col">
-      <div className="overflow-x-auto overflow-y-auto flex-1 w-full">
-        <table className="w-full text-left border-collapse min-w-[620px]">
+    <div className="maximal-tablewrap shadow-md overflow-hidden border border-[#b8c9d4] rounded-2xl bg-white w-full flex flex-col flex-1 min-h-0">
+      <div className="overflow-x-auto overflow-y-auto w-full flex-1 min-h-0">
+        <table className="w-full text-left border-collapse min-w-[620px] table-fixed">
+          <colgroup>
+            <col style={{ width: "18%" }} />
+            <col style={{ width: "12%" }} />
+            <col style={{ width: "23%" }} />
+            <col style={{ width: "23%" }} />
+            <col style={{ width: "14%" }} />
+            <col style={{ width: "10%" }} />
+          </colgroup>
+
           {/* Header matching Maximal Bidder Reference metallic silver */}
           <thead className="maximal-thead maximal-thead-compact">
             <tr className="select-none">
               {/* Name */}
               <th
                 onClick={() => handleSort("name")}
-                className="cursor-pointer w-[18%] min-w-[130px]"
+                className="cursor-pointer"
               >
                 <div className="th-title">
                   <span>Name</span>
@@ -66,7 +80,7 @@ export function RequestorConversationsTable({
               {/* Title */}
               <th
                 onClick={() => handleSort("title")}
-                className="cursor-pointer w-[12%] min-w-[70px]"
+                className="cursor-pointer"
               >
                 <div className="th-title">
                   <span>Title</span>
@@ -79,7 +93,7 @@ export function RequestorConversationsTable({
               {/* Company Name */}
               <th
                 onClick={() => handleSort("companyName")}
-                className="cursor-pointer w-[24%] min-w-[130px]"
+                className="cursor-pointer"
               >
                 <div className="th-title">
                   <span>Company Name</span>
@@ -92,7 +106,7 @@ export function RequestorConversationsTable({
               {/* Service Request */}
               <th
                 onClick={() => handleSort("serviceRequest")}
-                className="cursor-pointer w-[25%] min-w-[140px]"
+                className="cursor-pointer"
               >
                 <div className="th-title">
                   <span>Service Request</span>
@@ -105,28 +119,24 @@ export function RequestorConversationsTable({
               {/* Service Request ID */}
               <th
                 onClick={() => handleSort("serviceRequestId")}
-                className="cursor-pointer w-[12%] min-w-[85px] whitespace-nowrap"
+                className="cursor-pointer whitespace-nowrap"
               >
                 <div className="th-title">
                   <span>Service Request ID</span>
-                  <button
-                    type="button"
-                    className="sort"
-                    title="Sort by Service Request ID"
-                  >
+                  <button type="button" className="sort" title="Sort by Service Request ID">
                     {sortField === "serviceRequestId" ? (sortAsc ? "↑" : "↓") : "⇅"}
                   </button>
                 </div>
               </th>
 
-              {/* Messages */}
+              {/* Messages / Status */}
               <th
                 onClick={() => handleSort("hasNewMessages")}
-                className="actions-header w-[9%] min-w-[75px] cursor-pointer text-center"
+                className="actions-header cursor-pointer text-center"
               >
                 <div className="th-title justify-center">
                   <span>Messages</span>
-                  <button type="button" className="sort" title="Sort Messages">
+                  <button type="button" className="sort" title="Sort by Messages status">
                     {sortField === "hasNewMessages" ? (sortAsc ? "↑" : "↓") : "⇅"}
                   </button>
                 </div>
@@ -136,7 +146,7 @@ export function RequestorConversationsTable({
 
           {/* Table Body */}
           <tbody>
-            {sortedConversations.map((conv) => {
+            {currentRecords.map((conv) => {
               const isSelected = selectedId === conv.id;
               return (
                 <tr
@@ -197,19 +207,109 @@ export function RequestorConversationsTable({
               );
             })}
 
-            {/* Padded Empty Rows for clean ruled structure matching client reference */}
-            {Array.from({ length: emptyRowsCount }).map((_, i) => (
-              <tr key={`empty-${i}`} className="h-11">
-                <td
-                  colSpan={6}
-                  className="px-4 py-3 text-transparent select-none border-b border-[#e8f0f5]"
-                >
-                  &nbsp;
+            {currentRecords.length === 0 && (
+              <tr>
+                <td colSpan={6} className="px-6 py-10 text-center text-sm text-[#668090]">
+                  No messages found.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
+      </div>
+
+      {/* Footer with Full Pagination directly below the rows - always visible pinned at bottom */}
+      <div className="maximal-table-footer flex-none px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
+        {/* Record Count */}
+        <div className="font-medium text-[#526673]">
+          Showing {sortedConversations.length ? (currentPage - 1) * pageSize + 1 : 0} to{" "}
+          {Math.min(currentPage * pageSize, sortedConversations.length)} of {sortedConversations.length} records
+        </div>
+
+        {/* Page Selector & Arrows - Segmented Capsule */}
+        <div className="page-navigation" aria-label="Pagination">
+          <button
+            type="button"
+            onClick={() => setCurrentPage(1)}
+            disabled={currentPage === 1}
+            className="pager-arrow"
+            title="First Page"
+            aria-label="First Page"
+          >
+            «
+          </button>
+          <button
+            type="button"
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className="pager-arrow"
+            title="Previous Page"
+            aria-label="Previous Page"
+          >
+            ‹
+          </button>
+
+          <span className="page-number-list">
+            {(() => {
+              const start = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
+              const end = Math.min(totalPages, start + 4);
+              const pages: number[] = [];
+              for (let i = start; i <= end; i++) {
+                pages.push(i);
+              }
+              return pages.map((page) => (
+                <button
+                  key={page}
+                  type="button"
+                  onClick={() => setCurrentPage(page)}
+                  className={`page-number ${currentPage === page ? "current" : ""}`}
+                  aria-current={currentPage === page ? "page" : undefined}
+                  aria-label={`Page ${page}`}
+                >
+                  {page}
+                </button>
+              ));
+            })()}
+          </span>
+
+          <button
+            type="button"
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            className="pager-arrow"
+            title="Next Page"
+            aria-label="Next Page"
+          >
+            ›
+          </button>
+          <button
+            type="button"
+            onClick={() => setCurrentPage(totalPages)}
+            disabled={currentPage === totalPages}
+            className="pager-arrow"
+            title="Last Page"
+            aria-label="Last Page"
+          >
+            »
+          </button>
+        </div>
+
+        {/* Page Size Select */}
+        <div className="flex items-center gap-2">
+          <select
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value));
+              setCurrentPage(1);
+            }}
+            className="px-2 py-1 bg-white border border-[#b8c9d4] rounded text-xs text-[#2c3e50] focus:outline-none focus:ring-1 focus:ring-[#0a84c1]"
+            aria-label="Rows per page"
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+          </select>
+        </div>
       </div>
     </div>
   );

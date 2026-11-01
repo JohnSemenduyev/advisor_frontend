@@ -66,23 +66,19 @@ export function RequestorMessagesView() {
   };
 
   return (
-    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-gradient-to-br from-[#e1e4e5] via-[#f2f3f2] to-[#d8dcde] flex flex-col font-sans">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-[#e1e4e5] via-[#f2f3f2] to-[#d8dcde] flex flex-col font-sans">
       {/* Top Navigation Bar with Interlocking Domino Tabs */}
       <RequestorTopbar userName="John Semenduyev" avatarLetter="J" />
 
-      {/* Main Brushed Silver Shell Canvas */}
-      <main className="flex-1 p-3 sm:px-4 py-4 w-full flex flex-col min-h-0 overflow-hidden">
-        <div className="maximal-shell p-3 sm:p-5 w-full flex-1 flex flex-col min-h-0 space-y-4">
+      {/* Main Brushed Silver Shell Canvas - standardized viewport margins */}
+      <main className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 w-full flex flex-col min-h-0 overflow-hidden box-border">
+        <div className="maximal-shell p-3 sm:p-4.5 w-full flex-1 flex flex-col min-h-0 space-y-4">
 
 
           {/* Split Content: Table on Left, Chat on Right */}
-          <div className="flex-1 flex flex-col lg:flex-row gap-4 xl:gap-5 items-stretch min-h-0 overflow-hidden">
+          <div className="flex-1 flex flex-col lg:flex-row items-start min-h-0 overflow-y-auto">
             {/* Conversations Table */}
-            <div
-              className={`min-w-0 h-full flex flex-col transition-all duration-300 ease-in-out ${
-                isChatOpen ? "flex-1 w-full" : "w-full"
-              }`}
-            >
+            <div className="flex-1 min-w-0 flex flex-col transition-[width] duration-300 ease-out">
               <RequestorConversationsTable
                 conversations={conversations}
                 selectedId={isChatOpen ? selectedId : null}
@@ -90,16 +86,22 @@ export function RequestorMessagesView() {
               />
             </div>
 
-            {/* Active Conversation Panel */}
-            {isChatOpen && (
-              <div className="w-full lg:w-[360px] xl:w-[410px] 2xl:w-[460px] h-full flex-none chat-slide-in-right flex flex-col min-h-0">
+            {/* Active Conversation Panel - Gradually fades in and out from right, squeezing the table */}
+            <div
+              className={`chat-drawer-container ${
+                isChatOpen ? "is-open lg:ml-4 xl:ml-5" : "is-closed"
+              }`}
+              style={{ height: "600px", maxHeight: "100%" }}
+              aria-hidden={!isChatOpen}
+            >
+              <div className="chat-drawer-inner">
                 <RequestorChatPanel
                   conversation={selectedConversation}
                   onSendMessage={handleSendMessage}
                   onClose={handleCloseChat}
                 />
               </div>
-            )}
+            </div>
           </div>
         </div>
       </main>

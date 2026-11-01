@@ -310,11 +310,14 @@ const SEED_PROJECTS: ProjectRecord[] = [
   },
 ];
 
+import { SearchFilterState } from "./search-requests-filter-form";
+
 interface OpenProjectsTableProps {
   onBackToFilter?: () => void;
+  initialFilters?: SearchFilterState;
 }
 
-export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
+export function OpenProjectsTable({ onBackToFilter, initialFilters }: OpenProjectsTableProps) {
   // Sort state
   const [sortKey, setSortKey] = useState<keyof ProjectRecord>("id");
   const [sortAsc, setSortAsc] = useState(true);
@@ -323,8 +326,8 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
   const [filters, setFilters] = useState({
     id: "",
     companyName: "",
-    requestTitle: "",
-    state: "",
+    requestTitle: initialFilters?.industry || "",
+    state: initialFilters?.locations?.[0] || initialFilters?.state || "",
     city: "",
     bidStartDate: "",
     bidEndDate: "",
@@ -362,8 +365,14 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
     return SEED_PROJECTS.filter((item) => {
       if (filters.id && !item.id.toLowerCase().includes(filters.id.toLowerCase())) return false;
       if (filters.companyName && !item.companyName.toLowerCase().includes(filters.companyName.toLowerCase())) return false;
-      if (filters.requestTitle && !item.requestTitle.toLowerCase().includes(filters.requestTitle.toLowerCase())) return false;
-      if (filters.state && !item.state.toLowerCase().includes(filters.state.toLowerCase())) return false;
+      if (filters.requestTitle) {
+        const terms = filters.requestTitle.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
+        if (terms.length > 0 && !terms.some((t) => item.requestTitle.toLowerCase().includes(t))) return false;
+      }
+      if (filters.state) {
+        const terms = filters.state.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
+        if (terms.length > 0 && !terms.some((t) => item.state.toLowerCase().includes(t) || item.city.toLowerCase().includes(t))) return false;
+      }
       if (filters.city && !item.city.toLowerCase().includes(filters.city.toLowerCase())) return false;
       if (filters.bidStartDate && !item.bidStartDate.includes(filters.bidStartDate)) return false;
       if (filters.bidEndDate && !item.bidEndDate.includes(filters.bidEndDate)) return false;
@@ -405,9 +414,9 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
   };
 
   return (
-    <div className="w-full space-y-5 animate-in fade-in duration-200">
+    <div className="w-full flex-1 flex flex-col min-h-0 space-y-4 animate-in fade-in duration-200">
       {/* Top Header: Open Projects and action back to filter */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 flex-none">
         <div className="flex items-center gap-3.5">
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#e4f2f8] to-[#c7e0ed] border border-[#b4d2e3] flex items-center justify-center text-[#185a86] flex-none shadow-xs">
             <FileSearch className="w-6 h-6 stroke-[2]" />
@@ -435,8 +444,8 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
       </div>
 
       {/* Maximal Elevated Table Wrap matching Image 2 */}
-      <div className="maximal-tablewrap shadow-lg">
-        <div className="overflow-x-auto min-h-[206px]">
+      <div className="maximal-tablewrap shadow-lg flex-1 flex flex-col min-h-0">
+        <div className="overflow-x-auto overflow-y-auto flex-1 min-h-0">
           <table className="w-full text-left border-collapse min-w-[1050px]">
             {/* Single Integrated Header Row matching Reference */}
             <thead className="maximal-thead">
@@ -609,32 +618,13 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
                   </div>
                 </th>
 
-                {/* Actions Header */}
-                <th className="actions-header w-[95px]">
-                  <div className="th-title">
-                    <span>Actions</span>
+                {/* Actions Header - Title and flag removed per client request */}
+                <th className="actions-header w-[95px]" style={{ textAlign: "left" }}>
+                  <div className="th-title invisible select-none" style={{ justifyContent: "flex-start" }}>
+                    <span>&nbsp;</span>
                   </div>
-                  <div className="actions-flag-filter-slot">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFilters({
-                          id: "",
-                          companyName: "",
-                          requestTitle: "",
-                          state: "",
-                          city: "",
-                          bidStartDate: "",
-                          bidEndDate: "",
-                        });
-                        setCurrentPage(1);
-                      }}
-                      className="actions-flag-filter-button"
-                      title="Reset filters"
-                      aria-label="Reset filters"
-                    >
-                      <Flag className="w-[14.4px] h-[14.4px]" />
-                    </button>
+                  <div className="filter-wrap invisible select-none" aria-hidden="true">
+                    <div style={{ height: "24px" }} />
                   </div>
                 </th>
               </tr>
@@ -672,9 +662,9 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
                   {/* Bid End Date */}
                   <td>{item.bidEndDate}</td>
 
-                  {/* Actions (Make Bid & Contact) */}
-                  <td className="text-center whitespace-nowrap">
-                    <div className="flex items-center justify-center gap-1.5">
+                  {/* Actions (Make Bid & Contact) - aligned to the left */}
+                  <td className="text-left whitespace-nowrap pl-2.5">
+                    <div className="flex items-center justify-start gap-1.5">
                       <Link
                         href={`/bidder/submit-bid/${item.id}`}
                         className="maximal-btn-action-icon"
@@ -716,8 +706,8 @@ export function OpenProjectsTable({ onBackToFilter }: OpenProjectsTableProps) {
           </table>
         </div>
 
-        {/* Maximal Segmented Pagination Footer matching reference */}
-        <div className="maximal-table-footer px-4 py-3.5 bg-gradient-to-r from-[#f8fafb] to-[#edf2f5] border-t border-[#d8e2e7] text-xs text-[#5f707b]">
+        {/* Maximal Segmented Pagination Footer matching reference - always visible pinned at bottom */}
+        <div className="maximal-table-footer flex-none px-4 py-3.5 bg-gradient-to-r from-[#f8fafb] to-[#edf2f5] border-t border-[#d8e2e7] text-xs text-[#5f707b]">
           <div>
             Showing{" "}
             <span className="font-bold text-[#1f384a]">

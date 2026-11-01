@@ -259,6 +259,7 @@ export function MyBidsTable() {
       setSortKey(key);
       setSortAsc(true);
     }
+    setCurrentPage(1);
   };
 
   const handleFilterChange = (field: keyof typeof filters, value: string) => {
@@ -283,8 +284,23 @@ export function MyBidsTable() {
       })
       .sort((a, b) => {
         if (!sortKey) return 0;
-        const valA = (a[sortKey] || "").toLowerCase();
-        const valB = (b[sortKey] || "").toLowerCase();
+        if (sortKey === "id") {
+          const numA = parseInt(a.id, 10) || 0;
+          const numB = parseInt(b.id, 10) || 0;
+          return sortAsc ? numA - numB : numB - numA;
+        }
+        if (sortKey === "bidStartDate" || sortKey === "bidEndDate") {
+          const parseBidDate = (dStr: string) => {
+            if (!dStr) return 0;
+            const [m, d, y] = dStr.split("/").map(Number);
+            return new Date(y, m - 1, d).getTime() || 0;
+          };
+          const timeA = parseBidDate(a[sortKey]);
+          const timeB = parseBidDate(b[sortKey]);
+          return sortAsc ? timeA - timeB : timeB - timeA;
+        }
+        const valA = String(a[sortKey] || "").toLowerCase();
+        const valB = String(b[sortKey] || "").toLowerCase();
         if (valA < valB) return sortAsc ? -1 : 1;
         if (valA > valB) return sortAsc ? 1 : -1;
         return 0;
@@ -326,21 +342,21 @@ export function MyBidsTable() {
   };
 
   return (
-    <div className="w-full space-y-4 my-bids-table">
+    <div className="w-full flex-1 flex flex-col min-h-0 my-bids-table">
       {/* Elevated Table Container matching Screenshot 1 */}
-      <div className="maximal-tablewrap shadow-lg">
-        <div className="overflow-x-auto">
+      <div className="maximal-tablewrap shadow-lg flex-1 flex flex-col min-h-0">
+        <div className="overflow-x-auto overflow-y-auto flex-1 min-h-0">
           <table className="w-full text-left border-collapse min-w-[1050px] table-fixed">
             <colgroup>
-              <col style={{ width: "12%" }} />
-              <col style={{ width: "18%" }} />
-              <col style={{ width: "23%" }} />
+              <col style={{ width: "7.5%" }} />
+              <col style={{ width: "17.5%" }} />
+              <col style={{ width: "23.5%" }} />
+              <col style={{ width: "8.5%" }} />
               <col style={{ width: "10%" }} />
+              <col style={{ width: "7%" }} />
+              <col style={{ width: "7%" }} />
+              <col style={{ width: "13%" }} />
               <col style={{ width: "6%" }} />
-              <col style={{ width: "10%" }} />
-              <col style={{ width: "10%" }} />
-              <col style={{ width: "6%" }} />
-              <col style={{ width: "5%" }} />
             </colgroup>
 
             {/* Single Integrated Header Row matching Client's Screenshot 1 */}
@@ -543,21 +559,13 @@ export function MyBidsTable() {
                   </div>
                 </th>
 
-                {/* 9. Actions Header */}
-                <th className="actions-header" style={{ textAlign: "center" }}>
-                  <div className="th-title" style={{ justifyContent: "center" }}>
-                    <span>Actions</span>
+                {/* 9. Actions Header - Title and flag removed per client request, left-aligned */}
+                <th className="actions-header" style={{ textAlign: "left" }}>
+                  <div className="th-title invisible select-none" style={{ justifyContent: "flex-start" }}>
+                    <span>&nbsp;</span>
                   </div>
-                  <div className="actions-flag-filter-slot">
-                    <button
-                      type="button"
-                      onClick={handleResetFilters}
-                      className="actions-flag-filter-button"
-                      title="Reset filters"
-                      aria-label="Reset filters"
-                    >
-                      <Flag className="w-[14px] h-[14px]" />
-                    </button>
+                  <div className="filter-wrap invisible select-none" aria-hidden="true">
+                    <div style={{ height: "24px" }} />
                   </div>
                 </th>
               </tr>
@@ -614,9 +622,9 @@ export function MyBidsTable() {
                     {item.status}
                   </td>
 
-                  {/* Action Buttons: View (Eye) & Delete (Trash) in silver beveled icons */}
-                  <td className="text-center">
-                    <div className="flex items-center justify-center gap-1.5">
+                  {/* Action Buttons: View (Eye) & Delete (Trash) in silver beveled icons - aligned to the left */}
+                  <td className="text-left pl-2.5">
+                    <div className="flex items-center justify-start gap-1.5">
                       <button
                         type="button"
                         onClick={() => openViewModal(item)}
@@ -662,8 +670,8 @@ export function MyBidsTable() {
           </table>
         </div>
 
-        {/* Footer with Pagination matching Screenshot 1 */}
-        <div className="maximal-table-footer px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
+        {/* Footer with Pagination matching Screenshot 1 - always visible pinned at bottom */}
+        <div className="maximal-table-footer flex-none px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
           {/* Record Count */}
           <div className="font-medium text-[#526673]">
             Showing {filteredData.length ? (currentPage - 1) * pageSize + 1 : 0} to{" "}

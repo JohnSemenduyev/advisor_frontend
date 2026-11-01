@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -16,6 +16,29 @@ import {
   Flag,
 } from "lucide-react";
 import { RequestorTopbar } from "../navigation/requestor-topbar";
+
+const parseDateTime = (d: string) => {
+  try {
+    const [datePart, timePart] = d.split(" - ");
+    if (!datePart) return 0;
+    const [month, day, year] = datePart.split("/").map(Number);
+    let hours = 0;
+    let mins = 0;
+    if (timePart) {
+      const match = timePart.match(/(\d+):(\d+)(am|pm)/i);
+      if (match) {
+        hours = parseInt(match[1], 10);
+        mins = parseInt(match[2], 10);
+        const isPm = match[3].toLowerCase() === "pm";
+        if (isPm && hours < 12) hours += 12;
+        if (!isPm && hours === 12) hours = 0;
+      }
+    }
+    return new Date(year, month - 1, day, hours, mins).getTime();
+  } catch {
+    return 0;
+  }
+};
 
 export interface RequestorNotificationItem {
   id: string;
@@ -162,22 +185,48 @@ export function RequestorNotificationsView() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
 
-  const filteredData = notifications.filter((item) => {
-    if (dateFilter && !item.dateTime.toLowerCase().includes(dateFilter.toLowerCase())) {
-      return false;
+  const handleSort = (key: "dateTime" | "text") => {
+    if (sortKey === key) {
+      setSortAsc(!sortAsc);
+    } else {
+      setSortKey(key);
+      setSortAsc(true);
     }
-    if (
-      textFilter &&
-      !(item.textPrefix && item.textPrefix.toLowerCase().includes(textFilter.toLowerCase())) &&
-      !(item.boldEntity && item.boldEntity.toLowerCase().includes(textFilter.toLowerCase())) &&
-      !(item.textSuffix && item.textSuffix.toLowerCase().includes(textFilter.toLowerCase())) &&
-      !(item.requestTitle && item.requestTitle.toLowerCase().includes(textFilter.toLowerCase())) &&
-      !(item.requestId && item.requestId.toLowerCase().includes(textFilter.toLowerCase()))
-    ) {
-      return false;
-    }
-    return true;
-  });
+    setCurrentPage(1);
+  };
+
+  const filteredData = useMemo(() => {
+    return notifications
+      .filter((item) => {
+        if (dateFilter && !item.dateTime.toLowerCase().includes(dateFilter.toLowerCase())) {
+          return false;
+        }
+        if (
+          textFilter &&
+          !(item.textPrefix && item.textPrefix.toLowerCase().includes(textFilter.toLowerCase())) &&
+          !(item.boldEntity && item.boldEntity.toLowerCase().includes(textFilter.toLowerCase())) &&
+          !(item.textSuffix && item.textSuffix.toLowerCase().includes(textFilter.toLowerCase())) &&
+          !(item.requestTitle && item.requestTitle.toLowerCase().includes(textFilter.toLowerCase())) &&
+          !(item.requestId && item.requestId.toLowerCase().includes(textFilter.toLowerCase()))
+        ) {
+          return false;
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        if (sortKey === "dateTime") {
+          const timeA = parseDateTime(a.dateTime);
+          const timeB = parseDateTime(b.dateTime);
+          return sortAsc ? timeA - timeB : timeB - timeA;
+        }
+        if (sortKey === "text") {
+          const textA = `${a.textPrefix || ""} ${a.boldEntity || ""} ${a.textSuffix || ""} ${a.requestTitle || ""}`.toLowerCase();
+          const textB = `${b.textPrefix || ""} ${b.boldEntity || ""} ${b.textSuffix || ""} ${b.requestTitle || ""}`.toLowerCase();
+          return sortAsc ? textA.localeCompare(textB) : textB.localeCompare(textA);
+        }
+        return 0;
+      });
+  }, [notifications, dateFilter, textFilter, sortKey, sortAsc]);
 
   const totalPages = Math.max(1, Math.ceil(filteredData.length / pageSize));
   const currentRecords = filteredData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
@@ -245,21 +294,21 @@ export function RequestorNotificationsView() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#e1e4e5] via-[#f2f3f2] to-[#d8dcde] flex flex-col font-sans">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-[#e1e4e5] via-[#f2f3f2] to-[#d8dcde] flex flex-col font-sans">
       {/* Top Navigation Bar with Interlocking Capsule Tabs */}
       <RequestorTopbar userName="John Semenduyev" avatarLetter="J" />
 
-      {/* Main Brushed Silver Shell Canvas - full available space */}
-      <main className="flex-1 px-3 sm:px-4 py-4 w-full">
-        <div className="maximal-shell p-3 sm:p-4 w-full space-y-6">
+      {/* Main Brushed Silver Shell Canvas - standardized viewport margins */}
+      <main className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 w-full flex flex-col min-h-0 overflow-hidden box-border">
+        <div className="maximal-shell p-3 sm:p-4.5 w-full flex-1 flex flex-col min-h-0 overflow-hidden shadow-lg">
           {/* Elevated Table Container matching exact theme */}
-          <div className="maximal-tablewrap shadow-lg">
-            <div className="overflow-x-auto">
+          <div className="maximal-tablewrap shadow-lg flex-1 flex flex-col min-h-0">
+            <div className="overflow-x-auto overflow-y-auto flex-1 min-h-0">
               <table className="w-full text-left border-collapse min-w-[850px] table-fixed">
                 <colgroup>
                   <col style={{ width: "22%" }} />
-                  <col style={{ width: "62%" }} />
-                  <col style={{ width: "16%" }} />
+                  <col style={{ width: "67%" }} />
+                  <col style={{ width: "11%" }} />
                 </colgroup>
 
                 {/* Header matching metallic gradient */}
@@ -271,10 +320,7 @@ export function RequestorNotificationsView() {
                         <span>Date / Time</span>
                         <button
                           type="button"
-                          onClick={() => {
-                            setSortKey("dateTime");
-                            setSortAsc(!sortAsc);
-                          }}
+                          onClick={() => handleSort("dateTime")}
                           className="sort"
                           title="Sort Date / Time"
                         >
@@ -301,10 +347,7 @@ export function RequestorNotificationsView() {
                         <span>Notification</span>
                         <button
                           type="button"
-                          onClick={() => {
-                            setSortKey("text");
-                            setSortAsc(!sortAsc);
-                          }}
+                          onClick={() => handleSort("text")}
                           className="sort"
                           title="Sort Notification"
                         >
@@ -325,21 +368,13 @@ export function RequestorNotificationsView() {
                       </div>
                     </th>
 
-                    {/* 3. Actions */}
-                    <th className="actions-header" style={{ textAlign: "center" }}>
-                      <div className="th-title" style={{ justifyContent: "center" }}>
-                        <span>Actions</span>
+                    {/* 3. Actions - Title and flag removed per client request */}
+                    <th className="actions-header" style={{ textAlign: "left" }}>
+                      <div className="th-title invisible select-none" style={{ justifyContent: "flex-start" }}>
+                        <span>&nbsp;</span>
                       </div>
-                      <div className="actions-flag-filter-slot">
-                        <button
-                          type="button"
-                          onClick={handleResetFilters}
-                          className="actions-flag-filter-button"
-                          title="Reset filters"
-                          aria-label="Reset filters"
-                        >
-                          <Flag className="w-[14px] h-[14px]" />
-                        </button>
+                      <div className="filter-wrap invisible select-none" aria-hidden="true">
+                        <div style={{ height: "24px" }} />
                       </div>
                     </th>
                   </tr>
@@ -378,8 +413,8 @@ export function RequestorNotificationsView() {
                         </div>
                       </td>
 
-                      {/* Action Button */}
-                      <td className="text-center">
+                      {/* Action Button - left-aligned */}
+                      <td className="text-left">
                         <button
                           type="button"
                           onClick={() => handleAction(item)}
@@ -409,8 +444,8 @@ export function RequestorNotificationsView() {
               </table>
             </div>
 
-            {/* Footer with Full Pagination matching My Bids */}
-            <div className="maximal-table-footer px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
+            {/* Footer with Full Pagination matching My Bids - always visible pinned at bottom */}
+            <div className="maximal-table-footer flex-none px-4 py-3 border-t border-[#d6dde1] bg-[#f9fafb] text-xs text-[#526673]">
               {/* Record Count */}
               <div className="font-medium text-[#526673]">
                 Showing {filteredData.length ? (currentPage - 1) * pageSize + 1 : 0} to{" "}
