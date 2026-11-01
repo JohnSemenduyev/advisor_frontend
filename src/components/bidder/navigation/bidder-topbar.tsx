@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, User, LogOut } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 interface BidderTopbarProps {
   userName?: string;
@@ -16,6 +16,21 @@ export function BidderTopbar({
 }: BidderTopbarProps) {
   const pathname = usePathname();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    }
+    if (userMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [userMenuOpen]);
 
   const tabs: { name: string; href: string; badge?: string }[] = [
     { name: "Homepage", href: "/bidder/dashboard" },
@@ -35,8 +50,8 @@ export function BidderTopbar({
               tab.name === "Homepage"
                 ? pathname.includes("/bidder/profile") || pathname === "/bidder" || pathname === "/bidder/dashboard"
                 : tab.name === "Search Requests"
-                ? pathname.includes("/bidder/search-requests") || pathname.includes("/bidder/projects") || pathname.includes("/bidder/submit-bid")
-                : pathname.startsWith(tab.href);
+                  ? pathname.includes("/bidder/search-requests") || pathname.includes("/bidder/projects") || pathname.includes("/bidder/submit-bid")
+                  : pathname.startsWith(tab.href);
 
             return (
               <Link
@@ -57,7 +72,7 @@ export function BidderTopbar({
       </div>
 
       {/* User Badge on the Right */}
-      <div className="relative flex-none">
+      <div className="relative flex-none" ref={menuRef}>
         <button
           type="button"
           onClick={() => setUserMenuOpen(!userMenuOpen)}
@@ -72,28 +87,36 @@ export function BidderTopbar({
           <ChevronDown className="w-3.5 h-3.5 text-[#cfdbe3] hidden sm:inline" />
         </button>
 
-        {/* User Dropdown */}
+        {/* User Dropdown matching screenshot */}
         {userMenuOpen && (
-          <div className="absolute right-0 top-[calc(100%+8px)] w-48 p-2 rounded-2xl bg-[#192732] border border-[#3b5364] shadow-2xl z-50 text-xs text-[#cfdbe3] space-y-1 animate-in fade-in duration-100">
-            <div className="px-3 py-2 border-b border-[#293d4c] mb-1">
-              <p className="font-bold text-white text-sm truncate">{userName}</p>
-              <p className="text-[11px] text-[#7d99aa]">Primary Role: Bidder</p>
+          <div className="absolute right-0 top-[calc(100%+8px)] w-44 py-2 px-1.5 rounded-2xl bg-white border border-[#dce3e8] shadow-xl z-50 animate-in fade-in duration-100">
+            <div className="text-[11px] font-bold text-[#64748b] tracking-wider uppercase px-3 pt-1 pb-1 select-none">
+              SWITCH ROLE
             </div>
+
+            {/* Current Role: Bidder (Lighter grey / non-clickable) */}
+            <div className="text-[14px] font-medium text-[#94a3b8] px-3 py-1.5 cursor-default select-none">
+              Bidder
+            </div>
+
+            {/* Switch Role: Requestor (Dark bold / clickable) */}
             <Link
-              href="/bidder/profile"
+              href="/requestor/dashboard"
               onClick={() => setUserMenuOpen(false)}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#253948] text-white transition-colors"
+              className="text-[14px] font-bold text-[#1e293b] hover:text-[#0f172a] hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors cursor-pointer block"
             >
-              <User className="w-3.5 h-3.5 text-[#5daecf]" />
-              <span>Profile Information</span>
+              Requestor
             </Link>
+
+            <div className="border-t border-[#e2e8f0] my-2 mx-1.5" />
+
+            {/* Logout */}
             <Link
               href="/login"
               onClick={() => setUserMenuOpen(false)}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl text-[#f39090] hover:bg-[#341e22]/50 transition-colors"
+              className="text-[14px] font-semibold text-[#8b2d2d] hover:text-[#721c24] hover:bg-[#fef2f2] px-3 py-1.5 rounded-lg transition-colors cursor-pointer block"
             >
-              <LogOut className="w-3.5 h-3.5" />
-              <span>Sign Out</span>
+              Logout
             </Link>
           </div>
         )}

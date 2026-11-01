@@ -330,15 +330,14 @@ export function SearchRequestsFilterForm({
     <div className="ba-home">
       {/* Centered BusinessAdviser Branding & Tagline matching reference HTML */}
       <div className="ba-logo">
-        <div className="inline-block relative w-[310px] sm:w-[410px] h-[80px] sm:h-[102px] mx-auto">
-          <Image
-            src="/images/business-adviser-logo.png"
-            alt="BusinessAdviser Logo"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
+        <Image
+          src="/images/business-adviser-logo.png"
+          alt="BusinessAdviser Logo"
+          width={500}
+          height={178}
+          className="brand-reference-logo block mx-auto w-[min(500px,75vw)] h-auto"
+          priority
+        />
       </div>
 
       <div className="ba-tagline">

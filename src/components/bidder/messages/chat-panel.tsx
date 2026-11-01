@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { SendHorizontal, X, MessageSquare } from "lucide-react";
+import { SendHorizontal, MessageSquare } from "lucide-react";
 import { Conversation, ChatMessage } from "./messages-types";
 
 interface ChatPanelProps {
@@ -55,48 +55,35 @@ export function ChatPanel({
   };
 
   return (
-    <div className="maximal-card rounded-2xl border border-[#b8c9d4] bg-white shadow-lg flex flex-col overflow-hidden text-left h-full">
-      {/* Top Header matching screenshot */}
-      <div className="px-3.5 py-2 border-b border-[#e5eef4] bg-gradient-to-r from-[#ffffff] to-[#f6f9fb] flex items-center justify-between gap-2 flex-none">
-        <div className="flex items-center gap-1.5 min-w-0 flex-1">
-          <span className="text-sm font-extrabold text-[#112d40] tracking-tight flex-none">
-            Me:
-          </span>
-          <span
-            className="text-xs text-[#6c8697] truncate"
-            title={`Chatting with ${conversation.name}`}
-          >
-            (Chatting with <strong className="text-[#1a384c]">{conversation.name}</strong>)
-          </span>
+    <div className="flex flex-col overflow-hidden text-left h-full bg-[#f8fafc]">
+      {/* Service Request Context Banner */}
+      <div className="px-4 py-2 border-b border-[#e5eef4] bg-white flex items-center justify-between gap-2 flex-none text-xs">
+        <div className="truncate text-[#536b7b]">
+          <span className="font-semibold text-[#1a384c]">Service Request:</span>{" "}
+          <span className="text-[#253946]">{conversation.serviceRequest}</span>
         </div>
+        <span className="px-2 py-0.5 rounded-full bg-[#eaf2f7] text-[#1e4b6b] font-semibold text-[11px] flex-none">
+          ID: {conversation.serviceRequestId}
+        </span>
+      </div>
 
-        {/* Top Right Action Buttons: Green Send & Blue Close */}
-        <div className="flex items-center gap-1.5 flex-none">
+      {/* Input Textarea Container */}
+      <div className="p-3 border-b border-[#e5eef4] bg-[#fbfdfd] flex-none">
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="text-xs text-[#526d80] font-semibold">
+            Me: (Chatting with <strong className="text-[#1a384c]">{conversation.name}</strong>)
+          </span>
           <button
             type="button"
             onClick={() => handleSend()}
             disabled={!inputText.trim()}
-            className="chat-btn-send disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer !px-2.5 !py-1 text-xs"
+            className="chat-btn-send disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer !px-3 !py-1 text-xs"
             title="Send message"
           >
             <SendHorizontal className="w-3.5 h-3.5 stroke-[2.4]" />
             <span>Send</span>
           </button>
-
-          <button
-            type="button"
-            onClick={onClose}
-            className="chat-btn-close cursor-pointer !px-2.5 !py-1 text-xs"
-            title="Close conversation"
-          >
-            <X className="w-3.5 h-3.5 stroke-[2.4]" />
-            <span>Close</span>
-          </button>
         </div>
-      </div>
-
-      {/* Input Textarea Container */}
-      <div className="p-3 border-b border-[#e5eef4] bg-[#fbfdfd] flex-none">
         <textarea
           rows={2}
           value={inputText}

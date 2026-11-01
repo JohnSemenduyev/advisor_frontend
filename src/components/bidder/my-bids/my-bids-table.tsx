@@ -349,13 +349,13 @@ export function MyBidsTable() {
           <table className="w-full text-left border-collapse min-w-[1050px] table-fixed">
             <colgroup>
               <col style={{ width: "7.5%" }} />
-              <col style={{ width: "17.5%" }} />
-              <col style={{ width: "23.5%" }} />
+              <col style={{ width: "18.5%" }} />
+              <col style={{ width: "25%" }} />
+              <col style={{ width: "7.5%" }} />
               <col style={{ width: "8.5%" }} />
-              <col style={{ width: "10%" }} />
-              <col style={{ width: "7%" }} />
-              <col style={{ width: "7%" }} />
-              <col style={{ width: "13%" }} />
+              <col style={{ width: "7.5%" }} />
+              <col style={{ width: "7.5%" }} />
+              <col style={{ width: "12%" }} />
               <col style={{ width: "6%" }} />
             </colgroup>
 
@@ -363,9 +363,9 @@ export function MyBidsTable() {
             <thead className="maximal-thead">
               <tr className="select-none">
                 {/* 1. Request ID */}
-                <th>
+                <th className="!px-2">
                   <div className="th-title">
-                    <span>Request ID</span>
+                    <span className="whitespace-nowrap text-[12px]">Request ID</span>
                     <button
                       type="button"
                       onClick={() => handleSort("id")}
@@ -483,9 +483,9 @@ export function MyBidsTable() {
                 </th>
 
                 {/* 6. Bid Start Date */}
-                <th>
+                <th className="!px-1.5">
                   <div className="th-title">
-                    <span>Bid Start Date</span>
+                    <span className="text-[11.5px] whitespace-nowrap tracking-tight">Bid Start Date</span>
                     <button
                       type="button"
                       onClick={() => handleSort("bidStartDate")}
@@ -507,9 +507,9 @@ export function MyBidsTable() {
                 </th>
 
                 {/* 7. Bid End Date */}
-                <th>
+                <th className="!px-1.5">
                   <div className="th-title">
-                    <span>Bid End Date</span>
+                    <span className="text-[11.5px] whitespace-nowrap tracking-tight">Bid End Date</span>
                     <button
                       type="button"
                       onClick={() => handleSort("bidEndDate")}
@@ -549,7 +549,7 @@ export function MyBidsTable() {
                       onChange={(e) => handleFilterChange("status", e.target.value)}
                       aria-label="Filter by Status"
                       id="bidStatusFilter"
-                      className="maximal-filter-select"
+                      className="maximal-filter-select !max-w-[90px]"
                       style={{ textAlign: "center", textAlignLast: "center" }}
                     >
                       <option value="All">All</option>
@@ -559,9 +559,9 @@ export function MyBidsTable() {
                   </div>
                 </th>
 
-                {/* 9. Actions Header - Title and flag removed per client request, left-aligned */}
-                <th className="actions-header" style={{ textAlign: "left" }}>
-                  <div className="th-title invisible select-none" style={{ justifyContent: "flex-start" }}>
+                {/* 9. Actions Header - Compact without blank space */}
+                <th className="actions-header !px-2" style={{ textAlign: "center" }}>
+                  <div className="th-title invisible select-none" style={{ justifyContent: "center" }}>
                     <span>&nbsp;</span>
                   </div>
                   <div className="filter-wrap invisible select-none" aria-hidden="true">
@@ -576,11 +576,11 @@ export function MyBidsTable() {
               {currentRecords.map((item) => (
                 <tr key={item.id} className="hover:bg-[#e7eef2] transition-colors">
                   {/* Request ID (Underlined clickable link matching client screenshot) */}
-                  <td className="truncate">
+                  <td className="whitespace-nowrap font-medium !px-2">
                     <button
                       type="button"
                       onClick={() => openViewModal(item)}
-                      className="font-bold underline text-[#1f2b33] hover:text-[#086ba5] cursor-pointer text-left tracking-tight"
+                      className="font-bold underline text-[#1f2b33] hover:text-[#086ba5] cursor-pointer text-left tracking-tight whitespace-nowrap"
                       title={`View bid details for ${item.id}`}
                     >
                       {item.id}
@@ -608,12 +608,12 @@ export function MyBidsTable() {
                   </td>
 
                   {/* Bid Start Date */}
-                  <td className="text-[#2d3a43]">
+                  <td className="text-[#2d3a43] !px-1.5 whitespace-nowrap">
                     {item.bidStartDate}
                   </td>
 
                   {/* Bid End Date */}
-                  <td className="text-[#2d3a43]">
+                  <td className="text-[#2d3a43] !px-1.5 whitespace-nowrap">
                     {item.bidEndDate}
                   </td>
 
@@ -622,9 +622,9 @@ export function MyBidsTable() {
                     {item.status}
                   </td>
 
-                  {/* Action Buttons: View (Eye) & Delete (Trash) in silver beveled icons - aligned to the left */}
-                  <td className="text-left pl-2.5">
-                    <div className="flex items-center justify-start gap-1.5">
+                  {/* Action Buttons: View (Eye) & Delete (Trash) in silver beveled icons - compact, snug and centered */}
+                  <td className="text-center !px-2 whitespace-nowrap">
+                    <div className="flex items-center justify-center gap-1.5">
                       <button
                         type="button"
                         onClick={() => openViewModal(item)}

@@ -1,0 +1,101 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Visitor Timeline — Developer Demo</title><style>*{box-sizing:border-box}body{margin:0;background:linear-gradient(130deg,#e5e9eb,#f5f6f6);font:14px Arial,sans-serif;color:#293b46}.top{height:74px;background:linear-gradient(90deg,#111b21,#2c3a43);display:flex;align-items:center;padding:0 24px}.top button{border:0;border-radius:28px;background:linear-gradient(#2e3b45,#131d25);color:white;font-weight:700;padding:18px 40px;font-size:16px}.wrap{margin:35px 25px;background:#fff;border-radius:16px;padding:26px;box-shadow:0 15px 30px #25343c18}h1{font-size:25px;margin:0 0 24px}table{width:100%;border-collapse:collapse;text-align:left}th{background:linear-gradient(#e7edf0,#d7e1e6);padding:17px 14px;color:#34434c;font-weight:600}td{padding:20px 14px;border-bottom:1px solid #e4ebef}tbody tr{cursor:pointer}tbody tr:hover{background:#edf3f6}.name{font-weight:650}.sub{color:#7b8b96;font-size:12px;margin-top:5px}.pill{background:#e0f7e9;color:#168b50;padding:6px 13px;border-radius:20px;font-weight:700;font-size:12px}.hint{color:#73848f;margin:20px 0 0}button{cursor:pointer}@media(max-width:850px){.wrap{overflow-x:auto}table{min-width:900px}}</style><style>
+#vtDetailOverlay{position:fixed;inset:0;z-index:30000;display:block;visibility:hidden;pointer-events:none;background:transparent;transition:visibility 0s linear .62s}
+#vtDetailOverlay.open{visibility:visible;pointer-events:auto;transition:visibility 0s}
+#vtDetailDrawer{position:absolute;right:0;top:0;bottom:0;width:min(540px,100vw);background:#f8fafc;box-shadow:-16px 0 45px rgba(15,35,48,.19);display:flex;flex-direction:column;color:#263947;font-family:inherit;transform:translateX(100%);transition:transform .58s cubic-bezier(.22,1,.36,1);will-change:transform}
+#vtDetailOverlay.open #vtDetailDrawer{transform:translateX(0)}
+.vtd-top{height:67px;min-height:67px;display:flex;align-items:center;justify-content:space-between;padding:0 23px;background:linear-gradient(180deg,#fff,#f5f8fa);border-bottom:1px solid #dbe4ea}
+.vtd-top strong{font-size:16px;font-weight:650}.vtd-nav{display:flex;gap:6px}.vtd-icon{height:34px;width:34px;border:1px solid transparent;border-radius:9px;background:transparent;color:#546978;font-size:21px;cursor:pointer}.vtd-icon:hover{background:#eaf1f5;border-color:#d8e3e9}.vtd-scroll{overflow-y:auto;flex:1;padding:24px 26px 32px}.vtd-profile{display:flex;gap:16px;align-items:center;margin-bottom:24px}.vtd-avatar{width:76px;height:76px;object-fit:cover;border-radius:50%;border:3px solid white;box-shadow:0 3px 13px #cbd7df}.vtd-name{font-size:23px;font-weight:650;color:#223745}.vtd-meta{font-size:13px;color:#728592;margin-top:5px}.vtd-pill{display:inline-block;font-size:10px;letter-spacing:.5px;font-weight:700;border-radius:15px;padding:5px 12px;background:#e0f7e9;color:#168b50;margin-top:8px}.vtd-pill.out{background:#e9eef2;color:#667985}.vtd-card{background:white;border:1px solid #e1e8ee;border-radius:13px;padding:18px 20px;margin-bottom:15px;box-shadow:0 3px 11px rgba(31,52,67,.035)}.vtd-card h3{font-size:14px;font-weight:700;margin:0 0 17px;color:#233e50}.vtd-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px 16px}.vtd-field label{display:block;color:#728493;font-size:11px;margin-bottom:6px}.vtd-field div{font-size:13px;color:#273d4c;overflow-wrap:anywhere}.vtd-field.full{grid-column:1/-1}.vtd-notes{display:block;width:100%;min-height:110px;resize:vertical;border:1px solid #d5e0e8;border-radius:9px;padding:12px;font:inherit;font-size:13px;color:#243b4b;box-sizing:border-box;outline:none}.vtd-notes:focus{border-color:#24a4c8;box-shadow:0 0 0 3px #24a4c81b}.vtd-photo-large{width:100%;max-height:230px;object-fit:cover;object-position:center 25%;border-radius:9px}.vtd-photo-note{font-size:11px;color:#84939d;margin-top:9px}.vtd-bottom{display:flex;gap:12px;justify-content:flex-end;background:#fff;border-top:1px solid #e0e8ed;padding:15px 24px}.vtd-btn{height:39px;border-radius:8px;padding:0 22px;cursor:pointer;font-size:13px;font-weight:600;border:1px solid #23a1c4;background:white;color:#1599bc}.vtd-btn.primary{background:linear-gradient(120deg,#22abc9,#0b92b4);color:white;border-color:#1296b7}.vtd-btn:hover{filter:brightness(.97)}
+/* Matching metallic silver action buttons in Visitor Details drawer */
+#vtDetailDrawer .vtd-bottom .vtd-btn,
+#vtDetailDrawer .vtd-bottom .vtd-btn.primary{
+  background:linear-gradient(180deg,#f8fafb 0%,#e6ebef 48%,#d1d9df 100%);
+  border:1px solid #aebcc6;
+  color:#263d4c;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 2px 5px rgba(30,50,65,.12);
+  font-weight:650;
+  transition:background .18s ease,box-shadow .18s ease;
+}
+#vtDetailDrawer .vtd-bottom .vtd-btn:hover,
+#vtDetailDrawer .vtd-bottom .vtd-btn.primary:hover{
+  background:linear-gradient(180deg,#f0f4f6 0%,#dce4e9 48%,#c7d1d8 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 3px 7px rgba(30,50,65,.16);
+  filter:none;
+}
+#vtRows tr{cursor:pointer}#vtRows tr:hover{background-color:#f4f9fc}
+
+/* Assignment fields match the existing Maximal visitor-detail controls. */
+.vtd-assignment-grid{grid-template-columns:1fr;gap:14px}
+.vtd-assignment .vtd-field label{margin-bottom:6px}
+.vtd-assignment .vtd-edit{background:#f8fafc}
+.vtd-agreement{display:inline-flex;align-items:center;gap:9px;margin-top:18px;font-size:12px;color:#009dcc;text-decoration:none}
+.vtd-agreement:hover{color:#087c9e;text-decoration:underline}
+/* Backdrop fades independently so the sliding drawer remains fully opaque. */
+#vtDetailOverlay::before{content:"";position:absolute;inset:0;background:rgba(21,32,41,.36);backdrop-filter:blur(3px);opacity:0;transition:opacity .48s ease;pointer-events:none}
+#vtDetailOverlay.open::before{opacity:1}
+#vtDetailDrawer{opacity:1!important;background:#f8fafc!important;isolation:isolate}
+/* Prevent the drawer shadow from lingering at the end of the slide-out. */
+#vtDetailOverlay{overflow:hidden}
+#vtDetailOverlay:not(.open) #vtDetailDrawer{box-shadow:none!important}
+#vtDetailOverlay.open #vtDetailDrawer{box-shadow:-16px 0 45px rgba(15,35,48,.19)}
+.vtd-field input.vtd-edit{box-sizing:border-box;width:100%;min-height:34px;border:1px solid #d5e0e8;border-radius:7px;padding:7px 9px;font:inherit;font-size:13px;color:#273d4c;background:#fff;outline:none}
+.vtd-field input.vtd-edit:focus{border-color:#24a4c8;box-shadow:0 0 0 3px #24a4c81b}
+
+/* Final override: identical silver pill buttons, including selected/primary state. */
+html body #vtDetailDrawer .vtd-bottom button#vtdCancel,
+html body #vtDetailDrawer .vtd-bottom button#vtdSave,
+html body #vtDetailDrawer .vtd-bottom button#vtdSave.primary {
+  appearance:none !important;
+  -webkit-appearance:none !important;
+  box-sizing:border-box !important;
+  height:39px !important;
+  min-height:39px !important;
+  width:auto !important;
+  padding:0 22px !important;
+  border-radius:999px !important;
+  border:1px solid #aebcc6 !important;
+  background:linear-gradient(180deg,#f8fafb 0%,#e5ebef 48%,#cfd8df 100%) !important;
+  color:#263d4c !important;
+  font:600 13px/1 'Segoe UI',Arial,sans-serif !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 2px 5px rgba(30,50,65,.14) !important;
+  text-shadow:none !important;
+  transition:background .18s ease,box-shadow .18s ease !important;
+}
+html body #vtDetailDrawer .vtd-bottom button#vtdCancel:hover,
+html body #vtDetailDrawer .vtd-bottom button#vtdSave:hover {
+  background:linear-gradient(180deg,#f1f5f7 0%,#dce4e9 48%,#c3cfd7 100%) !important;
+  color:#263d4c !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 3px 7px rgba(30,50,65,.16) !important;
+}
+/* Align Save Changes with the actual right edge of the inset white cards. */
+#vtDetailDrawer .vtd-bottom{padding-right:43px !important;}
+/* Keep Cancel and Save Changes hover movement identical. */
+html body #vtDetailDrawer .vtd-bottom button#vtdCancel,
+html body #vtDetailDrawer .vtd-bottom button#vtdSave {
+  transform:translateY(0) !important;
+  transition:transform .18s ease,background .18s ease,box-shadow .18s ease !important;
+}
+html body #vtDetailDrawer .vtd-bottom button#vtdCancel:hover,
+html body #vtDetailDrawer .vtd-bottom button#vtdSave:hover {
+  transform:translateY(-2px) !important;
+}
+html body #vtDetailDrawer .vtd-bottom button#vtdCancel:active,
+html body #vtDetailDrawer .vtd-bottom button#vtdSave:active {
+  transform:translateY(0) !important;
+}
+#vtDetailDrawer .vtd-location-one-line > div{white-space:nowrap;overflow-wrap:normal;font-size:12px;}
+</style></head><body><header class="top"><button>Visitors</button></header><main class="wrap"><h1>Visitor Timeline</h1><table><thead><tr><th>Status</th><th>Visitor</th><th>Host</th><th>Category</th><th>Location</th><th>Signed In</th><th>Signed Out</th><th>Duration</th></tr></thead><tbody id="vtRows"><tr onclick="openVisitorDetails('Lenin Walgreenes')"><td><span class="pill">IN</span></td><td><div class="vt-name name">Lenin Walgreenes</div><div class="sub">Visitor</div></td><td>9. Security Admin</td><td>Freight Pickup</td><td>Aurobindo 203A Building Security Entrance</td><td>1:43pm, Oct 26</td><td>—</td><td>—</td></tr></tbody></table><p class="hint">Click Lenin Walgreenes to view the slide-in Visitor Details panel.</p></main><script>const visitorTimelineRows=[['Lenin Walgreenes','','9. Security Admin','Freight Pickup','Aurobindo 203A Building Security Entrance','1:43pm, Oct 26','—','—','IN']];const visitorSamplePhotos={'Lenin Walgreenes':'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="160" height="160"%3E%3Crect width="160" height="160" fill="%23dfe7eb"/%3E%3Ccircle cx="80" cy="62" r="30" fill="%23879eac"/%3E%3Cpath d="M25 155Q30 95 80 105Q130 95 135 155" fill="%23879eac"/%3E%3C/svg%3E',default:'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="160" height="160"%3E%3Crect width="160" height="160" fill="%23dfe7eb"/%3E%3Ccircle cx="80" cy="62" r="30" fill="%23879eac"/%3E%3Cpath d="M25 155Q30 95 80 105Q130 95 135 155" fill="%23879eac"/%3E%3C/svg%3E'};function filterVisitorTimeline(){const r=visitorTimelineRows[0];document.querySelector('.vt-name').textContent=r[0];}</script><script>
+(function(){
+const root=document.createElement('div');root.id='vtDetailOverlay';root.innerHTML=`<aside id="vtDetailDrawer" role="dialog" aria-modal="true" aria-label="Visitor details"><div class="vtd-top"><strong>Visitor Details</strong><div class="vtd-nav"><button class="vtd-icon" id="vtdPrev" title="Previous visitor" aria-label="Previous visitor">‹</button><button class="vtd-icon" id="vtdNext" title="Next visitor" aria-label="Next visitor">›</button><button class="vtd-icon" id="vtdClose" title="Close" aria-label="Close">×</button></div></div><div class="vtd-scroll"><div class="vtd-profile"><img class="vtd-avatar" id="vtdAvatar" alt="Sample visitor portrait"><div><div class="vtd-name" id="vtdName"></div><div class="vtd-meta" id="vtdCompany"></div><span class="vtd-pill" id="vtdStatus"></span></div></div><div class="vtd-card"><h3>Visit Information</h3><div class="vtd-grid" id="vtdVisitFields"></div></div><div class="vtd-card"><h3>Visitor Information</h3><div class="vtd-grid" id="vtdVisitorFields"></div></div><div class="vtd-card vtd-assignment"><h3>Assignment &amp; Agreement</h3><div class="vtd-grid vtd-assignment-grid"><div class="vtd-field full"><label for="vtdDepartment">Selected Department</label><input id="vtdDepartment" class="vtd-edit" type="text" value="Will Call Parts"></div><div class="vtd-field full"><label for="vtdEmployee">Selected Employee</label><input id="vtdEmployee" class="vtd-edit" type="text" value="Antonio Betances"></div></div><a class="vtd-agreement" id="vtdAgreement" href="#" download="Visitor_Agreement.txt"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg><span>Download Visitor Agreement</span></a></div><div class="vtd-card"><h3>Your Notes</h3><textarea class="vtd-notes" id="vtdNotes" placeholder="Add notes about this visit..."></textarea></div><div class="vtd-card"><h3>Visitor Photo</h3><img class="vtd-photo-large" id="vtdLargePhoto" alt="Sample visitor portrait"><div class="vtd-photo-note">Sample image for dashboard preview only — not the actual visitor's photo.</div></div></div><div class="vtd-bottom"><button class="vtd-btn" id="vtdCancel">Cancel</button><button class="vtd-btn primary" id="vtdSave">Save Changes</button></div></aside>`;document.body.appendChild(root);
+let active=-1;let previousOverflow='';
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function field(k,v){return `<div class="vtd-field"><label>${esc(k)}</label><div>${esc(v||'—')}</div></div>`}
+function editable(k,v,key,type='text'){return `<div class="vtd-field"><label for="vtdEdit_${key}">${esc(k)}</label><input class="vtd-edit" id="vtdEdit_${key}" type="${type}" value="${esc(v)}" autocomplete="off"></div>`}
+function save(){if(active<0)return;const r=visitorTimelineRows[active];const oldName=r[0];const fullName=document.getElementById('vtdEdit_name')?.value.trim();const company=document.getElementById('vtdEdit_company')?.value.trim();const phone=document.getElementById('vtdEdit_phone')?.value.trim();if(fullName)r[0]=fullName;r[1]=company||'';try{localStorage.setItem('maximal_vt_notes_'+oldName,document.getElementById('vtdNotes').value);localStorage.setItem('maximal_vt_phone_'+r[0],phone||'');localStorage.setItem('maximal_vt_department_'+r[0],document.getElementById('vtdDepartment').value);localStorage.setItem('maximal_vt_employee_'+r[0],document.getElementById('vtdEmployee').value);if(oldName!==r[0])localStorage.setItem('maximal_vt_notes_'+r[0],document.getElementById('vtdNotes').value)}catch(e){}if(oldName!==r[0]&&visitorSamplePhotos[oldName])visitorSamplePhotos[r[0]]=visitorSamplePhotos[oldName];filterVisitorTimeline();}
+function getPhone(name){try{return localStorage.getItem('maximal_vt_phone_'+name)||''}catch(e){return ''}}
+function show(i){if(!Array.isArray(visitorTimelineRows)||!visitorTimelineRows.length)return;active=(i+visitorTimelineRows.length)%visitorTimelineRows.length;const r=visitorTimelineRows[active];const photo=visitorSamplePhotos[r[0]]||visitorSamplePhotos.default;document.getElementById('vtdName').textContent=r[0];document.getElementById('vtdCompany').textContent=r[1]||'Visitor';const status=document.getElementById('vtdStatus');status.textContent=r[8]==='IN'?'SIGNED IN':'SIGNED OUT';status.classList.toggle('out',r[8]!=='IN');document.getElementById('vtdAvatar').src=photo;document.getElementById('vtdLargePhoto').src=photo;document.getElementById('vtdVisitFields').innerHTML=field('Category',r[3])+field('Host',r[2])+field('Signed In',r[5])+field('Signed Out',r[6])+field('Duration',r[7])+field('Location',r[4]);document.getElementById('vtdVisitorFields').innerHTML=editable('Full Name',r[0],'name')+editable('Company Name',r[1],'company')+editable('Phone Number',getPhone(r[0]),'phone','tel')+field('Visitor Type',r[3])+`<div class="vtd-field full vtd-location-one-line"><label>Location</label><div>${esc(r[4]||'—')}</div></div>`;try{document.getElementById('vtdDepartment').value=localStorage.getItem('maximal_vt_department_'+r[0])||'Will Call Parts';document.getElementById('vtdEmployee').value=localStorage.getItem('maximal_vt_employee_'+r[0])||'Antonio Betances';document.getElementById('vtdNotes').value=localStorage.getItem('maximal_vt_notes_'+r[0])||''}catch(e){document.getElementById('vtdNotes').value='';document.getElementById('vtdDepartment').value='Will Call Parts';document.getElementById('vtdEmployee').value='Antonio Betances'}root.querySelector('.vtd-scroll').scrollTop=0;}
+function close(){root.classList.remove('open');window.setTimeout(()=>{if(!root.classList.contains('open'))document.body.style.overflow=previousOverflow;},540);active=-1;}
+window.openVisitorDetails=function(name){const idx=visitorTimelineRows.findIndex(r=>r[0]===name);if(idx<0)return;previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';root.classList.add('open');show(idx)};
+document.getElementById('vtdAgreement').addEventListener('click',e=>{const r=visitorTimelineRows[active];if(!r){e.preventDefault();return;}const content='VISITOR AGREEMENT — DEMONSTRATION ONLY\n\nVisitor: '+r[0]+'\nDepartment: '+document.getElementById('vtdDepartment').value+'\nEmployee: '+document.getElementById('vtdEmployee').value+'\n\nThis is a sample placeholder, not a signed agreement.';const blob=new Blob([content],{type:'text/plain'});const url=URL.createObjectURL(blob);e.currentTarget.href=url;setTimeout(()=>URL.revokeObjectURL(url),1500)});root.addEventListener('click',e=>{if(e.target===root)close()});document.getElementById('vtdClose').onclick=close;document.getElementById('vtdCancel').onclick=close;document.getElementById('vtdSave').onclick=()=>{save();close()};document.getElementById('vtdPrev').onclick=()=>{const i=active-1;save();show(i)};document.getElementById('vtdNext').onclick=()=>{const i=active+1;save();show(i)};document.addEventListener('keydown',e=>{if(e.key==='Escape'&&root.classList.contains('open'))close()});
+
+})();
+</script></body></html>
