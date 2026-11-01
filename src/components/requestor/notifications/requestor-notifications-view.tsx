@@ -307,8 +307,8 @@ export function RequestorNotificationsView() {
               <table className="w-full text-left border-collapse min-w-[850px] table-fixed">
                 <colgroup>
                   <col style={{ width: "22%" }} />
-                  <col style={{ width: "67%" }} />
-                  <col style={{ width: "11%" }} />
+                  <col style={{ width: "61%" }} />
+                  <col style={{ width: "17%" }} />
                 </colgroup>
 
                 {/* Header matching metallic gradient */}
@@ -369,8 +369,8 @@ export function RequestorNotificationsView() {
                     </th>
 
                     {/* 3. Actions - Title and flag removed per client request */}
-                    <th className="actions-header" style={{ textAlign: "left" }}>
-                      <div className="th-title invisible select-none" style={{ justifyContent: "flex-start" }}>
+                    <th className="actions-header pr-6" style={{ textAlign: "right" }}>
+                      <div className="th-title invisible select-none" style={{ justifyContent: "flex-end" }}>
                         <span>&nbsp;</span>
                       </div>
                       <div className="filter-wrap invisible select-none" aria-hidden="true">
@@ -413,12 +413,12 @@ export function RequestorNotificationsView() {
                         </div>
                       </td>
 
-                      {/* Action Button - left-aligned */}
-                      <td className="text-left">
+                      {/* Action Button - uniform width right-aligned */}
+                      <td className="text-right pr-6 whitespace-nowrap">
                         <button
                           type="button"
                           onClick={() => handleAction(item)}
-                          className="maximal-btn-action text-[11.5px] py-1 px-3"
+                          className="maximal-btn-action w-[126px] text-[11.5px] py-1"
                         >
                           {item.actionLabel}
                         </button>
