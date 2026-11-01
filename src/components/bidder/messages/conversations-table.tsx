@@ -146,9 +146,8 @@ export function ConversationsTable({
                 <tr
                   key={conv.id}
                   onClick={() => onSelect(conv)}
-                  className={`cursor-pointer transition-colors ${
-                    isSelected ? "!bg-[#e5f1fb]" : "hover:bg-[#f2f7fb]"
-                  }`}
+                  className={`cursor-pointer transition-colors ${isSelected ? "!bg-[#e5f1fb]" : "hover:bg-[#f2f7fb]"
+                    }`}
                 >
                   {/* Name */}
                   <td className="whitespace-nowrap font-medium text-[#253946]">

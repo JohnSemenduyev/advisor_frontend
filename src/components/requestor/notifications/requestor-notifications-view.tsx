@@ -307,8 +307,8 @@ export function RequestorNotificationsView() {
               <table className="w-full text-left border-collapse min-w-[850px] table-fixed">
                 <colgroup>
                   <col style={{ width: "22%" }} />
-                  <col style={{ width: "68%" }} />
-                  <col style={{ width: "10%" }} />
+                  <col style={{ width: "65.5%" }} />
+                  <col style={{ width: "12.5%" }} />
                 </colgroup>
 
                 {/* Header matching metallic gradient */}
@@ -369,7 +369,7 @@ export function RequestorNotificationsView() {
                     </th>
 
                     {/* 3. Actions - Title and flag removed per client request */}
-                    <th className="actions-header pl-3 pr-3" style={{ textAlign: "left" }}>
+                    <th className="actions-header px-4" style={{ textAlign: "left" }}>
                       <div className="th-title invisible select-none" style={{ justifyContent: "flex-start" }}>
                         <span>&nbsp;</span>
                       </div>
@@ -413,15 +413,17 @@ export function RequestorNotificationsView() {
                         </div>
                       </td>
 
-                      {/* Action Button - left-aligned in column */}
-                      <td className="text-left pl-3 pr-3 whitespace-nowrap">
-                        <button
-                          type="button"
-                          onClick={() => handleAction(item)}
-                          className="maximal-btn-action w-[124px] text-[11.5px] py-1"
-                        >
-                          {item.actionLabel}
-                        </button>
+                      {/* Action Button - strictly left-aligned in column */}
+                      <td className="whitespace-nowrap px-4" style={{ textAlign: "left" }}>
+                        <div className="flex justify-start items-center" style={{ justifyContent: "flex-start" }}>
+                          <button
+                            type="button"
+                            onClick={() => handleAction(item)}
+                            className="maximal-btn-action w-[124px] text-[11.5px] py-1"
+                          >
+                            {item.actionLabel}
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
