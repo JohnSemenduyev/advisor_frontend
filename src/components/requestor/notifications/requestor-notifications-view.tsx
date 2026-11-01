@@ -307,8 +307,8 @@ export function RequestorNotificationsView() {
               <table className="w-full text-left border-collapse min-w-[850px] table-fixed">
                 <colgroup>
                   <col style={{ width: "22%" }} />
-                  <col style={{ width: "61%" }} />
-                  <col style={{ width: "17%" }} />
+                  <col style={{ width: "68%" }} />
+                  <col style={{ width: "10%" }} />
                 </colgroup>
 
                 {/* Header matching metallic gradient */}
@@ -369,8 +369,8 @@ export function RequestorNotificationsView() {
                     </th>
 
                     {/* 3. Actions - Title and flag removed per client request */}
-                    <th className="actions-header pr-6" style={{ textAlign: "right" }}>
-                      <div className="th-title invisible select-none" style={{ justifyContent: "flex-end" }}>
+                    <th className="actions-header pl-3 pr-3" style={{ textAlign: "left" }}>
+                      <div className="th-title invisible select-none" style={{ justifyContent: "flex-start" }}>
                         <span>&nbsp;</span>
                       </div>
                       <div className="filter-wrap invisible select-none" aria-hidden="true">
@@ -413,12 +413,12 @@ export function RequestorNotificationsView() {
                         </div>
                       </td>
 
-                      {/* Action Button - uniform width right-aligned */}
-                      <td className="text-right pr-6 whitespace-nowrap">
+                      {/* Action Button - left-aligned in column */}
+                      <td className="text-left pl-3 pr-3 whitespace-nowrap">
                         <button
                           type="button"
                           onClick={() => handleAction(item)}
-                          className="maximal-btn-action w-[126px] text-[11.5px] py-1"
+                          className="maximal-btn-action w-[124px] text-[11.5px] py-1"
                         >
                           {item.actionLabel}
                         </button>

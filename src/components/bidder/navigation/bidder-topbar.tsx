@@ -87,15 +87,15 @@ export function BidderTopbar({
           <ChevronDown className="w-3.5 h-3.5 text-[#cfdbe3] hidden sm:inline" />
         </button>
 
-        {/* User Dropdown matching screenshot */}
+        {/* User Dropdown matching Client Reference 1:1 */}
         {userMenuOpen && (
-          <div className="absolute right-0 top-[calc(100%+8px)] w-[172px] rounded-[14px] bg-[#f4f7f9] border border-[#d2dbe0] shadow-[0_6px_20px_rgba(15,28,38,0.14)] z-50 animate-in fade-in duration-100 text-left">
-            <div className="text-[11px] font-semibold text-[#667683] tracking-[0.05em] uppercase px-4 pt-3.5 pb-1 select-none">
+          <div className="absolute right-0 top-[calc(100%+6px)] w-[146px] rounded-[10px] bg-white border border-[#dce2e6] shadow-[0_4px_16px_rgba(0,0,0,0.09),0_1px_3px_rgba(0,0,0,0.05)] z-50 animate-in fade-in duration-100 text-left px-3.5 py-2.5">
+            <div className="text-[9.5px] font-semibold text-[#718290] tracking-[0.06em] uppercase select-none pb-1.5">
               SWITCH ROLE
             </div>
 
             {/* Current Role: Bidder (Lighter grey / non-clickable) */}
-            <div className="text-[13.5px] font-medium text-[#8f9fa9] px-4 py-1.5 cursor-default select-none">
+            <div className="text-[12px] font-medium text-[#95a4af] py-0.5 select-none cursor-default">
               Bidder
             </div>
 
@@ -103,18 +103,18 @@ export function BidderTopbar({
             <Link
               href="/requestor/dashboard"
               onClick={() => setUserMenuOpen(false)}
-              className="text-[13.5px] font-semibold text-[#22313a] hover:text-[#0b649d] px-4 py-1.5 transition-colors cursor-pointer block"
+              className="text-[12px] font-semibold text-[#22303a] hover:text-[#0b649d] py-0.5 transition-colors cursor-pointer block"
             >
               Requestor
             </Link>
 
-            <div className="border-t border-[#dce3e8] my-2.5 mx-4" />
+            <div className="border-t border-[#e2e8ed] my-2 -mx-1" />
 
             {/* Logout */}
             <Link
               href="/login"
               onClick={() => setUserMenuOpen(false)}
-              className="text-[13.5px] font-semibold text-[#923b3b] hover:text-[#782424] px-4 pt-1 pb-3.5 transition-colors cursor-pointer block"
+              className="text-[12px] font-semibold text-[#963b3b] hover:text-[#782424] pt-0.5 transition-colors cursor-pointer block"
             >
               Logout
             </Link>
