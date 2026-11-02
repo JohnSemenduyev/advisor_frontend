@@ -3,7 +3,6 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import {
-  FileSearch,
   ArrowUpDown,
   Filter,
   Calendar,
@@ -13,7 +12,6 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-  SlidersHorizontal,
   X,
   Send,
   CheckCircle2,
@@ -414,35 +412,7 @@ export function OpenProjectsTable({ onBackToFilter, initialFilters }: OpenProjec
   };
 
   return (
-    <div className="w-full flex-1 flex flex-col min-h-0 space-y-4 animate-in fade-in duration-200">
-      {/* Top Header: Open Projects and action back to filter */}
-      <div className="flex flex-wrap items-center justify-between gap-4 flex-none">
-        <div className="flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#e4f2f8] to-[#c7e0ed] border border-[#b4d2e3] flex items-center justify-center text-[#185a86] flex-none shadow-xs">
-            <FileSearch className="w-6 h-6 stroke-[2]" />
-          </div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1a4463] tracking-tight">
-              Open Projects
-            </h1>
-            <p className="text-xs sm:text-sm text-[#5d7c8e] mt-0.5">
-              Browse and bid on available projects. Find the right opportunities for your business.
-            </p>
-          </div>
-        </div>
-
-        {onBackToFilter && (
-          <button
-            type="button"
-            onClick={onBackToFilter}
-            className="maximal-btn-secondary inline-flex items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-semibold cursor-pointer"
-          >
-            <SlidersHorizontal className="w-3.5 h-3.5" />
-            <span>Modify Search Filters</span>
-          </button>
-        )}
-      </div>
-
+    <div className="w-full flex-1 flex flex-col min-h-0 animate-in fade-in duration-200">
       {/* Maximal Elevated Table Wrap matching Image 2 */}
       <div className="maximal-tablewrap shadow-lg flex-1 flex flex-col min-h-0">
         <div className="overflow-x-auto overflow-y-auto flex-1 min-h-0">
