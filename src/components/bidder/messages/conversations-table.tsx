@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { MessageSquare } from "lucide-react";
 import { Conversation } from "./messages-types";
+import { CustomSelect } from "../../shared/custom-select";
 
 interface ConversationsTableProps {
   conversations: Conversation[];
@@ -170,11 +171,11 @@ export function ConversationsTable({
                   </td>
 
                   {/* Service Request ID */}
-                  <td className="whitespace-nowrap font-medium">
+                  <td className="whitespace-nowrap">
                     <Link
                       href={`/bidder/submit-bid/${conv.serviceRequestId}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="hover:underline text-[#0066c0]"
+                      className="ba-id-link hover:underline"
                     >
                       {conv.serviceRequestId}
                     </Link>
@@ -281,19 +282,22 @@ export function ConversationsTable({
 
         {/* Page Size Select */}
         <div className="flex items-center gap-2">
-          <select
-            value={pageSize}
-            onChange={(e) => {
-              setPageSize(Number(e.target.value));
+          <CustomSelect
+            variant="pager"
+            placement="top"
+            align="right"
+            ariaLabel="Rows per page"
+            value={String(pageSize)}
+            onChange={(val) => {
+              setPageSize(Number(val));
               setCurrentPage(1);
             }}
-            className="px-2 py-1 bg-white border border-[#b8c9d4] rounded text-xs text-[#2c3e50] focus:outline-none focus:ring-1 focus:ring-[#0a84c1]"
-            aria-label="Rows per page"
-          >
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-          </select>
+            options={[
+              { value: "5", label: "5" },
+              { value: "10", label: "10" },
+              { value: "20", label: "20" },
+            ]}
+          />
         </div>
       </div>
     </div>

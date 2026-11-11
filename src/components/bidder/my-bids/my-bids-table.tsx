@@ -9,6 +9,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
+import { CustomSelect } from "../../shared/custom-select";
 
 export interface MyBidRecord {
   id: string;
@@ -544,18 +545,18 @@ export function MyBidsTable() {
                     </button>
                   </div>
                   <div className="filter-select-wrap">
-                    <select
-                      value={filters.status}
-                      onChange={(e) => handleFilterChange("status", e.target.value)}
-                      aria-label="Filter by Status"
+                    <CustomSelect
                       id="bidStatusFilter"
-                      className="maximal-filter-select !max-w-[75px]"
-                      style={{ textAlign: "center", textAlignLast: "center" }}
-                    >
-                      <option value="All">All</option>
-                      <option value="Open">Open</option>
-                      <option value="Closed">Closed</option>
-                    </select>
+                      variant="filter"
+                      ariaLabel="Filter by Status"
+                      value={filters.status}
+                      onChange={(val) => handleFilterChange("status", val)}
+                      options={[
+                        { value: "All", label: "All" },
+                        { value: "Open", label: "Open" },
+                        { value: "Closed", label: "Closed" },
+                      ]}
+                    />
                   </div>
                 </th>
 
@@ -576,11 +577,11 @@ export function MyBidsTable() {
               {currentRecords.map((item) => (
                 <tr key={item.id} className="hover:bg-[#e7eef2] transition-colors">
                   {/* Request ID (Underlined clickable link matching client screenshot) */}
-                  <td className="whitespace-nowrap font-medium">
+                  <td className="whitespace-nowrap">
                     <button
                       type="button"
                       onClick={() => openViewModal(item)}
-                      className="font-bold underline text-[#1f2b33] hover:text-[#086ba5] cursor-pointer text-left tracking-tight whitespace-nowrap"
+                      className="ba-id-link underline cursor-pointer text-left whitespace-nowrap"
                       title={`View bid details for ${item.id}`}
                     >
                       {item.id}
@@ -746,22 +747,24 @@ export function MyBidsTable() {
             </button>
           </div>
 
-          {/* Page Size Native Select */}
+          {/* Page Size Custom Select */}
           <div className="flex items-center gap-2">
-            <select
-              value={pageSize}
-              onChange={(e) => {
-                setPageSize(Number(e.target.value));
+            <CustomSelect
+              variant="pager"
+              placement="top"
+              ariaLabel="Rows per page"
+              value={String(pageSize)}
+              onChange={(val) => {
+                setPageSize(Number(val));
                 setCurrentPage(1);
               }}
-              className="maximal-pager-select px-2.5 py-1 text-xs border border-[#bdcbd3] rounded-[7px] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-medium"
-              aria-label="Rows per page"
-            >
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-              <option value={50}>50</option>
-            </select>
+              options={[
+                { value: "5", label: "5" },
+                { value: "10", label: "10" },
+                { value: "20", label: "20" },
+                { value: "50", label: "50" },
+              ]}
+            />
             <span className="text-xs text-[#526673]">per page</span>
           </div>
         </div>

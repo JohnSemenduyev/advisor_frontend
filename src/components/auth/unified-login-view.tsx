@@ -37,7 +37,7 @@ export function UnifiedLoginView({
           <BrandLogo />
 
           {/* Central 'Post a Project Request' CTA */}
-          <CtaProjectButton onClick={() => setModalType("project")} />
+          <CtaProjectButton onClick={() => setModalType("login")} />
 
           {/* How It Works (Post, Connect, Grow) */}
           <HowItWorks />

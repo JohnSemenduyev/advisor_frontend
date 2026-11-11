@@ -95,6 +95,10 @@ export function RequestorProfileCard({
             onChange={(e) => handleChange("firstName", e.target.value)}
             readOnly={!isEditing}
             aria-readonly={!isEditing}
+            tabIndex={isEditing ? undefined : -1}
+            onFocus={(e) => {
+              if (!isEditing) e.currentTarget.blur();
+            }}
           />
         </label>
 
@@ -110,6 +114,10 @@ export function RequestorProfileCard({
             onChange={(e) => handleChange("lastName", e.target.value)}
             readOnly={!isEditing}
             aria-readonly={!isEditing}
+            tabIndex={isEditing ? undefined : -1}
+            onFocus={(e) => {
+              if (!isEditing) e.currentTarget.blur();
+            }}
           />
         </label>
 
@@ -125,6 +133,10 @@ export function RequestorProfileCard({
             onChange={(e) => handleChange("title", e.target.value)}
             readOnly={!isEditing}
             aria-readonly={!isEditing}
+            tabIndex={isEditing ? undefined : -1}
+            onFocus={(e) => {
+              if (!isEditing) e.currentTarget.blur();
+            }}
           />
         </label>
 
@@ -140,6 +152,10 @@ export function RequestorProfileCard({
             onChange={(e) => handleChange("companyName", e.target.value)}
             readOnly={!isEditing}
             aria-readonly={!isEditing}
+            tabIndex={isEditing ? undefined : -1}
+            onFocus={(e) => {
+              if (!isEditing) e.currentTarget.blur();
+            }}
           />
         </label>
 
@@ -155,6 +171,10 @@ export function RequestorProfileCard({
             onChange={(e) => handleChange("phone", e.target.value)}
             readOnly={!isEditing}
             aria-readonly={!isEditing}
+            tabIndex={isEditing ? undefined : -1}
+            onFocus={(e) => {
+              if (!isEditing) e.currentTarget.blur();
+            }}
           />
         </label>
 
@@ -170,6 +190,10 @@ export function RequestorProfileCard({
             onChange={(e) => handleChange("email", e.target.value)}
             readOnly={!isEditing}
             aria-readonly={!isEditing}
+            tabIndex={isEditing ? undefined : -1}
+            onFocus={(e) => {
+              if (!isEditing) e.currentTarget.blur();
+            }}
           />
         </label>
       </div>

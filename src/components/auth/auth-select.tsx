@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import { ChevronDown } from "lucide-react";
+import { CustomSelect } from "../shared/custom-select";
 
 interface Option {
   value: string;
@@ -20,11 +22,28 @@ export function AuthSelect({
   options,
   error,
   id,
+  name,
+  value,
+  defaultValue,
+  disabled,
+  onChange,
   className = "",
-  ...props
 }: AuthSelectProps) {
   const selectId =
-    id || props.name || label.toLowerCase().replace(/\s+/g, "-");
+    id || name || label.toLowerCase().replace(/\s+/g, "-");
+
+  const resolvedValue = String(
+    value ?? defaultValue ?? options[0]?.value ?? ""
+  );
+
+  const handleValueChange = (nextValue: string) => {
+    if (!onChange) return;
+    const syntheticEvent = {
+      target: { name: name || "", value: nextValue },
+      currentTarget: { name: name || "", value: nextValue },
+    } as React.ChangeEvent<HTMLSelectElement>;
+    onChange(syntheticEvent);
+  };
 
   return (
     <div className="space-y-1 text-left">
@@ -41,20 +60,19 @@ export function AuthSelect({
             {icon}
           </span>
         )}
-        <select
+        <CustomSelect
           id={selectId}
-          className={`w-full appearance-none rounded-xl border border-[#b9d5e3] bg-white py-2.5 text-sm text-[#203b4e] transition-colors focus:border-[#25678b] focus:outline-none focus:ring-2 focus:ring-[#3a9dbd]/30 ${
-            icon ? "pl-10 pr-9" : "px-3.5 pr-9"
-          } ${error ? "border-rose-400 focus:ring-rose-200" : ""} ${className}`}
-          {...props}
-        >
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-        <ChevronDown className="absolute right-3.5 h-4 w-4 text-[#50788c] pointer-events-none" />
+          name={name}
+          variant="auth"
+          ariaLabel={label}
+          value={resolvedValue}
+          onChange={handleValueChange}
+          options={options}
+          disabled={disabled}
+          hasLeftIcon={Boolean(icon)}
+          error={Boolean(error)}
+          className={className}
+        />
       </div>
 
       {error && <p className="text-[11px] text-rose-500 font-medium">{error}</p>}

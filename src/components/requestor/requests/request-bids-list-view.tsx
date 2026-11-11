@@ -297,7 +297,7 @@ export function RequestBidsListView({ requestId }: RequestBidsListViewProps) {
                             >
                               {/* Company Name */}
                               <td className="!py-3 !px-3 border-b border-[#e8edef]">
-                                <span className="font-bold text-[#185a86]">
+                                <span className="ba-cell-bold">
                                   {bid.company}
                                 </span>
                               </td>
@@ -314,7 +314,7 @@ export function RequestBidsListView({ requestId }: RequestBidsListViewProps) {
 
                               {/* Bid Price */}
                               <td className="!py-3 !px-3 border-b border-[#e8edef]">
-                                <span className="font-bold text-[#166534] font-mono">
+                                <span className="font-semibold text-[#166534]">
                                   {bid.bidPriceFormatted}
                                 </span>
                               </td>

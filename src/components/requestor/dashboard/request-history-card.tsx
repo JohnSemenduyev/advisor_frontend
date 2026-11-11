@@ -123,7 +123,7 @@ export function RequestHistoryCard({
                       <Link
                         href={`/requestor/requests/${item.id}`}
                         scroll={true}
-                        className="font-semibold text-[#185a86] hover:underline"
+                        className="ba-id-link hover:underline"
                       >
                         {item.id}
                       </Link>

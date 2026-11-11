@@ -374,7 +374,15 @@
 }
 
 .maximal-thead {
-  background: linear-gradient(180deg, #e7edf0 0%, #d7e1e6 100%) !important;
+  background: linear-gradient(
+    180deg,
+    #e7edf0 0%,
+    #d7e1e6 33px,
+    #c8d2d8 33px,
+    #c8d2d8 34px,
+    #ffffff 34px,
+    #ffffff 100%
+  ) !important;
   color: #2d3a43 !important;
 }
 
@@ -382,14 +390,22 @@
   position: sticky !important;
   top: 0 !important;
   z-index: 10 !important;
-  background: linear-gradient(180deg, #e7edf0 0%, #d7e1e6 100%) !important;
-  height: 65px !important;
-  padding: 7.5px 7.5px 6.5px !important;
+  background: linear-gradient(
+    180deg,
+    #e7edf0 0%,
+    #d7e1e6 33px,
+    #c8d2d8 33px,
+    #c8d2d8 34px,
+    #ffffff 34px,
+    #ffffff 100%
+  ) !important;
+  height: 72px !important;
+  padding: 7.4px 7.5px 6.5px !important;
   vertical-align: top !important;
   border-right: 1px solid rgba(255, 255, 255, 0.75) !important;
-  border-bottom: 1px solid #c8d2d8 !important;
+  border-bottom: 1px solid #dce4e9 !important;
   box-sizing: border-box !important;
-  font-family: Inter, "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif !important;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Inter, Arial, sans-serif !important;
 }
 
 .maximal-thead th:last-child {
@@ -411,22 +427,30 @@
   align-items: center !important;
   gap: 5.35px !important;
   height: 18.2px !important;
-  margin-bottom: 6.4px !important;
+  margin-bottom: 14.6px !important;
   overflow: hidden !important;
 }
 
-/* Compact Table Header (half-height header for tables without filter inputs, ~33px instead of 65px) */
+/* Compact Table Header (half-height header for tables without filter inputs, 33px metallic bar) */
+.maximal-thead.compact,
+.maximal-thead-compact,
+.maximal-thead:not(:has(.filter-wrap)):not(:has(.filter-select-wrap)):not(:has(.actions-flag-filter-slot)) {
+  background: linear-gradient(180deg, #e7edf0 0%, #d7e1e6 100%) !important;
+}
+
 .maximal-thead.compact th,
 .maximal-thead-compact th,
-.maximal-thead:not(:has(.filter-wrap)):not(:has(.actions-flag-filter-slot)) th {
+.maximal-thead:not(:has(.filter-wrap)):not(:has(.filter-select-wrap)):not(:has(.actions-flag-filter-slot)) th {
   height: 33px !important;
   padding: 0 8.6px !important;
   vertical-align: middle !important;
+  background: linear-gradient(180deg, #e7edf0 0%, #d7e1e6 100%) !important;
+  border-bottom: 1px solid #c8d2d8 !important;
 }
 
 .maximal-thead.compact .th-title,
 .maximal-thead-compact .th-title,
-.maximal-thead:not(:has(.filter-wrap)):not(:has(.actions-flag-filter-slot)) .th-title {
+.maximal-thead:not(:has(.filter-wrap)):not(:has(.filter-select-wrap)):not(:has(.actions-flag-filter-slot)) .th-title {
   height: 100% !important;
   margin-bottom: 0 !important;
   display: flex !important;
@@ -434,11 +458,12 @@
 }
 
 .maximal-thead .th-title span {
-  font-family: Inter, "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif !important;
-  font-size: 12.68px !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.025em !important;
-  color: #303c45 !important;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Inter, Arial, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.14px !important;
+  color: #27353d !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
@@ -487,14 +512,15 @@
   height: 25.27px !important;
   min-width: 0 !important;
   padding: 3px 6px 3px 24px !important;
-  border: 1px solid #c3ced4 !important;
+  border: 1px solid #c7d2d8 !important;
   border-radius: 7.5px !important;
   color: #2d3c45 !important;
   font-size: 10.4px !important;
-  font-family: Inter, "Avenir Next", "Segoe UI", Arial, sans-serif !important;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Inter, Arial, sans-serif !important;
   font-weight: 400 !important;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafb 100%) !important;
-  box-shadow: inset 0 2px 4px rgba(52, 73, 90, 0.05), 0 1px 0 #ffffff !important;
+  letter-spacing: 0 !important;
+  background: #ffffff !important;
+  box-shadow: inset 0 1px 2px rgba(52, 73, 90, 0.04) !important;
   outline: none !important;
   box-sizing: border-box !important;
   transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
@@ -685,8 +711,10 @@
   border: 1px solid #b7c7d1;
   background: linear-gradient(145deg, #f9fbfc 0%, #e2e9ed 100%);
   color: #344c5b;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Inter, Arial, sans-serif;
   font-size: 12px;
   font-weight: 500;
+  letter-spacing: 0;
   box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(179, 194, 202, 0.33);
   transition: all 0.15s ease;
   cursor: pointer;
@@ -717,10 +745,11 @@
 .maximal-tablewrap tbody td {
   height: 41.14px !important;
   max-height: 41.14px !important;
-  font-family: Inter, "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif !important;
-  font-size: 12.3px !important;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Inter, Arial, sans-serif !important;
+  font-size: 12px !important;
   font-weight: 400 !important;
-  line-height: 1.3 !important;
+  line-height: 15px !important;
+  letter-spacing: 0 !important;
   color: #34414a !important;
   padding: 3px 8.6px !important;
   border-bottom: 1px solid #e8edef !important;
@@ -729,17 +758,34 @@
   box-sizing: border-box !important;
 }
 
-.maximal-tablewrap tbody td a,
+.maximal-tablewrap tbody td a:where(:not(.maximal-btn-action-icon):not(.rounded-full):not(.ba-id-link)),
 .maximal-tablewrap tbody td .link {
-  font-family: Inter, "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif !important;
-  font-size: 12.3px !important;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Inter, Arial, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 15px !important;
+  letter-spacing: 0 !important;
   font-weight: 400 !important;
   color: #34414a !important;
   text-decoration: none !important;
 }
 
-.maximal-tablewrap tbody td a:hover,
-.maximal-tablewrap tbody td .link:hover {
+.maximal-tablewrap tbody td.ba-cell-bold,
+.maximal-tablewrap tbody td .ba-cell-bold,
+.maximal-tablewrap tbody td a.ba-id-link,
+.maximal-tablewrap tbody td button.ba-id-link,
+.maximal-tablewrap tbody td strong {
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Inter, Arial, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 15px !important;
+  letter-spacing: 0 !important;
+  font-weight: 600 !important;
+  color: #34414a !important;
+}
+
+.maximal-tablewrap tbody td a:where(:not(.maximal-btn-action-icon):not(.rounded-full)):hover,
+.maximal-tablewrap tbody td .link:hover,
+.maximal-tablewrap tbody td a.ba-id-link:hover,
+.maximal-tablewrap tbody td button.ba-id-link:hover {
   text-decoration: underline !important;
   color: #086ba5 !important;
 }
@@ -1251,14 +1297,27 @@
   opacity: 1 !important;
 }
 
-.profile-grid input:focus,
-.office-address-fields input:focus {
+.profile-grid input:not([readonly]):focus,
+.office-address-fields input:not([readonly]):focus {
   border-color: #4e9bc0 !important;
   box-shadow: 0 0 0 3px rgba(78, 155, 192, 0.18) !important;
 }
 
-.profile-panel:not(.edit-mode) input {
+.profile-panel:not(.edit-mode) input[readonly],
+.profile-grid input[readonly],
+.office-address-fields input[readonly] {
   cursor: default !important;
+  caret-color: transparent !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.profile-panel:not(.edit-mode) input[readonly]:focus,
+.profile-grid input[readonly]:focus,
+.office-address-fields input[readonly]:focus {
+  border-color: #c2d0d9 !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .profile-panel.edit-mode input {
@@ -1961,6 +2020,238 @@
 #ba-location-modal .lm-done:hover,
 #ba-industry-modal .lm-done:hover {
   filter: brightness(1.08);
+}
+
+/* ==========================================================================
+   CUSTOM FROSTED DROPDOWNS (Matches Client Reference Light Translucent Popover)
+   ========================================================================== */
+
+.ba-select-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  text-align: left !important;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Inter, Arial, sans-serif;
+  letter-spacing: 0;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.ba-select-trigger:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.ba-select-value {
+  min-width: 0;
+  flex: 1;
+  text-align: left !important;
+}
+
+.ba-select-chevron {
+  flex-shrink: 0;
+  color: #556a78;
+}
+
+/* Variant: Table Header Filter Dropdown (e.g. Status in My Bids) */
+.ba-select-trigger--filter {
+  height: 25.27px;
+  padding: 0 7px 0 9px;
+  border: 1px solid #c7d2d8;
+  border-radius: 7.5px;
+  background: #ffffff;
+  box-shadow: inset 0 1px 2px rgba(52, 73, 90, 0.04);
+  color: #2d3c45;
+  font-size: 10.6px;
+  font-weight: 450;
+}
+
+.ba-select-trigger--filter:hover:not(:disabled) {
+  border-color: #a4b7c2;
+  background: #fbfcfd;
+}
+
+.ba-select-trigger--filter.is-open {
+  border-color: #9cb0bc;
+  background: #ffffff;
+}
+
+.ba-select-trigger--filter:focus-visible {
+  border-color: #7f9dad;
+  box-shadow: 0 0 0 2px rgba(145, 176, 192, 0.28);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+/* Variant: Pagination Rows Per Page Dropdown */
+.ba-select-trigger--pager {
+  width: auto;
+  min-width: 60px;
+  height: 28px;
+  padding: 0 8px 0 10px;
+  border: 1px solid #bdcbd3;
+  border-radius: 7.5px;
+  background: linear-gradient(180deg, #ffffff 0%, #ebf0f3 100%);
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(34, 52, 64, 0.06);
+  color: #334e5d;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ba-select-trigger--pager:hover:not(:disabled) {
+  border-color: #9bb1be;
+  background: linear-gradient(180deg, #ffffff 0%, #e4ecf0 100%);
+}
+
+.ba-select-trigger--pager.is-open,
+.ba-select-trigger--pager:focus-visible {
+  border-color: #7f9dad;
+  box-shadow: 0 0 0 2px rgba(145, 176, 192, 0.25);
+}
+
+/* Variant: Form Field Dropdown (e.g. Industry select) */
+.ba-select-trigger--field {
+  height: 34px;
+  padding: 0 10px 0 12px;
+  border: 1px solid #c2d0d9;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafb 100%);
+  color: #092e4c;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.ba-select-trigger--field:hover:not(:disabled) {
+  border-color: #98b4c4;
+}
+
+.ba-select-trigger--field.is-open,
+.ba-select-trigger--field:focus-visible {
+  border-color: #4e9bc0;
+  box-shadow: 0 0 0 3px rgba(78, 155, 192, 0.16);
+}
+
+/* Variant: Auth Form Select */
+.ba-select-trigger--auth {
+  min-height: 42px;
+  padding: 9px 12px 9px 14px;
+  border: 1px solid #b9d5e3;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #203b4e;
+  font-size: 14px;
+  font-weight: 450;
+}
+
+.ba-select-trigger--auth.has-left-icon {
+  padding-left: 40px;
+}
+
+.ba-select-trigger--auth.has-error {
+  border-color: #fb7185;
+}
+
+.ba-select-trigger--auth.is-open,
+.ba-select-trigger--auth:focus-visible {
+  border-color: #25678b;
+  box-shadow: 0 0 0 2px rgba(58, 157, 189, 0.25);
+}
+
+/* Portal Floating Menu Panel (Solid Opaque White Popover matching Client Reference) */
+.ba-select-menu {
+  position: fixed;
+  z-index: 1000000;
+  box-sizing: border-box;
+  padding: 4px 0;
+  border-radius: 8px;
+  border: 1px solid #e1e8ed;
+  background: #ffffff;
+  box-shadow:
+    0 8px 22px rgba(20, 38, 50, 0.12),
+    0 2px 6px rgba(20, 38, 50, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  animation: baSelectAppearDown 0.12s ease-out;
+}
+
+.ba-select-menu.is-up {
+  animation: baSelectAppearUp 0.12s ease-out;
+}
+
+.ba-select-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8.5px 10px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Inter, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: #34414a;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.ba-select-menu--field .ba-select-option,
+.ba-select-menu--auth .ba-select-option {
+  font-size: 13px;
+  line-height: 18px;
+  padding: 8.5px 12px;
+}
+
+.ba-select-option.is-highlighted,
+.ba-select-option:hover {
+  background: #f1f5f8;
+  color: #1f2e38;
+}
+
+.ba-select-option[aria-selected="true"] {
+  background: transparent;
+  color: #27353d;
+  font-weight: 500;
+}
+
+.ba-select-option[aria-selected="true"].is-highlighted,
+.ba-select-option[aria-selected="true"]:hover {
+  background: #f1f5f8;
+  color: #1f2e38;
+}
+
+@keyframes baSelectAppearDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes baSelectAppearUp {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 

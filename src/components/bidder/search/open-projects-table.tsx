@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   Flag,
 } from "lucide-react";
+import { CustomSelect } from "../../shared/custom-select";
 
 export interface ProjectRecord {
   id: string;
@@ -409,7 +410,7 @@ export function OpenProjectsTable({ onBackToFilter, initialFilters }: OpenProjec
       setSelectedContactProject(null);
       setContactMessage("");
     }, 1800);
-  };
+  };  
 
   return (
     <div className="w-full flex-1 flex flex-col min-h-0 animate-in fade-in duration-200">
@@ -608,7 +609,7 @@ export function OpenProjectsTable({ onBackToFilter, initialFilters }: OpenProjec
                   <td>
                     <Link
                       href={`/bidder/submit-bid/${item.id}`}
-                      className="hover:underline"
+                      className="ba-id-link hover:underline"
                     >
                       {item.id}
                     </Link>
@@ -764,18 +765,21 @@ export function OpenProjectsTable({ onBackToFilter, initialFilters }: OpenProjec
 
           {/* Rows Per Page */}
           <div className="flex items-center gap-2">
-            <select
-              value={pageSize}
-              onChange={(e) => {
-                setPageSize(Number(e.target.value));
+            <CustomSelect
+              variant="pager"
+              placement="top"
+              ariaLabel="Rows per page"
+              value={String(pageSize)}
+              onChange={(val) => {
+                setPageSize(Number(val));
                 setCurrentPage(1);
               }}
-              className="maximal-input px-2.5 py-1 text-xs rounded-lg bg-white border-[#c1d3df] cursor-pointer"
-            >
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-            </select>
+              options={[
+                { value: "5", label: "5" },
+                { value: "10", label: "10" },
+                { value: "20", label: "20" },
+              ]}
+            />
             <span>per page</span>
           </div>
         </div>

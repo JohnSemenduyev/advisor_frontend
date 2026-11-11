@@ -19,6 +19,7 @@ import {
   FileCheck,
 } from "lucide-react";
 import { RequestorTopbar } from "../navigation/requestor-topbar";
+import { CustomSelect } from "../../shared/custom-select";
 
 interface IndustryItem {
   id: string;
@@ -356,21 +357,17 @@ export function MakeNewRequestView() {
                       Industry {idx + 1}:
                     </span>
 
-                    <div className="flex-1 relative">
-                      <select
+                    <div className="flex-1 min-w-0">
+                      <CustomSelect
+                        variant="field"
+                        ariaLabel={`Industry ${idx + 1}`}
                         value={item.name}
-                        onChange={(e) => handleUpdateIndustry(item.id, e.target.value)}
-                        className="w-full h-[34px] px-3 pr-8 rounded-lg border border-[#c2d0d9] bg-gradient-to-b from-[#ffffff] to-[#f8fafb] text-xs sm:text-[13px] font-medium text-[#092e4c] outline-none focus:border-[#4e9bc0] focus:ring-2 focus:ring-[#4e9bc0]/20 cursor-pointer appearance-none"
-                      >
-                        {COMMON_INDUSTRIES.map((ind) => (
-                          <option key={ind} value={ind}>
-                            {ind}
-                          </option>
-                        ))}
-                      </select>
-                      <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#567283] text-xs">
-                        ▼
-                      </div>
+                        onChange={(val) => handleUpdateIndustry(item.id, val)}
+                        options={COMMON_INDUSTRIES.map((ind) => ({
+                          value: ind,
+                          label: ind,
+                        }))}
+                      />
                     </div>
 
                     {/* Actions */}

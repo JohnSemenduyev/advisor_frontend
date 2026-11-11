@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Building2, ChevronDown } from "lucide-react";
+import { Building2 } from "lucide-react";
+import { CustomSelect } from "../../shared/custom-select";
 
 interface IndustriesCardProps {
   industries: {
@@ -58,28 +59,22 @@ export function IndustriesCard({
             <label className="block text-xs font-semibold text-[#48606f] mb-1.5">
               {field.label}
             </label>
-            <div className="relative">
-              <select
-                value={field.value}
-                onChange={(e) => onChange(field.key, e.target.value)}
-                disabled={!isEditing}
-                className={`w-full appearance-none px-3.5 py-2.5 pr-10 text-sm maximal-input font-medium transition-all ${
-                  !isEditing
-                    ? "bg-[#f5f8fa]/80 text-[#243540] border-[#d5e0e6] cursor-default"
-                    : "bg-white text-[#1a2933] border-[#7ea3b7] shadow-sm cursor-pointer"
-                }`}
-              >
-                <option value="">Select industry...</option>
-                {INDUSTRY_OPTIONS.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[#688292]">
-                <ChevronDown className="w-4 h-4" />
-              </div>
-            </div>
+            <CustomSelect
+              variant="field"
+              ariaLabel={field.label}
+              value={field.value}
+              onChange={(val) => onChange(field.key, val)}
+              disabled={!isEditing}
+              options={[
+                { value: "", label: "Select industry..." },
+                ...INDUSTRY_OPTIONS.map((opt) => ({ value: opt, label: opt })),
+              ]}
+              className={
+                !isEditing
+                  ? "bg-[#f5f8fa]/80 text-[#243540] border-[#d5e0e6]"
+                  : "bg-white text-[#1a2933] border-[#7ea3b7] shadow-sm"
+              }
+            />
           </div>
         ))}
       </div>

@@ -16,6 +16,7 @@ import {
   Flag,
 } from "lucide-react";
 import { RequestorTopbar } from "../navigation/requestor-topbar";
+import { CustomSelect } from "../../shared/custom-select";
 
 const parseDateTime = (d: string) => {
   try {
@@ -306,9 +307,9 @@ export function RequestorNotificationsView() {
             <div className="overflow-x-auto overflow-y-auto flex-1 min-h-0">
               <table className="w-full text-left border-collapse min-w-[850px] table-fixed">
                 <colgroup>
-                  <col style={{ width: "22%" }} />
-                  <col style={{ width: "65.5%" }} />
-                  <col style={{ width: "12.5%" }} />
+                  <col style={{ width: "225px" }} />
+                  <col />
+                  <col style={{ width: "164px" }} />
                 </colgroup>
 
                 {/* Header matching metallic gradient */}
@@ -368,12 +369,12 @@ export function RequestorNotificationsView() {
                       </div>
                     </th>
 
-                    {/* 3. Actions - Title and flag removed per client request */}
-                    <th className="actions-header px-4" style={{ textAlign: "left" }}>
-                      <div className="th-title invisible select-none" style={{ justifyContent: "flex-start" }}>
-                        <span>&nbsp;</span>
+                    {/* 3. Actions */}
+                    <th className="actions-header text-center">
+                      <div className="th-title justify-center">
+                        <span>Actions</span>
                       </div>
-                      <div className="filter-wrap invisible select-none" aria-hidden="true">
+                      <div className="filter-wrap no-icon invisible select-none" aria-hidden="true">
                         <div style={{ height: "24px" }} />
                       </div>
                     </th>
@@ -385,7 +386,7 @@ export function RequestorNotificationsView() {
                   {currentRecords.map((item) => (
                     <tr key={item.id} className="hover:bg-[#e7eef2] transition-colors">
                       {/* Date / Time */}
-                      <td className="whitespace-nowrap font-normal text-[12.3px] text-[#34414a]">
+                      <td className="whitespace-nowrap font-normal text-[12px] text-[#34414a]">
                         <div className="flex items-center gap-2.5">
                           {renderIcon(item.iconType)}
                           <span>{item.dateTime}</span>
@@ -393,11 +394,11 @@ export function RequestorNotificationsView() {
                       </td>
 
                       {/* Notification Content */}
-                      <td className="leading-relaxed font-normal text-[12.3px] text-[#34414a]">
+                      <td className="leading-relaxed font-normal text-[12px] text-[#34414a]">
                         <div className="space-x-1">
                           {item.textPrefix && <span>{item.textPrefix}</span>}
                           {item.boldEntity && (
-                            <strong className="font-semibold text-[#1e2f3a]">
+                            <strong className="ba-cell-bold">
                               {item.boldEntity}
                             </strong>
                           )}
@@ -405,7 +406,7 @@ export function RequestorNotificationsView() {
                           {item.requestId && (
                             <Link
                               href={`/requestor/requests/${item.requestId}`}
-                              className="text-[#086ba5] hover:underline font-medium ml-1"
+                              className="ba-id-link hover:underline ml-1"
                             >
                               {item.requestTitle || `Request #${item.requestId}`}
                             </Link>
@@ -413,9 +414,9 @@ export function RequestorNotificationsView() {
                         </div>
                       </td>
 
-                      {/* Action Button - strictly left-aligned in column */}
-                      <td className="whitespace-nowrap px-4" style={{ textAlign: "left" }}>
-                        <div className="flex justify-start items-center" style={{ justifyContent: "flex-start" }}>
+                      {/* Action Button - centered beneath Actions header */}
+                      <td className="text-center whitespace-nowrap">
+                        <div className="flex justify-center items-center">
                           <button
                             type="button"
                             onClick={() => handleAction(item)}
@@ -522,22 +523,24 @@ export function RequestorNotificationsView() {
                 </button>
               </div>
 
-              {/* Page Size Native Select */}
+              {/* Page Size Custom Select */}
               <div className="flex items-center gap-2">
-                <select
-                  value={pageSize}
-                  onChange={(e) => {
-                    setPageSize(Number(e.target.value));
+                <CustomSelect
+                  variant="pager"
+                  placement="top"
+                  ariaLabel="Rows per page"
+                  value={String(pageSize)}
+                  onChange={(val) => {
+                    setPageSize(Number(val));
                     setCurrentPage(1);
                   }}
-                  className="maximal-pager-select px-2.5 py-1 text-xs border border-[#bdcbd3] rounded-[7px] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-medium"
-                  aria-label="Rows per page"
-                >
-                  <option value={5}>5</option>
-                  <option value={10}>10</option>
-                  <option value={20}>20</option>
-                  <option value={50}>50</option>
-                </select>
+                  options={[
+                    { value: "5", label: "5" },
+                    { value: "10", label: "10" },
+                    { value: "20", label: "20" },
+                    { value: "50", label: "50" },
+                  ]}
+                />
                 <span className="text-xs text-[#526673]">per page</span>
               </div>
             </div>

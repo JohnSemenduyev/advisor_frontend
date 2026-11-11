@@ -557,7 +557,7 @@ export function ServiceRequestHistoryView() {
                             <button
                               type="button"
                               onClick={() => setSelectedDetailRecord(item)}
-                              className="font-bold text-[#185a86] hover:underline cursor-pointer"
+                              className="ba-id-link hover:underline cursor-pointer"
                               title={`View Tender #${item.id}`}
                             >
                               {item.id}
@@ -576,12 +576,12 @@ export function ServiceRequestHistoryView() {
                           <td className="text-[#324b5c]">{item.city}</td>
 
                           {/* Bid Start Date */}
-                          <td className="font-mono text-xs text-[#405969]">
+                          <td className="whitespace-nowrap">
                             {item.bidStartDate}
                           </td>
 
                           {/* Bid End Date */}
-                          <td className="font-mono text-xs text-[#405969]">
+                          <td className="whitespace-nowrap">
                             {item.bidEndDate}
                           </td>
 

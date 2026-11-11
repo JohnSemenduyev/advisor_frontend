@@ -13,6 +13,7 @@ import {
   Calendar,
   Flag,
 } from "lucide-react";
+import { CustomSelect } from "../../shared/custom-select";
 
 export interface NotificationItem {
   id: string;
@@ -346,9 +347,9 @@ export function NotificationsTable() {
         <div className="overflow-x-auto overflow-y-auto flex-1 min-h-0">
           <table className="w-full text-left border-collapse min-w-[850px] table-fixed">
             <colgroup>
-              <col style={{ width: "22%" }} />
-              <col style={{ width: "65.5%" }} />
-              <col style={{ width: "12.5%" }} />
+              <col style={{ width: "215px" }} />
+              <col />
+              <col style={{ width: "164px" }} />
             </colgroup>
 
             {/* Header matching reference HTML brushed metallic gradient & filter styling */}
@@ -408,12 +409,12 @@ export function NotificationsTable() {
                   </div>
                 </th>
 
-                {/* 3. Actions - Title and flag removed per client request */}
-                <th className="actions-header px-4" style={{ textAlign: "left" }}>
-                  <div className="th-title invisible select-none" style={{ justifyContent: "flex-start" }}>
-                    <span>&nbsp;</span>
+                {/* 3. Actions */}
+                <th className="actions-header text-center">
+                  <div className="th-title justify-center">
+                    <span>Actions</span>
                   </div>
-                  <div className="filter-wrap invisible select-none" aria-hidden="true">
+                  <div className="filter-wrap no-icon invisible select-none" aria-hidden="true">
                     <div style={{ height: "24px" }} />
                   </div>
                 </th>
@@ -435,16 +436,16 @@ export function NotificationsTable() {
                     {item.requestId && (
                       <Link
                         href={`/bidder/submit-bid/${item.requestId}`}
-                        className="hover:underline ml-1 font-semibold text-[#086ba5]"
+                        className="ba-id-link hover:underline ml-1"
                       >
                         #{item.requestId}
                       </Link>
                     )}
                   </td>
 
-                  {/* Action Button - strictly left-aligned in column */}
-                  <td className="whitespace-nowrap px-4" style={{ textAlign: "left" }}>
-                    <div className="flex justify-start items-center" style={{ justifyContent: "flex-start" }}>
+                  {/* Action Button - centered beneath Actions header */}
+                  <td className="text-center whitespace-nowrap">
+                    <div className="flex justify-center items-center">
                       <button
                         type="button"
                         onClick={() => handleAction(item)}
@@ -551,22 +552,24 @@ export function NotificationsTable() {
             </button>
           </div>
 
-          {/* Page Size Native Select */}
+          {/* Page Size Custom Select */}
           <div className="flex items-center gap-2">
-            <select
-              value={pageSize}
-              onChange={(e) => {
-                setPageSize(Number(e.target.value));
+            <CustomSelect
+              variant="pager"
+              placement="top"
+              ariaLabel="Rows per page"
+              value={String(pageSize)}
+              onChange={(val) => {
+                setPageSize(Number(val));
                 setCurrentPage(1);
               }}
-              className="maximal-pager-select px-2.5 py-1 text-xs border border-[#bdcbd3] rounded-[7px] bg-linear-to-b from-white to-[#e9edf0] text-[#334e5d] font-medium"
-              aria-label="Rows per page"
-            >
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-              <option value={50}>50</option>
-            </select>
+              options={[
+                { value: "5", label: "5" },
+                { value: "10", label: "10" },
+                { value: "20", label: "20" },
+                { value: "50", label: "50" },
+              ]}
+            />
             <span className="text-xs text-[#526673]">per page</span>
           </div>
         </div>

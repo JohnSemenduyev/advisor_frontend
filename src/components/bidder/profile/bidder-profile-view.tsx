@@ -1,7 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { BidderTopbar } from "../navigation/bidder-topbar";
+import {
+  getIndustrySuggestions,
+  getLocationSuggestions,
+} from "@/lib/constants/search-options";
+import { TagSelectionModal } from "@/components/shared/tag-selection-modal";
 import {
   User,
   Sparkles,
@@ -64,6 +69,14 @@ export function BidderProfileView() {
     "Texas",
   ]);
 
+  const [isIndustryModalOpen, setIsIndustryModalOpen] = useState(false);
+  const [draftIndustries, setDraftIndustries] = useState<string[]>([]);
+  const addIndustryBtnRef = useRef<HTMLButtonElement>(null);
+
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [draftLocations, setDraftLocations] = useState<string[]>([]);
+  const addLocationBtnRef = useRef<HTMLButtonElement>(null);
+
   const handleProfileChange = (field: keyof ProfileData, value: string) => {
     setProfileData((prev) => ({ ...prev, [field]: value }));
   };
@@ -72,22 +85,62 @@ export function BidderProfileView() {
     setIndustries((prev) => prev.filter((item) => item !== ind));
   };
 
-  const handleAddIndustry = () => {
-    const val = prompt("Enter new industry:");
-    if (val && val.trim() && !industries.includes(val.trim())) {
-      setIndustries((prev) => [...prev, val.trim()]);
-    }
+  const handleOpenIndustryModal = () => {
+    setDraftIndustries(industries);
+    setIsIndustryModalOpen(true);
+  };
+
+  const handleCloseIndustryModal = () => {
+    setIsIndustryModalOpen(false);
+    addIndustryBtnRef.current?.focus();
+  };
+
+  const handleAddDraftIndustry = (ind: string) => {
+    setDraftIndustries((prev) =>
+      prev.some((item) => item.toLowerCase() === ind.toLowerCase())
+        ? prev
+        : [...prev, ind]
+    );
+  };
+
+  const handleRemoveDraftIndustry = (ind: string) => {
+    setDraftIndustries((prev) => prev.filter((item) => item !== ind));
+  };
+
+  const handleIndustryDone = () => {
+    setIndustries(draftIndustries);
+    handleCloseIndustryModal();
   };
 
   const handleRemoveLocation = (loc: string) => {
     setLocations((prev) => prev.filter((item) => item !== loc));
   };
 
-  const handleAddLocation = () => {
-    const val = prompt("Enter state or location:");
-    if (val && val.trim() && !locations.includes(val.trim())) {
-      setLocations((prev) => [...prev, val.trim()]);
-    }
+  const handleOpenLocationModal = () => {
+    setDraftLocations(locations);
+    setIsLocationModalOpen(true);
+  };
+
+  const handleCloseLocationModal = () => {
+    setIsLocationModalOpen(false);
+    addLocationBtnRef.current?.focus();
+  };
+
+  const handleAddDraftLocation = (loc: string) => {
+    setDraftLocations((prev) =>
+      prev.some((item) => item.toLowerCase() === loc.toLowerCase())
+        ? prev
+        : [...prev, loc]
+    );
+  };
+
+  const handleRemoveDraftLocation = (loc: string) => {
+    setDraftLocations((prev) => prev.filter((item) => item !== loc));
+  };
+
+  const handleLocationDone = () => {
+    setLocations(draftLocations);
+    handleCloseLocationModal();
   };
 
   const handleDeleteAccount = () => {
@@ -133,6 +186,10 @@ export function BidderProfileView() {
                     onChange={(e) => handleProfileChange("firstName", e.target.value)}
                     readOnly={!isEditing}
                     aria-readonly={!isEditing}
+                    tabIndex={isEditing ? undefined : -1}
+                    onFocus={(e) => {
+                      if (!isEditing) e.currentTarget.blur();
+                    }}
                   />
                 </label>
 
@@ -148,6 +205,10 @@ export function BidderProfileView() {
                     onChange={(e) => handleProfileChange("lastName", e.target.value)}
                     readOnly={!isEditing}
                     aria-readonly={!isEditing}
+                    tabIndex={isEditing ? undefined : -1}
+                    onFocus={(e) => {
+                      if (!isEditing) e.currentTarget.blur();
+                    }}
                   />
                 </label>
 
@@ -163,6 +224,10 @@ export function BidderProfileView() {
                     onChange={(e) => handleProfileChange("title", e.target.value)}
                     readOnly={!isEditing}
                     aria-readonly={!isEditing}
+                    tabIndex={isEditing ? undefined : -1}
+                    onFocus={(e) => {
+                      if (!isEditing) e.currentTarget.blur();
+                    }}
                   />
                 </label>
 
@@ -178,6 +243,10 @@ export function BidderProfileView() {
                     onChange={(e) => handleProfileChange("companyName", e.target.value)}
                     readOnly={!isEditing}
                     aria-readonly={!isEditing}
+                    tabIndex={isEditing ? undefined : -1}
+                    onFocus={(e) => {
+                      if (!isEditing) e.currentTarget.blur();
+                    }}
                   />
                 </label>
 
@@ -193,6 +262,10 @@ export function BidderProfileView() {
                     onChange={(e) => handleProfileChange("email", e.target.value)}
                     readOnly={!isEditing}
                     aria-readonly={!isEditing}
+                    tabIndex={isEditing ? undefined : -1}
+                    onFocus={(e) => {
+                      if (!isEditing) e.currentTarget.blur();
+                    }}
                   />
                 </label>
 
@@ -208,6 +281,10 @@ export function BidderProfileView() {
                     onChange={(e) => handleProfileChange("phone", e.target.value)}
                     readOnly={!isEditing}
                     aria-readonly={!isEditing}
+                    tabIndex={isEditing ? undefined : -1}
+                    onFocus={(e) => {
+                      if (!isEditing) e.currentTarget.blur();
+                    }}
                   />
                 </label>
 
@@ -227,6 +304,10 @@ export function BidderProfileView() {
                         onChange={(e) => handleProfileChange("streetAddress", e.target.value)}
                         readOnly={!isEditing}
                         aria-readonly={!isEditing}
+                        tabIndex={isEditing ? undefined : -1}
+                        onFocus={(e) => {
+                          if (!isEditing) e.currentTarget.blur();
+                        }}
                       />
                     </label>
                     <label>
@@ -238,6 +319,10 @@ export function BidderProfileView() {
                         onChange={(e) => handleProfileChange("city", e.target.value)}
                         readOnly={!isEditing}
                         aria-readonly={!isEditing}
+                        tabIndex={isEditing ? undefined : -1}
+                        onFocus={(e) => {
+                          if (!isEditing) e.currentTarget.blur();
+                        }}
                       />
                     </label>
                     <label>
@@ -249,6 +334,10 @@ export function BidderProfileView() {
                         onChange={(e) => handleProfileChange("state", e.target.value)}
                         readOnly={!isEditing}
                         aria-readonly={!isEditing}
+                        tabIndex={isEditing ? undefined : -1}
+                        onFocus={(e) => {
+                          if (!isEditing) e.currentTarget.blur();
+                        }}
                       />
                     </label>
                     <label>
@@ -260,6 +349,10 @@ export function BidderProfileView() {
                         onChange={(e) => handleProfileChange("zipCode", e.target.value)}
                         readOnly={!isEditing}
                         aria-readonly={!isEditing}
+                        tabIndex={isEditing ? undefined : -1}
+                        onFocus={(e) => {
+                          if (!isEditing) e.currentTarget.blur();
+                        }}
                       />
                     </label>
                   </div>
@@ -278,6 +371,10 @@ export function BidderProfileView() {
                     onChange={(e) => handleProfileChange("website", e.target.value)}
                     readOnly={!isEditing}
                     aria-readonly={!isEditing}
+                    tabIndex={isEditing ? undefined : -1}
+                    onFocus={(e) => {
+                      if (!isEditing) e.currentTarget.blur();
+                    }}
                   />
                 </label>
               </div>
@@ -345,9 +442,11 @@ export function BidderProfileView() {
 
               {isEditing && (
                 <button
+                  ref={addIndustryBtnRef}
                   type="button"
                   className="industry-add"
-                  onClick={handleAddIndustry}
+                  aria-haspopup="dialog"
+                  onClick={handleOpenIndustryModal}
                 >
                   + Add Industry
                 </button>
@@ -382,9 +481,11 @@ export function BidderProfileView() {
 
               {isEditing && (
                 <button
+                  ref={addLocationBtnRef}
                   type="button"
                   className="reach-add"
-                  onClick={handleAddLocation}
+                  aria-haspopup="dialog"
+                  onClick={handleOpenLocationModal}
                 >
                   + Add Location
                 </button>
@@ -399,7 +500,13 @@ export function BidderProfileView() {
             type="button"
             aria-pressed={isEditing}
             className={`edit-profile-account ${isEditing ? "active" : ""}`}
-            onClick={() => setIsEditing(!isEditing)}
+            onClick={() => {
+              if (isEditing) {
+                setIsIndustryModalOpen(false);
+                setIsLocationModalOpen(false);
+              }
+              setIsEditing(!isEditing);
+            }}
           >
             {isEditing ? (
               <>
@@ -468,6 +575,40 @@ export function BidderProfileView() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Enter Industries Modal (matches Search Requests picker) */}
+      {isEditing && isIndustryModalOpen && (
+        <TagSelectionModal
+          modalId="ba-industry-modal"
+          titleId="profile-industry-modal-title"
+          title="Enter Industries"
+          inputId="profile-industry-query"
+          placeholder="Enter industries"
+          selectedItems={draftIndustries}
+          getSuggestions={getIndustrySuggestions}
+          onAdd={handleAddDraftIndustry}
+          onRemove={handleRemoveDraftIndustry}
+          onClose={handleCloseIndustryModal}
+          onDone={handleIndustryDone}
+        />
+      )}
+
+      {/* Enter Locations Modal (matches Search Requests picker) */}
+      {isEditing && isLocationModalOpen && (
+        <TagSelectionModal
+          modalId="ba-location-modal"
+          titleId="profile-location-modal-title"
+          title="Enter Locations"
+          inputId="profile-location-query"
+          placeholder="Enter states or cities"
+          selectedItems={draftLocations}
+          getSuggestions={getLocationSuggestions}
+          onAdd={handleAddDraftLocation}
+          onRemove={handleRemoveDraftLocation}
+          onClose={handleCloseLocationModal}
+          onDone={handleLocationDone}
+        />
       )}
     </div>
   );
